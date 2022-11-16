@@ -20,7 +20,7 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
     private static final String remoteDirectoryName = "/home/remy/pokedle/dataset/src/dataSet/";
     private static final String localDirectoryName = "data";
 
-    private static final String pokemonFileName = "pokemonFormated.json";
+    private static final String pokemonFileName = "pokemon.json";
     private static final String typeFileName = "type.json";
     private static final String shapeFileName = "shape.json";
 
