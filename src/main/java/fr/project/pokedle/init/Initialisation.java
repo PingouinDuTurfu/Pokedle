@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @Component
-public class StartupHousekeeper implements ApplicationListener<ContextRefreshedEvent> {
+public class Initialisation implements ApplicationListener<ContextRefreshedEvent> {
 
     private static final String remoteFileName = "/home/***REMOVED***/pokedle/dataset/src/dataSet/pokemonFormated.json";
     private static final String localFileName = "pokemons.json";
@@ -27,7 +27,7 @@ public class StartupHousekeeper implements ApplicationListener<ContextRefreshedE
 
     static {
         try {
-            URL url = StartupHousekeeper.class.getClassLoader().getResource(localFileName);
+            URL url = Initialisation.class.getClassLoader().getResource(localFileName);
             if(url == null) {
                 throw new FileNotFoundException("File " + localFileName + " not found");
             }
