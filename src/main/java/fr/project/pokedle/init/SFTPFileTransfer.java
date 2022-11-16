@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.jcraft.jsch.*;
-import fr.project.pokedle.init.loader.PokemonItem;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,12 +11,21 @@ import java.util.List;
 
 public class SFTPFileTransfer {
 
-    private static final String REMOTE_HOST = "www.pingouinduturfu.fr";
-    private static final String USERNAME = "remy";
-    private static final String PASSWORD = "pingouin";
-    private static final int REMOTE_PORT = 22;
-    private static final int SESSION_TIMEOUT = 10000;
-    private static final int CHANNEL_TIMEOUT = 5000;
+    private final String REMOTE_HOST;
+    private final String USERNAME;
+    private final String PASSWORD;
+    private final int REMOTE_PORT;
+    private final int SESSION_TIMEOUT;
+    private final int CHANNEL_TIMEOUT;
+
+    public SFTPFileTransfer(String remoteHost, String username, String password, int remotePort, int sessionTimeout, int channelTimeout) {
+        this.REMOTE_HOST = remoteHost;
+        this.USERNAME = username;
+        this.PASSWORD = password;
+        this.REMOTE_PORT = remotePort;
+        this.SESSION_TIMEOUT = sessionTimeout;
+        this.CHANNEL_TIMEOUT = channelTimeout;
+    }
 
     public void getRemoteFile(String remoteFile, String localFile) {
         Session jschSession = null;
@@ -41,20 +49,17 @@ public class SFTPFileTransfer {
             if (jschSession != null)
                 jschSession.disconnect();
         }
-        System.out.println("get " + remoteFile + "success" + "\n" + "Saved to " + localFile +"\n" + "Done");
+        System.out.println("get " + remoteFile + "success. Saved to " + localFile +".");
     }
 
-
-    public List<PokemonItem> mapFromJSON(File localFile) {
+    public static <T> List<T> mapFromJSON(File localFile, Class<T> clazz)  {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             TypeFactory typeFactory = objectMapper.getTypeFactory();
-            CollectionType collectionType = typeFactory.constructCollectionType(
-                    List.class, PokemonItem.class);
+            CollectionType collectionType = typeFactory.constructCollectionType(List.class, clazz);
             return objectMapper.readValue(localFile, collectionType);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 }
