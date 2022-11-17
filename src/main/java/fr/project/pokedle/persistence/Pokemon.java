@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class Pokemon {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
@@ -140,5 +139,78 @@ public class Pokemon {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public static class Builder {
+
+        private final Pokemon pokemon;
+
+        public Builder() {
+            pokemon = new Pokemon();
+        }
+
+        public Builder setId(long id) {
+            pokemon.id = id;
+            return this;
+        }
+
+        public Builder setNameEn(String name_en) {
+            pokemon.setNameEn(name_en);
+            return this;
+        }
+
+        public Builder setNameFr(String name_fr) {
+            pokemon.setNameFr(name_fr);
+            return this;
+        }
+
+        public Builder setType1(PokemonType type1) {
+            pokemon.setType1(type1);
+            return this;
+        }
+
+        public Builder setType2(PokemonType type2) {
+            pokemon.setType2(type2);
+            return this;
+        }
+
+        public Builder setShape(PokemonShape shape) {
+            pokemon.setShape(shape);
+            return this;
+        }
+
+        public Builder setHeight(double height) {
+            pokemon.setHeight(height);
+            return this;
+        }
+
+        public Builder setWeight(double weight) {
+            pokemon.setWeight(weight);
+            return this;
+        }
+
+        public Builder setLinkIcon(String linkIcon) {
+            pokemon.setLinkIcon(linkIcon);
+            return this;
+        }
+
+        public Builder setLinkSmallSprite(String linkSmallSprite) {
+            pokemon.setLinkSmallSprite(linkSmallSprite);
+            return this;
+        }
+
+        public Builder setLinkBigSprite(String linkBigSprite) {
+            pokemon.setLinkBigSprite(linkBigSprite);
+            return this;
+        }
+
+        public Builder setColor(String color) {
+            pokemon.setColor(color);
+            return this;
+        }
+
+        public Pokemon build() {
+            return pokemon;
+        }
     }
 }

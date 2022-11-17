@@ -74,52 +74,51 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
         SFTPFileTransfer sftp = new SFTPFileTransfer(REMOTE_HOST, USERNAME, PASSWORD, REMOTE_PORT, SESSION_TIMEOUT, CHANNEL_TIMEOUT);
 
         sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + TYPE_FILE_NAME, TYPE_FILE.getAbsolutePath());
-        List<SpecieItem> typeList = SFTPFileTransfer.mapFromJSON(TYPE_FILE, SpecieItem.class);
-        typeList.forEach(typeItem -> {
-            PokemonType pokemonType = new PokemonType();
-            pokemonType.setLinkIcon(typeItem.getIcon());
-            pokemonType.setName(typeItem.getName());
-            pokemonTypeRepository.save(pokemonType);
-        });
+        pokemonTypeRepository.saveAll(
+                SFTPFileTransfer
+                        .mapFromJSON(TYPE_FILE, SpecieItem.class)
+                        .stream()
+                        .map(pokemonType ->
+                                new PokemonType.Builder()
+                                        .setName(pokemonType.getName())
+                                        .setLinkIcon(pokemonType.getIcon())
+                                        .build()
+                        ).toList()
+        );
 
         sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + SHAPE_FILE_NAME, SHAPE_FILE.getAbsolutePath());
-        List<SpecieItem> shapeList = SFTPFileTransfer.mapFromJSON(SHAPE_FILE, SpecieItem.class);
-        shapeList.forEach(shapeItem -> {
-            PokemonShape pokemonShape = new PokemonShape();
-            pokemonShape.setLinkIcon(shapeItem.getIcon());
-            pokemonShape.setName(shapeItem.getName());
-            pokemonShapeRepository.save(pokemonShape);
-        });
+        pokemonShapeRepository.saveAll(
+                SFTPFileTransfer
+                        .mapFromJSON(SHAPE_FILE, SpecieItem.class)
+                        .stream()
+                        .map(pokemonShape ->
+                                new PokemonShape.Builder()
+                                        .setName(pokemonShape.getName())
+                                        .setLinkIcon(pokemonShape.getIcon())
+                                        .build()
+                        ).toList()
+        );
 
         sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + POKEMON_FILE_NAME, POKEMON_FILE.getAbsolutePath());;
-        List<PokemonItem> pokemonList = SFTPFileTransfer.mapFromJSON(POKEMON_FILE, PokemonItem.class);
-        pokemonList.forEach(pokemonItem -> {
-            Pokemon pokemon = new Pokemon();
-            pokemon.setId(Long.parseLong(pokemonItem.getId()));
-            pokemon.setNameEn(pokemonItem.getName_en());
-            pokemon.setNameFr(pokemonItem.getName_fr());
-            pokemon.setHeight(pokemonItem.getHeight());
-            pokemon.setWeight(pokemonItem.getWeight());
-            pokemon.setLinkBigSprite(pokemonItem.getSpriteHQ());
-            pokemon.setLinkSmallSprite(pokemonItem.getSpriteLQ());
-            pokemon.setLinkIcon(pokemonItem.getIcon());
-            pokemon.setColor(pokemonItem.getColor());
-
-            PokemonShape pokemonShape = pokemonShapeRepository.findFirstByName(pokemonItem.getShape());
-            if (pokemonShape != null) {
-                pokemon.setShape(pokemonShape);
-            }
-            PokemonType pokemonType1 = pokemonTypeRepository.findFirstByName(pokemonItem.getType1());
-            if (pokemonType1 != null) {
-                pokemon.setType1(pokemonType1);
-            }
-            PokemonType pokemonType2 = pokemonTypeRepository.findFirstByName(pokemonItem.getType2());
-            if (pokemonType1 != null) {
-                pokemon.setType2(pokemonType2);
-            }
-
-            pokemonRepository.save(pokemon);
-            System.out.println(pokemon.getNameFr() + " donne");
-        });
+        pokemonRepository.saveAll(
+                SFTPFileTransfer
+                        .mapFromJSON(POKEMON_FILE, PokemonItem.class)
+                        .stream().map(pokemonItem ->
+                            new Pokemon.Builder()
+                                    .setId(Long.parseLong(pokemonItem.getId()))
+                                    .setNameEn(pokemonItem.getName_en())
+                                    .setNameFr(pokemonItem.getName_fr())
+                                    .setHeight(pokemonItem.getHeight())
+                                    .setWeight(pokemonItem.getWeight())
+                                    .setLinkBigSprite(pokemonItem.getSpriteHQ())
+                                    .setLinkSmallSprite(pokemonItem.getSpriteLQ())
+                                    .setLinkIcon(pokemonItem.getIcon())
+                                    .setColor(pokemonItem.getColor())
+                                    .setShape(pokemonShapeRepository.findFirstByName(pokemonItem.getShape()))
+                                    .setType1(pokemonTypeRepository.findFirstByName(pokemonItem.getType1()))
+                                    .setType2(pokemonTypeRepository.findFirstByName(pokemonItem.getType2()))
+                                    .build()
+                        ).toList()
+        );
     }
 }

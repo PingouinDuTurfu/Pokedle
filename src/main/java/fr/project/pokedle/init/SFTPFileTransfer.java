@@ -52,7 +52,7 @@ public class SFTPFileTransfer {
         System.out.println("get " + remoteFile + "success. Saved to " + localFile +".");
     }
 
-    public static <T> List<T> mapFromJSON(File localFile, Class<T> clazz)  {
+    public static <T> List<T> mapFromJSON(File localFile, Class<T> clazz) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             TypeFactory typeFactory = objectMapper.getTypeFactory();

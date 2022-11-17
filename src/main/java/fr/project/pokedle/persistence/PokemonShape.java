@@ -47,13 +47,26 @@ public class PokemonShape {
         return pokemons;
     }
 
+    public static class Builder {
 
-    @Override
-    public String toString() {
-        return "PokemonShape{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", linkIcon='" + linkIcon + '\'' +
-                '}';
+        private final PokemonShape pokemonShape;
+
+        public Builder() {
+            pokemonShape = new PokemonShape();
+        }
+
+        public Builder setName(String name) {
+            pokemonShape.setName(name);
+            return this;
+        }
+
+        public Builder setLinkIcon(String linkIcon) {
+            pokemonShape.setLinkIcon(linkIcon);
+            return this;
+        }
+
+        public PokemonShape build() {
+            return pokemonShape;
+        }
     }
 }
