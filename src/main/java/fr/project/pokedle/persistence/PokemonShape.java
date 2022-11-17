@@ -1,14 +1,14 @@
 package fr.project.pokedle.persistence;
 
-
 import javax.persistence.*;
+import java.util.List;
 
-@Entity(name = "PokemonShapes")
+@Entity
+@Table(name = "PokemonShapes")
 public class PokemonShape {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "shape_id")
     private long id;
 
     @Column
@@ -17,13 +17,14 @@ public class PokemonShape {
     @Column
     private String linkIcon;
 
+    @OneToMany(mappedBy = "shape", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<Pokemon> pokemons;
 
-    public long getId() {
+    public PokemonShape() {}
+
+    public Long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -41,6 +42,11 @@ public class PokemonShape {
     public void setLinkIcon(String linkIcon) {
         this.linkIcon = linkIcon;
     }
+
+    public List<Pokemon> getPokemons() {
+        return pokemons;
+    }
+
 
     @Override
     public String toString() {
