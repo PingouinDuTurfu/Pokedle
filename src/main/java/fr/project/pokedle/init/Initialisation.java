@@ -18,16 +18,16 @@ import java.util.List;
 @Component
 public class Initialisation implements ApplicationListener<ContextRefreshedEvent> {
 
-    private static final String remoteDirectoryName = "/home/remy/pokedle/dataset/src/dataSet/";
-    private static final String localDirectoryName = "data/";
+    private static final String REMOTE_DIRECTORY_NAME = "/home/remy/pokedle/dataset/src/dataSet/";
+    private static final String LOCAL_DIRECTORY_NAME = "data/";
 
-    private static final String pokemonFileName = "pokemon.json";
-    private static final String typeFileName = "type.json";
-    private static final String shapeFileName = "shape.json";
+    private static final String POKEMON_FILE_NAME = "pokemon.json";
+    private static final String TYPE_FILE_NAME = "type.json";
+    private static final String SHAPE_FILE_NAME = "shape.json";
 
-    private static final File pokemonFile;
-    private static final File typeFile;
-    private static final File shapeFile;
+    private static final File POKEMON_FILE;
+    private static final File TYPE_FILE;
+    private static final File SHAPE_FILE;
 
     private static final String REMOTE_HOST = "www.pingouinduturfu.fr";
     private static final String USERNAME = "remy";
@@ -38,9 +38,9 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
 
     static {
         try {
-            pokemonFile = getFile(localDirectoryName + pokemonFileName);
-            typeFile = getFile(localDirectoryName + typeFileName);
-            shapeFile = getFile(localDirectoryName + shapeFileName);
+            POKEMON_FILE = getFile(LOCAL_DIRECTORY_NAME + POKEMON_FILE_NAME);
+            TYPE_FILE = getFile(LOCAL_DIRECTORY_NAME + TYPE_FILE_NAME);
+            SHAPE_FILE = getFile(LOCAL_DIRECTORY_NAME + SHAPE_FILE_NAME);
         } catch (URISyntaxException | FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -58,13 +58,13 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
 
         SFTPFileTransfer sftp = new SFTPFileTransfer(REMOTE_HOST, USERNAME, PASSWORD, REMOTE_PORT, SESSION_TIMEOUT, CHANNEL_TIMEOUT);
 
-        sftp.getRemoteFile(remoteDirectoryName + pokemonFileName, pokemonFile.getAbsolutePath());;
-        List<PokemonItem> pokemonList = SFTPFileTransfer.mapFromJSON(pokemonFile, PokemonItem.class);
+        sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + POKEMON_FILE_NAME, POKEMON_FILE.getAbsolutePath());;
+        List<PokemonItem> pokemonList = SFTPFileTransfer.mapFromJSON(POKEMON_FILE, PokemonItem.class);
 
-        sftp.getRemoteFile(remoteDirectoryName + typeFileName, typeFile.getAbsolutePath());
-        List<SpecieItem> typeList = SFTPFileTransfer.mapFromJSON(typeFile, SpecieItem.class);
+        sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + TYPE_FILE_NAME, TYPE_FILE.getAbsolutePath());
+        List<SpecieItem> typeList = SFTPFileTransfer.mapFromJSON(TYPE_FILE, SpecieItem.class);
 
-        sftp.getRemoteFile(remoteDirectoryName + shapeFileName, shapeFile.getAbsolutePath());
-        List<SpecieItem> shapeList = SFTPFileTransfer.mapFromJSON(shapeFile, SpecieItem.class);
+        sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + SHAPE_FILE_NAME, SHAPE_FILE.getAbsolutePath());
+        List<SpecieItem> shapeList = SFTPFileTransfer.mapFromJSON(SHAPE_FILE, SpecieItem.class);
     }
 }
