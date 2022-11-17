@@ -1,19 +1,17 @@
 package fr.project.pokedle.persistence;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity(name = "PokemonTypes")
 public class PokemonType {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "type_id")
     private long id;
 
     @Column
-    private String name_en;
-
-    @Column
-    private String name_fr;
+    private String name;
 
     @Column
     private String linkIcon;
@@ -27,20 +25,12 @@ public class PokemonType {
         this.id = id;
     }
 
-    public String getName_en() {
-        return name_en;
+    public String getName() {
+        return name;
     }
 
-    public void setName_en(String name_en) {
-        this.name_en = name_en;
-    }
-
-    public String getName_fr() {
-        return name_fr;
-    }
-
-    public void setName_fr(String name_fr) {
-        this.name_fr = name_fr;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLinkIcon() {

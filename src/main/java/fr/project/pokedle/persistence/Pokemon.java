@@ -15,20 +15,17 @@ public class Pokemon {
     @Column
     private String name_fr;
 
-
-    @ManyToOne
-    @JoinColumn(name="type_1_id", nullable=false)
+    @ManyToOne(targetEntity = PokemonType.class)
+    @JoinColumn(name="type_1_id", referencedColumnName = "type_id", nullable = false, insertable = false, updatable = false)
     private PokemonType type1;
 
-
-    @ManyToOne
-    @JoinColumn(name="type_2_id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(targetEntity = PokemonType.class)
+    @JoinColumn(name="type_2_id", referencedColumnName = "type_id", nullable = false, insertable = false, updatable = false)
     private PokemonType type2;
 
-    @ManyToOne
-    @JoinColumn(name="shape_id", nullable = false, insertable = false, updatable = false)
-    private PokemonType shape;
-
+    @ManyToOne(targetEntity = PokemonShape.class)
+    @JoinColumn(name="shape_idoof", referencedColumnName = "shape_id", nullable = false, insertable = false, updatable = false)
+    private PokemonShape shape;
 
     @Column
     private double height;
@@ -45,6 +42,9 @@ public class Pokemon {
     @Column
     private String linkBigSprite;
 
+    @Column
+    private String color;
+
     public long getId() {
         return id;
     }
@@ -53,19 +53,19 @@ public class Pokemon {
         this.id = id;
     }
 
-    public String getName_en() {
+    public String getNameEn() {
         return name_en;
     }
 
-    public void setName_en(String name_en) {
+    public void setNameEn(String name_en) {
         this.name_en = name_en;
     }
 
-    public String getName_fr() {
+    public String getNameFr() {
         return name_fr;
     }
 
-    public void setName_fr(String name_fr) {
+    public void setNameFr(String name_fr) {
         this.name_fr = name_fr;
     }
 
@@ -85,11 +85,11 @@ public class Pokemon {
         this.type2 = type2;
     }
 
-    public PokemonType getShape() {
+    public PokemonShape getShape() {
         return shape;
     }
 
-    public void setShape(PokemonType shape) {
+    public void setShape(PokemonShape shape) {
         this.shape = shape;
     }
 
@@ -131,5 +131,13 @@ public class Pokemon {
 
     public void setLinkBigSprite(String linkBigSprite) {
         this.linkBigSprite = linkBigSprite;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
