@@ -1,10 +1,11 @@
 package fr.project.pokedle.persistence;
 
+
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "PokemonTypes")
-public class PokemonType {
+@Entity(name = "PokemonShapes")
+public class PokemonShape {
 
     @Id
     private long id;

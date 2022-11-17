@@ -33,16 +33,17 @@ public class ClassicOfficial {
     private boolean success;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "user_id", updatable = false)
+    @JoinColumn(referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "classic_game_id", updatable = false)
+    @JoinColumn(referencedColumnName = "classic_game_id", nullable = false, insertable = false, updatable = false)
     private ClassicGame game;
 
     public UUID getId() {
         return id;
     }
+
 
     public double getScore() {
         return score;
