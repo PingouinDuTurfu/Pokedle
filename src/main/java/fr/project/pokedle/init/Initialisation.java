@@ -19,7 +19,6 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.List;
 
 
 @Component
@@ -71,6 +70,10 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
 
     @Override
     public void onApplicationEvent(final ContextRefreshedEvent event) {
+        //initData();
+    }
+
+    private void initData() {
         SFTPFileTransfer sftp = new SFTPFileTransfer(REMOTE_HOST, USERNAME, PASSWORD, REMOTE_PORT, SESSION_TIMEOUT, CHANNEL_TIMEOUT);
 
         sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + TYPE_FILE_NAME, TYPE_FILE.getAbsolutePath());
@@ -104,20 +107,20 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
                 SFTPFileTransfer
                         .mapFromJSON(POKEMON_FILE, PokemonItem.class)
                         .stream().map(pokemonItem ->
-                            new Pokemon.Builder()
-                                    .setId(Long.parseLong(pokemonItem.getId()))
-                                    .setNameEn(pokemonItem.getName_en())
-                                    .setNameFr(pokemonItem.getName_fr())
-                                    .setHeight(pokemonItem.getHeight())
-                                    .setWeight(pokemonItem.getWeight())
-                                    .setLinkBigSprite(pokemonItem.getSpriteHQ())
-                                    .setLinkSmallSprite(pokemonItem.getSpriteLQ())
-                                    .setLinkIcon(pokemonItem.getIcon())
-                                    .setColor(pokemonItem.getColor())
-                                    .setShape(pokemonShapeRepository.findFirstByName(pokemonItem.getShape()))
-                                    .setType1(pokemonTypeRepository.findFirstByName(pokemonItem.getType1()))
-                                    .setType2(pokemonTypeRepository.findFirstByName(pokemonItem.getType2()))
-                                    .build()
+                                new Pokemon.Builder()
+                                        .setId(Long.parseLong(pokemonItem.getId()))
+                                        .setNameEn(pokemonItem.getName_en())
+                                        .setNameFr(pokemonItem.getName_fr())
+                                        .setHeight(pokemonItem.getHeight())
+                                        .setWeight(pokemonItem.getWeight())
+                                        .setLinkBigSprite(pokemonItem.getSpriteHQ())
+                                        .setLinkSmallSprite(pokemonItem.getSpriteLQ())
+                                        .setLinkIcon(pokemonItem.getIcon())
+                                        .setColor(pokemonItem.getColor())
+                                        .setShape(pokemonShapeRepository.findFirstByName(pokemonItem.getShape()))
+                                        .setType1(pokemonTypeRepository.findFirstByName(pokemonItem.getType1()))
+                                        .setType2(pokemonTypeRepository.findFirstByName(pokemonItem.getType2()))
+                                        .build()
                         ).toList()
         );
     }
