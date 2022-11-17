@@ -27,9 +27,13 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
+    @Column
+    private String session;
+
     public UUID getId() {
         return id;
     }
+
 
     public String getUsername() {
         return username;

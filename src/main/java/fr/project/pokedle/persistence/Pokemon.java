@@ -6,19 +6,29 @@ import javax.persistence.*;
 public class Pokemon {
 
     @Id
-    @Column(name="pokemon_id")
+    @Column(name = "pokemon_id", updatable = false, nullable = false)
     private long id;
 
     @Column
-    private String name;
+    private String name_en;
 
     @Column
-    @Enumerated(EnumType.STRING)
+    private String name_fr;
+
+
+    @ManyToOne
+    @JoinColumn(name="type_1_id", nullable=false)
     private PokemonType type1;
 
-    @Column
-    @Enumerated(EnumType.STRING)
+
+    @ManyToOne
+    @JoinColumn(name="type_2_id", nullable = false, insertable = false, updatable = false)
     private PokemonType type2;
+
+    @ManyToOne
+    @JoinColumn(name="shape_id", nullable = false, insertable = false, updatable = false)
+    private PokemonType shape;
+
 
     @Column
     private double height;
@@ -35,20 +45,52 @@ public class Pokemon {
     @Column
     private String linkBigSprite;
 
-    public long getIdentifier() {
+    public long getId() {
         return id;
     }
 
-    public void setIdentifier(long identifier) {
-        this.id = identifier;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getName_en() {
+        return name_en;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName_en(String name_en) {
+        this.name_en = name_en;
+    }
+
+    public String getName_fr() {
+        return name_fr;
+    }
+
+    public void setName_fr(String name_fr) {
+        this.name_fr = name_fr;
+    }
+
+    public PokemonType getType1() {
+        return type1;
+    }
+
+    public void setType1(PokemonType type1) {
+        this.type1 = type1;
+    }
+
+    public PokemonType getType2() {
+        return type2;
+    }
+
+    public void setType2(PokemonType type2) {
+        this.type2 = type2;
+    }
+
+    public PokemonType getShape() {
+        return shape;
+    }
+
+    public void setShape(PokemonType shape) {
+        this.shape = shape;
     }
 
     public double getHeight() {

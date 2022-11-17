@@ -19,6 +19,10 @@ public class ClassicRound {
     @Column
     private double round;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "classic_official_id", nullable = false, insertable = false, updatable = false)
+    private ClassicOfficial game;
+
     public UUID getId() {
         return id;
     }
