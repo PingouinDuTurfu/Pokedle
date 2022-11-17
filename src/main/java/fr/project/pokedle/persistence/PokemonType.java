@@ -2,12 +2,12 @@ package fr.project.pokedle.persistence;
 
 import javax.persistence.*;
 
-@Entity(name = "PokemonTypes")
+@Entity
+@Table(name = "PokemonTypes")
 public class PokemonType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "type_id")
     private long id;
 
     @Column
@@ -40,5 +40,4 @@ public class PokemonType {
     public void setLinkIcon(String linkIcon) {
         this.linkIcon = linkIcon;
     }
-
 }

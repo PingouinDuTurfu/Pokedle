@@ -2,11 +2,12 @@ package fr.project.pokedle.persistence;
 
 import javax.persistence.*;
 
-@Entity(name = "Pokemons")
+@Entity
+@Table(name = "Pokemons")
 public class Pokemon {
 
     @Id
-    @Column(name = "pokemon_id", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
@@ -15,17 +16,17 @@ public class Pokemon {
     @Column
     private String name_fr;
 
-    @ManyToOne(targetEntity = PokemonType.class)
-    @JoinColumn(name="type_1_id", referencedColumnName = "type_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "shape_id", nullable = false)
+    private PokemonShape shape;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "type_1_id", nullable = false)
     private PokemonType type1;
 
-    @ManyToOne(targetEntity = PokemonType.class)
-    @JoinColumn(name="type_2_id", referencedColumnName = "type_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "type_2_id")
     private PokemonType type2;
-
-    @ManyToOne(targetEntity = PokemonShape.class)
-    @JoinColumn(name="shape_id", referencedColumnName = "shape_id", insertable = false, updatable = false)
-    private PokemonShape shape;
 
     @Column
     private double height;

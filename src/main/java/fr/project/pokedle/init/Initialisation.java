@@ -106,8 +106,9 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
             pokemon.setColor(pokemonItem.getColor());
 
             PokemonShape pokemonShape = pokemonShapeRepository.findFirstByName(pokemonItem.getShape());
-            System.out.println(pokemonShape);
-            pokemon.setShape(pokemonShape);
+            if (pokemonShape != null) {
+                pokemon.setShape(pokemonShape);
+            }
             PokemonType pokemonType1 = pokemonTypeRepository.findFirstByName(pokemonItem.getType1());
             if (pokemonType1 != null) {
                 pokemon.setType1(pokemonType1);
