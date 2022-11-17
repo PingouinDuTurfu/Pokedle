@@ -1,7 +1,6 @@
 package fr.project.pokedle.persistence.classic;
 
 import fr.project.pokedle.persistence.Pokemon;
-import fr.project.pokedle.persistence.PokemonType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -23,9 +22,13 @@ public class ClassicGame {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @ManyToOne
-    @JoinColumn(name="pokemon_id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "pokemon", nullable = false)
     private Pokemon pokemon;
+
+    public UUID getId() {
+        return id;
+    }
 
     public Date getDate() {
         return date;
@@ -33,5 +36,13 @@ public class ClassicGame {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Pokemon getPokemon() {
+        return pokemon;
+    }
+
+    public void setPokemon(Pokemon pokemon) {
+        this.pokemon = pokemon;
     }
 }

@@ -17,21 +17,21 @@ public class ClassicRound {
     private UUID id;
 
     @Column
-    private double round;
+    private long round;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "classic_official_id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "classic_official", nullable = false)
     private ClassicOfficial game;
 
     public UUID getId() {
         return id;
     }
 
-    public double getRound() {
+    public long getRound() {
         return round;
     }
 
-    public void setRound(double round) {
+    public void setRound(long round) {
         this.round = round;
     }
 }

@@ -23,7 +23,7 @@ public class Pokemon {
     @JoinColumn(name = "type_1_id", nullable = false)
     private PokemonType type1;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type_2_id")
     private PokemonType type2;
 

@@ -32,18 +32,17 @@ public class ClassicOfficial {
     @Column
     private boolean success;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user", nullable = false)
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "classic_game_id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "classic_game", nullable = false)
     private ClassicGame game;
 
     public UUID getId() {
         return id;
     }
-
 
     public double getScore() {
         return score;
