@@ -110,22 +110,4 @@ public class PokemonItem {
     public void setName_fr(String name_fr) {
         this.name_fr = name_fr;
     }
-
-    @Override
-    public String toString() {
-        return "PokemonItem{" +
-                "name_en='" + name_en + '\'' +
-                ", id='" + id + '\'' +
-                ", type1='" + type1 + '\'' +
-                ", type2='" + type2 + '\'' +
-                ", height=" + height +
-                ", weight=" + weight +
-                ", spriteHQ='" + spriteHQ + '\'' +
-                ", spriteLQ='" + spriteLQ + '\'' +
-                ", icon='" + icon + '\'' +
-                ", shape='" + shape + '\'' +
-                ", color='" + color + '\'' +
-                ", name_fr='" + name_fr + '\'' +
-                '}';
-    }
 }
