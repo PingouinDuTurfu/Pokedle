@@ -16,15 +16,15 @@ public class Pokemon {
     private String name_fr;
 
     @ManyToOne(targetEntity = PokemonType.class)
-    @JoinColumn(name="type_1_id", referencedColumnName = "type_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name="type_1_id", referencedColumnName = "type_id", insertable = false, updatable = false)
     private PokemonType type1;
 
     @ManyToOne(targetEntity = PokemonType.class)
-    @JoinColumn(name="type_2_id", referencedColumnName = "type_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name="type_2_id", referencedColumnName = "type_id", insertable = false, updatable = false)
     private PokemonType type2;
 
     @ManyToOne(targetEntity = PokemonShape.class)
-    @JoinColumn(name="shape_idoof", referencedColumnName = "shape_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name="shape_id", referencedColumnName = "shape_id", insertable = false, updatable = false)
     private PokemonShape shape;
 
     @Column
