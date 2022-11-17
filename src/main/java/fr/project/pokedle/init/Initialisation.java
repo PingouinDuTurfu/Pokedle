@@ -3,6 +3,13 @@ package fr.project.pokedle.init;
 
 import fr.project.pokedle.init.loader.PokemonItem;
 import fr.project.pokedle.init.loader.SpecieItem;
+import fr.project.pokedle.persistence.Pokemon;
+import fr.project.pokedle.persistence.PokemonShape;
+import fr.project.pokedle.persistence.PokemonType;
+import fr.project.pokedle.persistence.jpa.PokemonRepository;
+import fr.project.pokedle.persistence.jpa.PokemonShapeRepository;
+import fr.project.pokedle.persistence.jpa.PokemonTypeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -46,6 +53,15 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
         }
     }
 
+    @Autowired
+    PokemonRepository pokemonRepository;
+
+    @Autowired
+    PokemonTypeRepository pokemonTypeRepository;
+
+    @Autowired
+    PokemonShapeRepository pokemonShapeRepository;
+
     public static File getFile(String urlFileName) throws URISyntaxException, FileNotFoundException {
         URL url = Initialisation.class.getClassLoader().getResource(urlFileName);
         if(url == null)
@@ -55,16 +71,54 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
 
     @Override
     public void onApplicationEvent(final ContextRefreshedEvent event) {
-
         SFTPFileTransfer sftp = new SFTPFileTransfer(REMOTE_HOST, USERNAME, PASSWORD, REMOTE_PORT, SESSION_TIMEOUT, CHANNEL_TIMEOUT);
-
-        sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + POKEMON_FILE_NAME, POKEMON_FILE.getAbsolutePath());;
-        List<PokemonItem> pokemonList = SFTPFileTransfer.mapFromJSON(POKEMON_FILE, PokemonItem.class);
 
         sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + TYPE_FILE_NAME, TYPE_FILE.getAbsolutePath());
         List<SpecieItem> typeList = SFTPFileTransfer.mapFromJSON(TYPE_FILE, SpecieItem.class);
+        typeList.forEach(typeItem -> {
+            PokemonType pokemonType = new PokemonType();
+            pokemonType.setLinkIcon(typeItem.getIcon());
+            pokemonType.setName(typeItem.getName());
+            pokemonTypeRepository.save(pokemonType);
+        });
 
         sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + SHAPE_FILE_NAME, SHAPE_FILE.getAbsolutePath());
         List<SpecieItem> shapeList = SFTPFileTransfer.mapFromJSON(SHAPE_FILE, SpecieItem.class);
+        shapeList.forEach(shapeItem -> {
+            PokemonShape pokemonShape = new PokemonShape();
+            pokemonShape.setLinkIcon(shapeItem.getIcon());
+            pokemonShape.setName(shapeItem.getName());
+            pokemonShapeRepository.save(pokemonShape);
+        });
+
+        sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + POKEMON_FILE_NAME, POKEMON_FILE.getAbsolutePath());;
+        List<PokemonItem> pokemonList = SFTPFileTransfer.mapFromJSON(POKEMON_FILE, PokemonItem.class);
+        pokemonList.forEach(pokemonItem -> {
+            Pokemon pokemon = new Pokemon();
+            pokemon.setId(Long.parseLong(pokemonItem.getId()));
+            pokemon.setNameEn(pokemonItem.getName_en());
+            pokemon.setNameFr(pokemonItem.getName_fr());
+            pokemon.setHeight(pokemonItem.getHeight());
+            pokemon.setWeight(pokemonItem.getWeight());
+            pokemon.setLinkBigSprite(pokemonItem.getSpriteHQ());
+            pokemon.setLinkSmallSprite(pokemonItem.getSpriteLQ());
+            pokemon.setLinkIcon(pokemonItem.getIcon());
+            pokemon.setColor(pokemonItem.getColor());
+
+            PokemonShape pokemonShape = pokemonShapeRepository.findFirstByName(pokemonItem.getShape());
+            System.out.println(pokemonShape);
+            pokemon.setShape(pokemonShape);
+            PokemonType pokemonType1 = pokemonTypeRepository.findFirstByName(pokemonItem.getType1());
+            if (pokemonType1 != null) {
+                pokemon.setType1(pokemonType1);
+            }
+            PokemonType pokemonType2 = pokemonTypeRepository.findFirstByName(pokemonItem.getType2());
+            if (pokemonType1 != null) {
+                pokemon.setType2(pokemonType2);
+            }
+
+            pokemonRepository.save(pokemon);
+            System.out.println(pokemon.getNameFr() + " donne");
+        });
     }
 }
