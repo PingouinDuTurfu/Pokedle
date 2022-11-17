@@ -16,7 +16,6 @@ public class PokemonType {
     @Column
     private String linkIcon;
 
-
     public long getId() {
         return id;
     }
@@ -39,5 +38,27 @@ public class PokemonType {
 
     public void setLinkIcon(String linkIcon) {
         this.linkIcon = linkIcon;
+    }
+
+    public static class Builder {
+        private final PokemonType pokemonType;
+
+        public Builder() {
+            pokemonType = new PokemonType();
+        }
+
+        public Builder setName(String name) {
+            pokemonType.setName(name);
+            return this;
+        }
+
+        public Builder setLinkIcon(String linkIcon) {
+            pokemonType.setLinkIcon(linkIcon);
+            return this;
+        }
+
+        public PokemonType build() {
+            return pokemonType;
+        }
     }
 }
