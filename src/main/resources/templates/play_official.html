@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/process_register}" method="post" th:object="${user}">
+    <div>
+        <div class="form row">
+            <label>Username</label>
+            <input type="text" name="username">
+        </div>
+        <div class="form row">
+            <label>Password</label>
+            <input type="text" name="password">
+        </div>
+        <div><button type="submit">Register</button></div>
+    </div>
+
+</body>
+</html>
