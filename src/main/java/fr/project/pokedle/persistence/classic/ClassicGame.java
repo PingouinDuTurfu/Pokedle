@@ -19,7 +19,7 @@ public class ClassicGame {
     private UUID id;
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

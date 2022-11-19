@@ -41,9 +41,4 @@ public class AppController {
         userRepository.save(user);
         return "register_success";
     }
-
-    @GetMapping("/list_users")
-    public String viewUsersList() {
-        return "users";
-    }
 }
