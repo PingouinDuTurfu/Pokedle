@@ -1,19 +1,23 @@
 package fr.project.pokedle;
 
+import fr.project.pokedle.connection.CustomUserDetails;
 import fr.project.pokedle.game.GameOfficialManager;
-import fr.project.pokedle.game.GameOfficialTry;
 import fr.project.pokedle.persistence.Pokemon;
 import fr.project.pokedle.persistence.classic.ClassicGame;
-import fr.project.pokedle.persistence.jpa.ClassicGameRepository;
-import fr.project.pokedle.persistence.jpa.PokemonRepository;
+import fr.project.pokedle.persistence.repository.ClassicGameRepository;
+import fr.project.pokedle.persistence.repository.PokemonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -26,14 +30,23 @@ public class GameController {
     ClassicGameRepository classicGameRepository;
 
     @GetMapping("/play/official")
-    public String showOfficialGame() {
+    public String showOfficialGame(Model model) {
+        List<Pokemon> pokemonList = pokemonRepository.findAll();
+
+
+        model.addAttribute("pokemonList", pokemonList);
+
         return "play_official";
     }
 
-    @PostMapping("/play/official_try")
-    public String tryPokemonOfficialGame(long pokemon_id) {
+    @PostMapping(value = "/play/official_try")
+    public String tryPokemonOfficialGame(@Param("pokemonName") String pokemonName) {
+        System.out.println(pokemonName);
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(userDetails.getUsername());
+
         /* verfify if the pokemon enter is correct */
-        Optional<Pokemon> pokemonToTryOptional = pokemonRepository.findById(pokemon_id);
+        Optional<Pokemon> pokemonToTryOptional = pokemonRepository.findPokemonsByNameFr(pokemonName);
         if (pokemonToTryOptional.isEmpty())
             throw new RuntimeException();
         Pokemon pokemonToTry = pokemonToTryOptional.get();
@@ -55,12 +68,12 @@ public class GameController {
             GameOfficialManager gameManager = new GameOfficialManager();
             classicGame = gameManager.createOfficialGame();
         }
+//
+//        Pokemon pokemonToFind = classicGame.getPokemon();
+//
+//        GameOfficialTry GameOfficialTry = new GameOfficialTry(pokemonToTry, pokemonToFind);
 
-        Pokemon pokemonToFind = classicGame.getPokemon();
 
-        GameOfficialTry GameOfficialTry = new GameOfficialTry(pokemonToTry, pokemonToFind);
-
-
-        return "play_official";
+        return "home";
     }
 }

@@ -7,13 +7,13 @@ import javax.persistence.*;
 public class Pokemon {
 
     @Id
-    private long id;
+    public long id;
 
     @Column
-    private String name_en;
+    private String nameFr;
 
     @Column
-    private String name_fr;
+    public String nameEn;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "shape_id", nullable = false)
@@ -53,20 +53,20 @@ public class Pokemon {
         this.id = id;
     }
 
-    public String getNameEn() {
-        return name_en;
-    }
-
-    public void setNameEn(String name_en) {
-        this.name_en = name_en;
-    }
-
     public String getNameFr() {
-        return name_fr;
+        return nameFr;
     }
 
-    public void setNameFr(String name_fr) {
-        this.name_fr = name_fr;
+    public void setNameFr(String nameFr) {
+        this.nameFr = nameFr;
+    }
+
+    public String getNameEn() {
+        return nameEn;
+    }
+
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
     }
 
     public PokemonType getType1() {
@@ -154,13 +154,13 @@ public class Pokemon {
             return this;
         }
 
-        public Builder setNameEn(String name_en) {
-            pokemon.setNameEn(name_en);
+        public Builder setNameEn(String nameEn) {
+            pokemon.setNameEn(nameEn);
             return this;
         }
 
-        public Builder setNameFr(String name_fr) {
-            pokemon.setNameFr(name_fr);
+        public Builder setNameFr(String nameFr) {
+            pokemon.setNameFr(nameFr);
             return this;
         }
 

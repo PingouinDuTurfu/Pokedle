@@ -1,11 +1,13 @@
-package fr.project.pokedle.persistence.jpa;
+package fr.project.pokedle.persistence.repository;
 
 import fr.project.pokedle.persistence.Pokemon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.Optional;
 
+@Repository
 public interface PokemonRepository extends JpaRepository<Pokemon, Long> {
-    Pokemon findPokemonById(long pokemon_id);
+    Optional<Pokemon> findPokemonById(long pokemon_id);
+    Optional<Pokemon> findPokemonsByNameFr(String name_fr);
 }

@@ -1,7 +1,7 @@
 package fr.project.pokedle;
 
 import fr.project.pokedle.persistence.User;
-import fr.project.pokedle.persistence.jpa.UserRepository;
+import fr.project.pokedle.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +23,11 @@ public class AppController {
         return "home";
     }
 
+    @GetMapping("/home")
+    public String showHome2() {
+        return "home";
+    }
+
     @GetMapping("/register")
     public String showSignUpForm(Model model) {
         model.addAttribute("user", new User());
@@ -41,4 +46,6 @@ public class AppController {
         userRepository.save(user);
         return "register_success";
     }
+
+
 }
