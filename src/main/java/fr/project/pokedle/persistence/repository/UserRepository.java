@@ -1,4 +1,4 @@
-package fr.project.pokedle.persistence.jpa;
+package fr.project.pokedle.persistence.repository;
 
 import fr.project.pokedle.persistence.User;
 import org.springframework.data.jpa.repository.JpaRepository;

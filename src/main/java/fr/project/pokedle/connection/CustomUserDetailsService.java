@@ -1,7 +1,7 @@
 package fr.project.pokedle.connection;
 
 import fr.project.pokedle.persistence.User;
-import fr.project.pokedle.persistence.jpa.UserRepository;
+import fr.project.pokedle.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

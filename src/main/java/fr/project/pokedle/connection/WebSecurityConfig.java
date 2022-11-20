@@ -31,16 +31,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/login", "/register", "/process_register")
+                .antMatchers("/", "/register", "/process_register")
                 .permitAll()
-                .antMatchers("/home") // Liste de toutes les pages accessible pour les users
+                .antMatchers("/home", "/play/official", "/play/official_try") // Liste de toutes les pages accessible pour les users
                 .hasAuthority("USER")
                 .antMatchers("/admin") // Liste de toutes les pages accessible pour les admins
                 .hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic();
+                .formLogin().permitAll()
+                .and()
+                .logout().permitAll()
+                .and()
+                .csrf().disable();;
     }
 
 }
