@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity(name = "ClassicOfficials")
-public class ClassicOfficial {
+public class ClassicGamePlayer {
 
     @Id
     @GeneratedValue(generator = "uuid2")

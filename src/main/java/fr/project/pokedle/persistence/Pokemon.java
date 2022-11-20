@@ -13,7 +13,7 @@ public class Pokemon {
     private String nameFr;
 
     @Column
-    public String nameEn;
+    private String nameEn;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "shape_id", nullable = false)
