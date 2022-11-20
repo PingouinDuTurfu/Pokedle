@@ -2,8 +2,11 @@ package fr.project.pokedle;
 
 import fr.project.pokedle.connection.CustomUserDetails;
 import fr.project.pokedle.game.GameOfficialManager;
+import fr.project.pokedle.game.GameOfficialTry;
 import fr.project.pokedle.persistence.Pokemon;
 import fr.project.pokedle.persistence.classic.ClassicGame;
+import fr.project.pokedle.persistence.classic.ClassicGamePlayer;
+import fr.project.pokedle.persistence.repository.ClassicGamePlayerRepository;
 import fr.project.pokedle.persistence.repository.ClassicGameRepository;
 import fr.project.pokedle.persistence.repository.PokemonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,9 @@ public class GameController {
 
     @Autowired
     ClassicGameRepository classicGameRepository;
+
+    @Autowired
+    ClassicGamePlayerRepository classicGamePlayerRepository;
 
     @GetMapping("/play/official")
     public String showOfficialGame(Model model) {
@@ -52,16 +58,27 @@ public class GameController {
         LocalDateTime start = now.toLocalDate().atStartOfDay();
         LocalDateTime end = now.toLocalDate().atStartOfDay().plusDays(1);
 
+        GameOfficialManager gameOfficialManager = new GameOfficialManager(pokemonRepository, classicGameRepository, classicGamePlayerRepository);
+
         ClassicGame classicGame = classicGameRepository.findByDateBetween(
                 Date.from(start.atZone(ZoneId.systemDefault()).toInstant()),
                 Date.from(end.atZone(ZoneId.systemDefault()).toInstant())
-        ).orElseGet(() -> new GameOfficialManager().createOfficialGame());
+        ).orElseGet(gameOfficialManager::createGame);
 
-//
-//        Pokemon pokemonToFind = classicGame.getPokemon();
-//
-//        GameOfficialTry GameOfficialTry = new GameOfficialTry(pokemonToTry, pokemonToFind);
+        ClassicGamePlayer classicGamePlayer = classicGamePlayerRepository.findByUserAndCreationDateBetween(
+                userDetails.getUser(),
+                Date.from(start.atZone(ZoneId.systemDefault()).toInstant()),
+                Date.from(end.atZone(ZoneId.systemDefault()).toInstant())
+        ).orElseGet(() -> gameOfficialManager.createGamePlayer(userDetails.getUser(), classicGame));
 
+
+        Pokemon pokemonToFind = classicGame.getPokemon();
+
+        // comparaison des pokemon
+        GameOfficialTry gameOfficialTry = new GameOfficialTry(pokemonToTry, pokemonToFind);
+
+
+        System.out.println(gameOfficialTry);
 
         return "home";
     }
