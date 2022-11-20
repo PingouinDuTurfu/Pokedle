@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class GameController {
@@ -46,28 +45,18 @@ public class GameController {
         System.out.println(userDetails.getUsername());
 
         /* verfify if the pokemon enter is correct */
-        Optional<Pokemon> pokemonToTryOptional = pokemonRepository.findPokemonsByNameFr(pokemonName);
-        if (pokemonToTryOptional.isEmpty())
-            throw new RuntimeException();
-        Pokemon pokemonToTry = pokemonToTryOptional.get();
+        Pokemon pokemonToTry = pokemonRepository.findPokemonsByNameFr(pokemonName).orElseThrow(RuntimeException::new);
 
         /* verfify if there is a pokemon to find */
         LocalDateTime now = LocalDateTime.now(); //current date and time
         LocalDateTime start = now.toLocalDate().atStartOfDay();
         LocalDateTime end = now.toLocalDate().atStartOfDay().plusDays(1);
 
-        Optional<ClassicGame> classicGameOptional = classicGameRepository.findByDateBetween(
+        ClassicGame classicGame = classicGameRepository.findByDateBetween(
                 Date.from(start.atZone(ZoneId.systemDefault()).toInstant()),
                 Date.from(end.atZone(ZoneId.systemDefault()).toInstant())
-        );
+        ).orElseGet(() -> new GameOfficialManager().createOfficialGame());
 
-        ClassicGame classicGame;
-        if (classicGameOptional.isPresent()) {
-            classicGame = classicGameOptional.get();
-        } else {
-            GameOfficialManager gameManager = new GameOfficialManager();
-            classicGame = gameManager.createOfficialGame();
-        }
 //
 //        Pokemon pokemonToFind = classicGame.getPokemon();
 //
