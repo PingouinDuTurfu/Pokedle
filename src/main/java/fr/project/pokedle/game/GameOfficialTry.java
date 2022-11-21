@@ -64,18 +64,18 @@ public class GameOfficialTry {
 
     public Column compareWeight() {
         if (pokemonToTry.getWeight() > pokemonToFind.getWeight())
-            return Column.UPPER;
-        else if (pokemonToTry.getWeight() < pokemonToFind.getWeight())
             return Column.LOWER;
+        else if (pokemonToTry.getWeight() < pokemonToFind.getWeight())
+            return Column.UPPER;
         else
             return Column.VALIDE;
     }
 
     public Column compareHeight() {
         if (pokemonToTry.getHeight() > pokemonToFind.getHeight())
-            return Column.UPPER;
-        else if (pokemonToTry.getHeight() < pokemonToFind.getHeight())
             return Column.LOWER;
+        else if (pokemonToTry.getHeight() < pokemonToFind.getHeight())
+            return Column.UPPER;
         else
             return Column.VALIDE;
     }
