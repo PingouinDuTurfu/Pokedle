@@ -7,11 +7,17 @@
     --orange: #f8c555;
     --green: #4f9d70;
     --grey: #777777;
+    --red: #BD1616;
+    --light-red: #FF2626;
+    --light-pink: #FFE6E6;
     --top-height: 80px;
     --delay-short-animation : 0.5s;
+    --delay-medium-animation : 1s;
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     background-color: var(--black);
     margin: 0;
     padding: 0;
@@ -23,28 +29,38 @@ ul, li, a, a:hover {
     all: initial;
 }
 
+/*
+    Top bar
+ */
+
 .top {
     background: var(--light-blue);
     height: var(--top-height);
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .top .name {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: available;
+    width: -webkit-fill-available;
+    justify-content: left;
 }
 
 .top .name .content {
-    padding-left: 5px;
+    padding-left: 10px;
     font-size: 50px;
 }
 
 .top .connect {
     display: flex;
     align-items: flex-start;
+    width: available;
+    width: -webkit-fill-available;
+    justify-content: right;
 }
 
 .top .connect #ul-top-connect {
@@ -73,9 +89,42 @@ ul, li, a, a:hover {
     background-color: var(--green);
 }
 
-.top .
+.top .menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
 
+.top .menu #ul-top-menu {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 10px 0 10px;
+    align-items: flex-end;
+}
 
+.top .menu #ul-top-menu li {
+    display: flex;
+    background-color: var(--black);
+    border-radius: 5px 5px 0 0;
+    transition: background-color var(--delay-short-animation), padding-bottom var(--delay-medium-animation);
+    -webkit-transition: background-color var(--delay-short-animation), padding-bottom var(--delay-medium-animation);
+    margin: 0 3px;
+}
+
+.top .menu #ul-top-menu li a {
+    font-size: 28px;
+    color: var(--white);
+    padding: 0 10px;
+}
+
+.top .menu #ul-top-menu li:hover {
+    background-color: var(--green);
+    padding-bottom: 30px;
+}
+
+/*
+    Responsive part for top bar
+ */
 @media screen and (max-width: 500px) {
     .top .name {
         display: none;
@@ -94,4 +143,139 @@ ul, li, a, a:hover {
         font-size: 15px;
         padding: 2px;
     }
+}
+
+
+/*
+    Main error section
+ */
+
+.main .error {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.main .error #ul-main-error {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--light-red);
+    padding: 3px 5px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    align-items: center;
+}
+
+.main .error #ul-main-error:empty {
+    display: none;
+}
+
+.main .error #ul-main-error li {
+    display: flex;
+    background-color: var(--light-pink);
+    margin: 2px 0;
+    border-radius: 5px;
+    width: -webkit-fill-available;
+}
+
+.main .error #ul-main-error li span {
+    color: var(--red) ;
+    font-size: 15px;
+    padding: 3px;
+}
+
+/*
+    Main content section
+ */
+
+.main .content {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main .content .title {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    background-color: var(--dark-black);
+    width: 80%;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.main .content .title span {
+    font-size: 40px;
+    color: var(--white);
+}
+
+.main .content .items {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    width: 80%;
+}
+
+.main .content .items #ul-main-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: -webkit-fill-available;
+}
+
+.main .content .items #ul-main-item li {
+    display: flex;
+    height: 150px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    transition: background-color var(--delay-short-animation);
+    -webkit-transition: background-color var(--delay-short-animation);
+}
+
+.main .content .items #ul-main-item .connect-item {
+    background-color: var(--blue);
+}
+
+.main .content .items #ul-main-item .game-item {
+    background-color: var(--dark-black);
+}
+
+.main .content .items #ul-main-item li:hover {
+    background-color: var(--green);
+}
+
+.main .content .items #ul-main-item li a {
+    font-size: 25px;
+    color: var(--white);
+}
+
+
+/*
+    Footer section
+ */
+
+.foot {
+    display: flex;
+    background-color: var(--grey);
+    align-content: center;
+    margin-top: auto;
+}
+
+.foot .content {
+    padding: 5px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    color: var(--dark-black);
+    font-size: 15px;
+}
+
+.foot .content .italic {
+    padding: 0 2px;
+    font-style: italic;
 }
