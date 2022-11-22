@@ -29,7 +29,6 @@ public class ClassicRound {
     private Pokemon pokemon;
 
 
-
     public UUID getId() {
         return id;
     }
@@ -40,5 +39,21 @@ public class ClassicRound {
 
     public void setRound(long round) {
         this.round = round;
+    }
+
+    public ClassicGamePlayer getGame() {
+        return game;
+    }
+
+    public void setGame(ClassicGamePlayer game) {
+        this.game = game;
+    }
+
+    public Pokemon getPokemon() {
+        return pokemon;
+    }
+
+    public void setPokemon(Pokemon pokemon) {
+        this.pokemon = pokemon;
     }
 }
