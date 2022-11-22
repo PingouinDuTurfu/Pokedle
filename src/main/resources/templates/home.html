@@ -13,6 +13,7 @@
         <div class="menu">
             <ul id="ul-top-menu">
                 <li><a href="/classicGame">Classic</a></li>
+                <li><a href="/multiplayerGame">Multiplayer</a></li>
             </ul>
         </div>
         <div class="connect">
@@ -26,18 +27,22 @@
     <div class="main">
         <div class="error">
             <ul id="ul-main-error">
-
+                <li><span>Erreur, impossible de se connecter !</span></li>
+                <li><span>Erreur, database inaccessible !</span></li>
             </ul>
         </div>
         <div class="content">
             <div class="title">
-                <h1>Bonjour Michel ravie de vous revoir / Bienvenue !</h1>
+                <span>Bonjour Michel ravie de vous revoir / Bienvenue !</span>
             </div>
-            <ul id="ul-main-item">
-                <li><a href="/login">Login</a></li>
-                <li><a href="/register">Register</a></li>
-                <li><a href="/classicGame">Classic</a></li>
-            </ul>
+            <div class="items">
+                <ul id="ul-main-item">
+                    <li class="connect-item"><a href="/login">Login</a></li>
+                    <li class="connect-item"><a href="/register">Register</a></li>
+                    <li class="game-item"><a href="/classicGame">Classic</a></li>
+                    <li class="game-item"><a href="/infoPoke">Info Poké</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
