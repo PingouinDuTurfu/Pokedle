@@ -1,0 +1,97 @@
+:root {
+    --white: #ffffff;
+    --black: #292929;
+    --dark-black: #191919;
+    --light-blue: #4752c4;
+    --blue: #3c45a5;
+    --orange: #f8c555;
+    --green: #4f9d70;
+    --grey: #777777;
+    --top-height: 80px;
+    --delay-short-animation : 0.5s;
+}
+
+body {
+    background-color: var(--black);
+    margin: 0;
+    padding: 0;
+    font-family: Friz Quadrata Std,Mobilo,Helvetica,Arial;
+    color: var(--white);
+}
+
+ul, li, a, a:hover {
+    all: initial;
+}
+
+.top {
+    background: var(--light-blue);
+    height: var(--top-height);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.top .name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.top .name .content {
+    padding-left: 5px;
+    font-size: 50px;
+}
+
+.top .connect {
+    display: flex;
+    align-items: flex-start;
+}
+
+.top .connect #ul-top-connect {
+    padding: 5px 5px 0 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.top .connect #ul-top-connect li {
+    display: flex;
+    background-color: var(--blue);
+    margin: 5px;
+    border-radius: 3px;
+    transition: background-color var(--delay-short-animation);
+    -webkit-transition: background-color var(--delay-short-animation);
+}
+
+.top .connect #ul-top-connect li a {
+    font-size: 20px;
+    color: var(--white);
+    padding: 8px;
+}
+
+.top .connect #ul-top-connect li:hover {
+    background-color: var(--green);
+}
+
+.top .
+
+
+@media screen and (max-width: 500px) {
+    .top .name {
+        display: none;
+    }
+
+    .top .connect #ul-top-connect {
+        flex-direction: column;
+    }
+
+    .top .connect #ul-top-connect li {
+        width: 65px;
+        justify-content: center;
+    }
+
+    .top .connect #ul-top-connect li a {
+        font-size: 15px;
+        padding: 2px;
+    }
+}
