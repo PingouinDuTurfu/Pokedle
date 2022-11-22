@@ -4,28 +4,29 @@ import fr.project.pokedle.persistence.Pokemon;
 import fr.project.pokedle.persistence.User;
 import fr.project.pokedle.persistence.classic.ClassicGame;
 import fr.project.pokedle.persistence.classic.ClassicGamePlayer;
+import fr.project.pokedle.persistence.classic.ClassicRound;
 import fr.project.pokedle.persistence.repository.ClassicGamePlayerRepository;
 import fr.project.pokedle.persistence.repository.ClassicGameRepository;
+import fr.project.pokedle.persistence.repository.ClassicRoundRepository;
 import fr.project.pokedle.persistence.repository.PokemonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class GameOfficialManager {
-
     PokemonRepository pokemonRepository;
-
-
     ClassicGameRepository classicGameRepository;
-
     ClassicGamePlayerRepository classicGamePlayerRepository;
+    ClassicRoundRepository classicRoundRepository;
 
-    public GameOfficialManager(PokemonRepository pokemonRepository, ClassicGameRepository classicGameRepository, ClassicGamePlayerRepository classicGamePlayerRepository) {
+    public GameOfficialManager(PokemonRepository pokemonRepository, ClassicGameRepository classicGameRepository, ClassicGamePlayerRepository classicGamePlayerRepository, ClassicRoundRepository classicRoundRepository) {
         this.pokemonRepository = pokemonRepository;
         this.classicGameRepository = classicGameRepository;
         this.classicGamePlayerRepository = classicGamePlayerRepository;
+        this.classicRoundRepository = classicRoundRepository;
     }
 
     public ClassicGame createGame() {
@@ -60,5 +61,20 @@ public class GameOfficialManager {
         classicGamePlayerRepository.save(classicGamePlayer);
 
         return classicGamePlayer;
+    }
+
+    public ClassicRound createGameRound(ClassicGamePlayer classicGamePlayer, Pokemon pokemon) {
+        ClassicRound classicRound = new ClassicRound();
+        classicRound.setGame(classicGamePlayer);
+        classicRound.setPokemon(pokemon);
+
+        List<ClassicRound> rounds = classicRoundRepository.findAllByGame(classicGamePlayer);
+
+        long indexRound = rounds.stream().map(ClassicRound::getRound).max((o1, o2) -> Math.toIntExact(o1 > o2 ? o1 : o2)).orElse(0L) + 1;
+        classicRound.setRound(indexRound);
+
+        classicRoundRepository.save(classicRound);
+
+        return classicRound;
     }
 }

@@ -6,14 +6,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameOfficialTry {
-    Pokemon pokemonToTry;
-    Pokemon pokemonToFind;
+    private final Pokemon pokemonToTry;
+    private final Pokemon pokemonToFind;
 
-    Map<PokemonFeature, Column> comparePokemon;
+    private Map<PokemonFeature, Column> comparePokemon;
 
-    boolean isSame;
+    boolean same;
 
+    public Pokemon getPokemonToTry() {
+        return pokemonToTry;
+    }
 
+    public Pokemon getPokemonToFind() {
+        return pokemonToFind;
+    }
+
+    public Map<PokemonFeature, Column> getComparePokemon() {
+        return comparePokemon;
+    }
+
+    public boolean isSame() {
+        return same;
+    }
 
     public GameOfficialTry(Pokemon pokemonToTry, Pokemon pokemonToFind) {
         this.pokemonToTry = pokemonToTry;
@@ -23,7 +37,7 @@ public class GameOfficialTry {
     }
 
     public void compare() {
-        isSame = (pokemonToTry.getId() == pokemonToFind.getId());
+        same = (pokemonToTry.getId() == pokemonToFind.getId());
 
         comparePokemon = new HashMap<>();
 
