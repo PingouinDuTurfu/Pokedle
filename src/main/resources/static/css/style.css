@@ -23,6 +23,7 @@ body {
     padding: 0;
     font-family: Friz Quadrata Std,Mobilo,Helvetica,Arial;
     color: var(--white);
+    min-height: 100%;
 }
 
 ul, li, a, a:hover {
@@ -80,7 +81,7 @@ ul, li, a, a:hover {
 }
 
 .top .connect #ul-top-connect li a {
-    font-size: 20px;
+    font-size: 25px;
     color: var(--white);
     padding: 8px;
 }
@@ -108,18 +109,18 @@ ul, li, a, a:hover {
     border-radius: 5px 5px 0 0;
     transition: background-color var(--delay-short-animation), padding-bottom var(--delay-medium-animation);
     -webkit-transition: background-color var(--delay-short-animation), padding-bottom var(--delay-medium-animation);
-    margin: 0 3px;
+    margin: 0 5px;
 }
 
 .top .menu #ul-top-menu li a {
-    font-size: 28px;
+    font-size: 40px;
     color: var(--white);
     padding: 0 10px;
 }
 
 .top .menu #ul-top-menu li:hover {
     background-color: var(--green);
-    padding-bottom: 30px;
+    padding-bottom: 15px;
 }
 
 /*
@@ -154,15 +155,13 @@ ul, li, a, a:hover {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 30px;
 }
 
 .main .error #ul-main-error {
     display: flex;
     flex-direction: column;
-    background-color: var(--light-red);
     padding: 3px 5px;
-    border-radius: 8px;
     width: 80%;
     max-width: 600px;
     align-items: center;
@@ -182,7 +181,7 @@ ul, li, a, a:hover {
 
 .main .error #ul-main-error li span {
     color: var(--red) ;
-    font-size: 15px;
+    font-size: 20px;
     padding: 3px;
 }
 
@@ -191,7 +190,7 @@ ul, li, a, a:hover {
  */
 
 .main .content {
-    margin-top: 10px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -213,7 +212,7 @@ ul, li, a, a:hover {
 }
 
 .main .content .items {
-    margin-top: 20px;
+    margin-top: 40px;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -251,7 +250,7 @@ ul, li, a, a:hover {
 }
 
 .main .content .items #ul-main-item li a {
-    font-size: 25px;
+    font-size: 40px;
     color: var(--white);
 }
 
@@ -263,7 +262,7 @@ ul, li, a, a:hover {
 .foot {
     display: flex;
     background-color: var(--grey);
-    align-content: center;
+    justify-content: center;
     margin-top: auto;
 }
 
@@ -272,10 +271,10 @@ ul, li, a, a:hover {
     display: flex;
     flex-wrap: wrap;
     color: var(--dark-black);
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .foot .content .italic {
-    padding: 0 2px;
+    padding: 0 4px;
     font-style: italic;
 }
