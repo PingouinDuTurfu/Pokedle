@@ -204,6 +204,12 @@ ul, li, a, a:hover {
     width: 80%;
     padding: 8px;
     border-radius: 10px;
+    align-content: center;
+}
+
+.main .content .title img {
+    width: 150px;
+    margin-left: 10px;
 }
 
 .main .content .title span {
@@ -215,7 +221,7 @@ ul, li, a, a:hover {
     margin-top: 40px;
     display: flex;
     flex-direction: row;
-    align-content: center;
+    align-items: center;
     width: 80%;
 }
 
@@ -229,7 +235,7 @@ ul, li, a, a:hover {
 .main .content .items #ul-main-item li {
     display: flex;
     height: 150px;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
@@ -254,6 +260,11 @@ ul, li, a, a:hover {
     color: var(--white);
 }
 
+.main .content .items #ul-main-item li img {
+    width: 100px;
+    margin-left: 20px;
+    padding-bottom: 20px;
+}
 
 /*
     Footer section
