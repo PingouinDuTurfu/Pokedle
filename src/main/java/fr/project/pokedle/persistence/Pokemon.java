@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Pokemon {
 
     @Id
-    public long id;
+     long id;
 
     @Column
     private String nameFr;
