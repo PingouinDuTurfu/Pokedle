@@ -20,6 +20,8 @@ public class PlayOfficialGame {
     private final ClassicGamePlayerRepository classicGamePlayerRepository;
     private final ClassicRoundRepository classicRoundRepository;
 
+    private Pokemon pokemonToTry;
+
     private String result = "";
 
     public PlayOfficialGame(PokemonRepository pokemonRepository, ClassicGameRepository classicGameRepository, ClassicGamePlayerRepository classicGamePlayerRepository, ClassicRoundRepository classicRoundRepository) {
@@ -54,7 +56,7 @@ public class PlayOfficialGame {
         }
 
         /* verfify if the pokemon enter is correct */
-        Pokemon pokemonToTry = pokemonRepository.findPokemonsByNameFr(pokemonNameToTry).orElseThrow(RuntimeException::new);
+        pokemonToTry = pokemonRepository.findPokemonsByNameFr(pokemonNameToTry).orElseThrow(RuntimeException::new);
 
         Pokemon pokemonToFind = classicGame.getPokemon();
         System.out.println(pokemonToFind.getNameFr());
@@ -75,15 +77,15 @@ public class PlayOfficialGame {
 
         result =    "{\n" +
                     "   \"pokemonInfo\": {\n" +
-                    "       \"id: "+ pokemonToTry.getId() +",\n" +
+                    "       \"id\": "+ pokemonToTry.getId() +",\n" +
                     "       \"nameFr\": \""+ pokemonToTry.getNameFr() +"\",\n" +
                     "       \"nameEn\": \""+ pokemonToTry.getNameEn() +"\",\n" +
                     "       \"shape\": \""+ pokemonToTry.getShape().getName() +"\",\n" +
                     "       \"type1\": \""+ pokemonToTry.getType1().getName() +"\",\n" +
-                    "       \"type2\": \""+ (pokemonToTry.getType2() == null ? pokemonToTry.getType2().getName() : null) +"\",\n" +
+                    "       \"type2\": \""+ (pokemonToTry.getType2() != null ? pokemonToTry.getType2().getName() : null) +"\",\n" +
                     "       \"color\": \""+ pokemonToTry.getColor() +"\",\n" +
-                    "       \"height\": \""+ pokemonToTry.getHeight() +"\",\n" +
-                    "       \"weight\": \""+ pokemonToTry.getWeight() +"\",\n" +
+                    "       \"height\": "+ pokemonToTry.getHeight() +",\n" +
+                    "       \"weight\": "+ pokemonToTry.getWeight() +",\n" +
                     "       \"linkIcon\": \""+ pokemonToTry.getLinkIcon() +"\",\n" +
                     "       \"linkSmallSprite\": \""+ pokemonToTry.getLinkSmallSprite() +"\",\n" +
                     "       \"linkBigSprite\": \""+ pokemonToTry.getLinkBigSprite() +"\"\n" +
@@ -93,5 +95,9 @@ public class PlayOfficialGame {
 
     public String getResult() {
         return result;
+    }
+
+    public Pokemon getPokemonToTry() {
+        return pokemonToTry;
     }
 }
