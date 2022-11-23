@@ -1,0 +1,21 @@
+@import "../home.css";
+
+.foot {
+    display: flex;
+    background-color: var(--grey);
+    justify-content: center;
+    margin-top: auto;
+}
+
+.foot .content {
+    padding: 5px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    color: var(--dark-black);
+    font-size: 20px;
+}
+
+.foot .content .italic {
+    padding: 0 4px;
+    font-style: italic;
+}
