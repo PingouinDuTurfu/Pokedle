@@ -9,7 +9,6 @@ import java.util.UUID;
 
 @Entity(name = "Users")
 public class User {
-
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -29,6 +28,9 @@ public class User {
 
     @Column
     private String session;
+
+    @Column
+    private String role;
 
     public UUID getId() {
         return id;
@@ -56,5 +58,21 @@ public class User {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getSession() {
+        return session;
+    }
+
+    public void setSession(String session) {
+        this.session = session;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

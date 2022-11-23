@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+    <label for="select_pokemon">Selectionner le pokemon :</label>
+    <input list="pokemons" type="text" id="select_pokemon">
+
+    <datalist id="pokemons" >
+            <option th:each="pokemon : ${pokemonList}" th:value="${pokemon.nameFr}"></option>
+    </datalist>
+
+
+    <button type="button" onclick="tryPokemon()">Try</button>
+
+</body>
+<script type="text/javascript"  th:src="@{/js/play_pokemon.js}"> </script>
+</html>

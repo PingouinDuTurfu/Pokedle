@@ -1,5 +1,6 @@
 package fr.project.pokedle.persistence.classic;
 
+import fr.project.pokedle.persistence.Pokemon;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -21,7 +22,12 @@ public class ClassicRound {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "classic_official", nullable = false)
-    private ClassicOfficial game;
+    private ClassicGamePlayer game;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "pokemon", nullable = false)
+    private Pokemon pokemon;
+
 
     public UUID getId() {
         return id;
@@ -33,5 +39,21 @@ public class ClassicRound {
 
     public void setRound(long round) {
         this.round = round;
+    }
+
+    public ClassicGamePlayer getGame() {
+        return game;
+    }
+
+    public void setGame(ClassicGamePlayer game) {
+        this.game = game;
+    }
+
+    public Pokemon getPokemon() {
+        return pokemon;
+    }
+
+    public void setPokemon(Pokemon pokemon) {
+        this.pokemon = pokemon;
     }
 }
