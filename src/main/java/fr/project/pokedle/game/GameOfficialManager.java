@@ -36,10 +36,7 @@ public class GameOfficialManager {
         long id = (long) Math.floor(1 + numberPokemon * Math.random());
 
         /* verfify if the pokemon is correct */
-        Optional<Pokemon> pokemonOptional = pokemonRepository.findById(id);
-        if (pokemonOptional.isEmpty())
-            throw new RuntimeException();
-        Pokemon pokemon = pokemonOptional.get();
+        Pokemon pokemon = pokemonRepository.findById(id).orElseThrow(RuntimeException::new);
 
         // create game for the day
         ClassicGame classicGame = new ClassicGame();

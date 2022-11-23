@@ -1,5 +1,8 @@
 package fr.project.pokedle.persistence;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,7 +10,7 @@ import javax.persistence.*;
 public class Pokemon {
 
     @Id
-     long id;
+    long id;
 
     @Column
     private String nameFr;
@@ -28,6 +31,9 @@ public class Pokemon {
     private PokemonType type2;
 
     @Column
+    private String color;
+
+    @Column
     private double height;
 
     @Column
@@ -42,8 +48,6 @@ public class Pokemon {
     @Column
     private String linkBigSprite;
 
-    @Column
-    private String color;
 
     public long getId() {
         return id;
@@ -141,6 +145,28 @@ public class Pokemon {
         this.color = color;
     }
 
+    public JSONObject toJSON() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", getId());
+            jsonObject.put("nameFr", getNameFr());
+            jsonObject.put("nameEn", getNameEn());
+            jsonObject.put("shape", getShape().getName());
+            jsonObject.put("type1", getType1().getName());
+            jsonObject.put("type2", (getType2() != null ? getType2().getName() : "null"));
+            jsonObject.put("color", getColor());
+            jsonObject.put("height", getHeight());
+            jsonObject.put("weight", getWeight());
+            jsonObject.put("linkIcon", getLinkIcon());
+            jsonObject.put("linkSmallSprite", getLinkSmallSprite());
+            jsonObject.put("linkBigSprite", getLinkBigSprite());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
     public static class Builder {
 
         private final Pokemon pokemon;
@@ -213,4 +239,5 @@ public class Pokemon {
             return pokemon;
         }
     }
+
 }

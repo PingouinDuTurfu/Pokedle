@@ -9,29 +9,34 @@ import fr.project.pokedle.persistence.repository.ClassicGamePlayerRepository;
 import fr.project.pokedle.persistence.repository.ClassicGameRepository;
 import fr.project.pokedle.persistence.repository.ClassicRoundRepository;
 import fr.project.pokedle.persistence.repository.PokemonRepository;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+@Component
 public class PlayOfficialGame {
-    private final PokemonRepository pokemonRepository;
-    private final ClassicGameRepository classicGameRepository;
-    private final ClassicGamePlayerRepository classicGamePlayerRepository;
-    private final ClassicRoundRepository classicRoundRepository;
+    @Autowired
+    PokemonRepository pokemonRepository;
 
-    private Pokemon pokemonToTry;
+    @Autowired
+    ClassicGameRepository classicGameRepository;
 
-    private String result = "";
+    @Autowired
+    ClassicGamePlayerRepository classicGamePlayerRepository;
 
-    public PlayOfficialGame(PokemonRepository pokemonRepository, ClassicGameRepository classicGameRepository, ClassicGamePlayerRepository classicGamePlayerRepository, ClassicRoundRepository classicRoundRepository) {
-        this.pokemonRepository = pokemonRepository;
-        this.classicGameRepository = classicGameRepository;
-        this.classicGamePlayerRepository = classicGamePlayerRepository;
-        this.classicRoundRepository = classicRoundRepository;
-    }
+    @Autowired
+    ClassicRoundRepository classicRoundRepository;
 
-    public void play(User user, String pokemonNameToTry) {
+
+
+    public JSONObject play(User user, String pokemonNameToTry) {
         /* verfify if there is a pokemon to find */
         LocalDateTime now = LocalDateTime.now(); //current date and time
         LocalDateTime start = now.toLocalDate().atStartOfDay();
@@ -52,11 +57,11 @@ public class PlayOfficialGame {
 
         if (classicGamePlayer.isSuccess()) {
             System.out.println("already finished");
-            return;
+            return new JSONObject();
         }
 
         /* verfify if the pokemon enter is correct */
-        pokemonToTry = pokemonRepository.findPokemonsByNameFr(pokemonNameToTry).orElseThrow(RuntimeException::new);
+        Pokemon pokemonToTry = pokemonRepository.findPokemonsByNameFr(pokemonNameToTry).orElseThrow(RuntimeException::new);
 
         Pokemon pokemonToFind = classicGame.getPokemon();
         System.out.println(pokemonToFind.getNameFr());
@@ -71,33 +76,17 @@ public class PlayOfficialGame {
             classicGamePlayer.setSuccessDate(new Date());
             classicGamePlayerRepository.save(classicGamePlayer);
             System.out.println("You found it !");
-        } else {
-            // do sthg
         }
 
-        result =    "{\n" +
-                    "   \"pokemonInfo\": {\n" +
-                    "       \"id\": "+ pokemonToTry.getId() +",\n" +
-                    "       \"nameFr\": \""+ pokemonToTry.getNameFr() +"\",\n" +
-                    "       \"nameEn\": \""+ pokemonToTry.getNameEn() +"\",\n" +
-                    "       \"shape\": \""+ pokemonToTry.getShape().getName() +"\",\n" +
-                    "       \"type1\": \""+ pokemonToTry.getType1().getName() +"\",\n" +
-                    "       \"type2\": \""+ (pokemonToTry.getType2() != null ? pokemonToTry.getType2().getName() : null) +"\",\n" +
-                    "       \"color\": \""+ pokemonToTry.getColor() +"\",\n" +
-                    "       \"height\": "+ pokemonToTry.getHeight() +",\n" +
-                    "       \"weight\": "+ pokemonToTry.getWeight() +",\n" +
-                    "       \"linkIcon\": \""+ pokemonToTry.getLinkIcon() +"\",\n" +
-                    "       \"linkSmallSprite\": \""+ pokemonToTry.getLinkSmallSprite() +"\",\n" +
-                    "       \"linkBigSprite\": \""+ pokemonToTry.getLinkBigSprite() +"\"\n" +
-                    "   }\n" +
-                    "}";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("pokemon", pokemonToTry.toJSON());
+            jsonObject.put("difference", gameOfficialTry.toJSON());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 
-    public String getResult() {
-        return result;
-    }
-
-    public Pokemon getPokemonToTry() {
-        return pokemonToTry;
-    }
 }

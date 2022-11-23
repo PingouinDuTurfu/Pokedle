@@ -1,28 +1,23 @@
 package fr.project.pokedle.game;
 
 import fr.project.pokedle.persistence.Pokemon;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-public class GameOfficialTry {
-    boolean same;
+public class PokemonsDifferences {
 
     private final Column compareType;
     private final Column compareShape;
-    private final Column compareColor;
-    private final Column compareWeight;
-    private final Column compareHeight;
+    private final Column  compareColor;
+    private final Column  compareWeight;
+    private final Column  compareHeight;
 
-
-    public GameOfficialTry(Pokemon pokemonToTry, Pokemon pokemonToFind) {
-        this.same = (pokemonToTry.getId() == pokemonToFind.getId());
+    public PokemonsDifferences(Pokemon pokemonToTry, Pokemon pokemonToFind) {
         this.compareType = compareType(pokemonToTry, pokemonToFind);
         this.compareShape = compareShape(pokemonToTry, pokemonToFind);
         this.compareColor = compareColor(pokemonToTry, pokemonToFind);
         this.compareWeight = compareWeight(pokemonToTry, pokemonToFind);
         this.compareHeight = compareHeight(pokemonToTry, pokemonToFind);
-
     }
+
 
     public Column compareType(Pokemon pokemonToTry, Pokemon pokemonToFind) {
         Column resultat;
@@ -34,7 +29,7 @@ public class GameOfficialTry {
             if (resultat.equals(Column.PARTIAL))
                 resultat = Column.VALIDE;
         } else if (pokemonToTry.getType2().equals(pokemonToFind.getType1()) || (pokemonToFind.getType2() != null && pokemonToTry.getType2().equals(pokemonToFind.getType2())))
-            resultat = Column.VALIDE;
+                resultat = Column.VALIDE;
         return resultat;
     }
 
@@ -70,10 +65,6 @@ public class GameOfficialTry {
             return Column.VALIDE;
     }
 
-    public boolean isSame() {
-        return same;
-    }
-
     public Column getCompareType() {
         return compareType;
     }
@@ -92,22 +83,5 @@ public class GameOfficialTry {
 
     public Column getCompareHeight() {
         return compareHeight;
-    }
-
-    public JSONObject toJSON() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("isSame", isSame());
-            jsonObject.put("compareType", getCompareType().name());
-            jsonObject.put("compareShape", getCompareShape().name());
-            jsonObject.put("compareColor", getCompareColor().name());
-            jsonObject.put("compareWeight", getCompareWeight().name());
-            jsonObject.put("compareHeight", getCompareHeight().name());
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return jsonObject;
     }
 }

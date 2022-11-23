@@ -11,8 +11,9 @@
     <input list="pokemons" type="text" id="select_pokemon">
 
     <datalist id="pokemons" >
-            <option th:each="pokemon : ${pokemonList}" th:value="${pokemon.nameFr}">
+            <option th:each="pokemon : ${pokemonList}" th:value="${pokemon.nameFr}"></option>
     </datalist>
+
 
     <button type="button" onclick="tryPokemon()">Try</button>
 

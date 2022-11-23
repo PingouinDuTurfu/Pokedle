@@ -19,33 +19,13 @@ public class AppController {
     private UserRepository userRepository;
 
     @GetMapping("")
-    public String showHome() {
-        return "home";
+    public String showRoot() {
+        return "redirect:home";
     }
 
     @GetMapping("/home")
     public String showHome2() {
         return "home";
     }
-
-    @GetMapping("/register")
-    public String showSignUpForm(Model model) {
-        model.addAttribute("user", new User());
-        return "register";
-    }
-
-    @PostMapping("/process_register")
-    public String processRegister(User user) {
-        user.setCreationDate(new Date());
-        user.setSession(RequestContextHolder.getRequestAttributes().getSessionId());
-        user.setRole("USER");
-
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        userRepository.save(user);
-        return "register_success";
-    }
-
 
 }

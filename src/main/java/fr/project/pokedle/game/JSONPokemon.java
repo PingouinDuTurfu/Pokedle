@@ -3,18 +3,20 @@ package fr.project.pokedle.game;
 import fr.project.pokedle.persistence.Pokemon;
 
 public class JSONPokemon {
-     private final long id;
-      private final String nameFr;
-       private final String nameEn;
-        private final String shape;
-        private final String type1;
-        private final String type2;
-        private final double height;
-        private final double weight;
-        private final String linkIcon;
-        private final String linkSmallSprite;
-        private final String linkBigSprite;
-        private final String color;
+    private final long id;
+    private final String nameFr;
+    private final String nameEn;
+    private final String shape;
+    private final String type1;
+    private final String type2;
+    private final double height;
+    private final double weight;
+    private final String linkIcon;
+    private final String linkSmallSprite;
+    private final String linkBigSprite;
+    private final String color;
+
+
 
     public JSONPokemon(Pokemon pokemon) {
         this.id = pokemon.getId();

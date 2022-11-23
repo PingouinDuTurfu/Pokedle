@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,35 +44,32 @@ public class GameController {
     @Autowired
     ClassicRoundRepository classicRoundRepository;
 
+    @Autowired
+    PlayOfficialGame playOfficialGame;
+
 
     @GetMapping("/play/official")
     public String showOfficialGame(Model model) {
         List<Pokemon> pokemonList = pokemonRepository.findAll();
 
-
         model.addAttribute("pokemonList", pokemonList);
 
-        return "play_official";
+        return "play/classic";
     }
 
-    @PostMapping(value = "/play/official_try", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity tryPokemonOfficialGame(@Param("pokemonName") String pokemonName){
+    @PostMapping(value = "/play/official_try", produces="application/json")
+    public ResponseEntity<String> tryPokemonOfficialGame(@Param("pokemonName") String pokemonName, Model model, HttpSession session){
         User user = ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
-        PlayOfficialGame playOfficialGame = new PlayOfficialGame(pokemonRepository, classicGameRepository, classicGamePlayerRepository, classicRoundRepository);
-        playOfficialGame.play(user, pokemonName);
-        System.out.println(playOfficialGame.getResult());
 
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = new JSONObject(playOfficialGame.getResult());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        JSONObject result = playOfficialGame.play(user, pokemonName);
 
-        return new ResponseEntity(
-                new JSONPokemon(playOfficialGame.getPokemonToTry())
-                , HttpStatus.OK);
+
+        System.out.println(result);
+
+        final HttpHeaders httpHeaders= new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<>(result.toString(), httpHeaders, HttpStatus.OK);
+
 
     }
 }

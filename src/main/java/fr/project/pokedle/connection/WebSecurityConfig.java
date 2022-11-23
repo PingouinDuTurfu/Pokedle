@@ -31,9 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/register", "/process_register")
+                .antMatchers("/", "/register", "/process_register", "/home")
                 .permitAll()
-                .antMatchers("/home", "/play/official", "/play/official_try") // Liste de toutes les pages accessible pour les users
+                .antMatchers("/play/official", "/play/official_try") // Liste de toutes les pages accessible pour les users
                 .hasAuthority("USER")
                 .antMatchers("/admin") // Liste de toutes les pages accessible pour les admins
                 .hasAuthority("ADMIN")
