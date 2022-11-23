@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+</head>
+<body>
+    <div th:fragment="header" class="header">
+        <div class="name">
+            <span class="content">Pokedle</span>
+        </div>
+        <div class="menu">
+            <ul id="ul-header-menu">
+                <li><a href="/classicGame">Classic</a></li>
+                <li><a href="/multiplayerGame">Multiplayer</a></li>
+            </ul>
+        </div>
+        <div class="connect">
+            <ul id="ul-header-connect">
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

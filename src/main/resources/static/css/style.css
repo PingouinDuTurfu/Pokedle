@@ -1,3 +1,7 @@
+@import "header.css";
+@import "error.css";
+@import "footer.css";
+
 :root {
     --white: #ffffff;
     --black: #292929;
@@ -10,7 +14,7 @@
     --red: #BD1616;
     --light-red: #FF2626;
     --light-pink: #FFE6E6;
-    --top-height: 80px;
+    --header-height: 80px;
     --delay-short-animation : 0.5s;
     --delay-medium-animation : 1s;
 }
@@ -30,165 +34,6 @@ ul, li, a, a:hover {
     all: initial;
 }
 
-/*
-    Top bar
- */
-
-.top {
-    background: var(--light-blue);
-    height: var(--top-height);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.top .name {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: available;
-    width: -webkit-fill-available;
-    justify-content: left;
-}
-
-.top .name .content {
-    padding-left: 10px;
-    font-size: 50px;
-}
-
-.top .connect {
-    display: flex;
-    align-items: flex-start;
-    width: available;
-    width: -webkit-fill-available;
-    justify-content: right;
-}
-
-.top .connect #ul-top-connect {
-    padding: 5px 5px 0 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.top .connect #ul-top-connect li {
-    display: flex;
-    background-color: var(--blue);
-    margin: 5px;
-    border-radius: 3px;
-    transition: background-color var(--delay-short-animation);
-    -webkit-transition: background-color var(--delay-short-animation);
-}
-
-.top .connect #ul-top-connect li a {
-    font-size: 25px;
-    color: var(--white);
-    padding: 8px;
-}
-
-.top .connect #ul-top-connect li:hover {
-    background-color: var(--green);
-}
-
-.top .menu {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
-.top .menu #ul-top-menu {
-    display: flex;
-    flex-direction: row;
-    padding: 10px 10px 0 10px;
-    align-items: flex-end;
-}
-
-.top .menu #ul-top-menu li {
-    display: flex;
-    background-color: var(--black);
-    border-radius: 5px 5px 0 0;
-    transition: background-color var(--delay-short-animation), padding-bottom var(--delay-medium-animation);
-    -webkit-transition: background-color var(--delay-short-animation), padding-bottom var(--delay-medium-animation);
-    margin: 0 5px;
-}
-
-.top .menu #ul-top-menu li a {
-    font-size: 40px;
-    color: var(--white);
-    padding: 0 10px;
-}
-
-.top .menu #ul-top-menu li:hover {
-    background-color: var(--green);
-    padding-bottom: 15px;
-}
-
-/*
-    Responsive part for top bar
- */
-@media screen and (max-width: 500px) {
-    .top .name {
-        display: none;
-    }
-
-    .top .connect #ul-top-connect {
-        flex-direction: column;
-    }
-
-    .top .connect #ul-top-connect li {
-        width: 65px;
-        justify-content: center;
-    }
-
-    .top .connect #ul-top-connect li a {
-        font-size: 15px;
-        padding: 2px;
-    }
-}
-
-
-/*
-    Main error section
- */
-
-.main .error {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-.main .error #ul-main-error {
-    display: flex;
-    flex-direction: column;
-    padding: 3px 5px;
-    width: 80%;
-    max-width: 600px;
-    align-items: center;
-}
-
-.main .error #ul-main-error:empty {
-    display: none;
-}
-
-.main .error #ul-main-error li {
-    display: flex;
-    background-color: var(--light-pink);
-    margin: 2px 0;
-    border-radius: 5px;
-    width: -webkit-fill-available;
-}
-
-.main .error #ul-main-error li span {
-    color: var(--red) ;
-    font-size: 20px;
-    padding: 3px;
-}
-
-/*
-    Main content section
- */
-
 .main .content {
     margin-top: 20px;
     display: flex;
@@ -199,12 +44,12 @@ ul, li, a, a:hover {
 .main .content .title {
     display: flex;
     flex-direction: row;
-    align-content: center;
     background-color: var(--dark-black);
     width: 80%;
     padding: 8px;
     border-radius: 10px;
-    align-content: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .main .content .title img {
@@ -269,23 +114,3 @@ ul, li, a, a:hover {
 /*
     Footer section
  */
-
-.foot {
-    display: flex;
-    background-color: var(--grey);
-    justify-content: center;
-    margin-top: auto;
-}
-
-.foot .content {
-    padding: 5px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    color: var(--dark-black);
-    font-size: 20px;
-}
-
-.foot .content .italic {
-    padding: 0 4px;
-    font-style: italic;
-}
