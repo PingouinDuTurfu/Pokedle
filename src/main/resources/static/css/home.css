@@ -1,38 +1,7 @@
-@import "header.css";
-@import "error.css";
-@import "footer.css";
-
-:root {
-    --white: #ffffff;
-    --black: #292929;
-    --dark-black: #191919;
-    --light-blue: #4752c4;
-    --blue: #3c45a5;
-    --orange: #f8c555;
-    --green: #4f9d70;
-    --grey: #777777;
-    --red: #BD1616;
-    --light-red: #FF2626;
-    --light-pink: #FFE6E6;
-    --header-height: 80px;
-    --delay-short-animation : 0.5s;
-    --delay-medium-animation : 1s;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--black);
-    margin: 0;
-    padding: 0;
-    font-family: Friz Quadrata Std,Mobilo,Helvetica,Arial;
-    color: var(--white);
-    min-height: 100%;
-}
-
-ul, li, a, a:hover {
-    all: initial;
-}
+@import "fragments/base.css";
+@import "fragments/header.css";
+@import "fragments/error.css";
+@import "fragments/footer.css";
 
 .main .content {
     margin-top: 20px;
