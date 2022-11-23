@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Page d'accueil</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+<body>
+    <div th:replace="/fragments/header::header"></div>
+
+    <div class="main">
+
+        <div th:replace="/fragments/error::error"></div>
+
+        <div class="content">
+            <div class="title">
+                <span>Bonjour Michel ravie de vous revoir !</span>
+                <img th:src="@{/img/gif/canarticho_1.gif}"/>
+            </div>
+            <div class="items">
+                <ul id="ul-main-item">
+                    <li class="connect-item">
+                        <a href="/login">Login</a>
+                        <img th:src="@{/img/gif/rondoudou_1.gif}"/>
+                    </li>
+                    <li class="connect-item">
+                        <a href="/register">Register</a>
+                        <img th:src="@{/img/gif/ratata_1.gif}"/>
+                    </li>
+                    <li class="game-item"><a href="/classicGame">Classic</a></li>
+                    <li class="game-item"><a href="/infoPoke">Info Poké</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="/fragments/footer::footer"></div>
+</body>
+</html>

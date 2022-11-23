@@ -1,0 +1,113 @@
+@import "../home.css";
+
+.header {
+    background: var(--light-blue);
+    height: var(--header-height);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.header .name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: available;
+    width: -webkit-fill-available;
+    justify-content: left;
+}
+
+.header .name .content {
+    padding-left: 10px;
+    font-size: 50px;
+}
+
+.header .connect {
+    display: flex;
+    align-items: flex-start;
+    width: available;
+    width: -webkit-fill-available;
+    justify-content: right;
+}
+
+.header .connect #ul-header-connect {
+    padding: 5px 5px 0 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header .connect #ul-header-connect li {
+    display: flex;
+    background-color: var(--blue);
+    margin: 5px;
+    border-radius: 3px;
+    transition: background-color var(--delay-short-animation);
+    -webkit-transition: background-color var(--delay-short-animation);
+}
+
+.header .connect #ul-header-connect li a {
+    font-size: 25px;
+    color: var(--white);
+    padding: 8px;
+}
+
+.header .connect #ul-header-connect li:hover {
+    background-color: var(--green);
+}
+
+.header .menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.header .menu #ul-header-menu {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 10px 0 10px;
+    align-items: flex-end;
+}
+
+.header .menu #ul-header-menu li {
+    display: flex;
+    background-color: var(--black);
+    border-radius: 5px 5px 0 0;
+    transition: background-color var(--delay-short-animation), padding-bottom var(--delay-medium-animation);
+    -webkit-transition: background-color var(--delay-short-animation), padding-bottom var(--delay-medium-animation);
+    margin: 0 5px;
+}
+
+.header .menu #ul-header-menu li a {
+    font-size: 40px;
+    color: var(--white);
+    padding: 0 10px;
+}
+
+.header .menu #ul-header-menu li:hover {
+    background-color: var(--green);
+    padding-bottom: 15px;
+}
+
+/*
+    Responsive part for header bar
+ */
+@media screen and (max-width: 500px) {
+    .header .name {
+        display: none;
+    }
+
+    .header .connect #ul-header-connect {
+        flex-direction: column;
+    }
+
+    .header .connect #ul-header-connect li {
+        width: 65px;
+        justify-content: center;
+    }
+
+    .header .connect #ul-header-connect li a {
+        font-size: 15px;
+        padding: 2px;
+    }
+}
