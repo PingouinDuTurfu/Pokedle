@@ -1,7 +1,6 @@
 package fr.project.pokedle;
 
 import fr.project.pokedle.connection.CustomUserDetails;
-import fr.project.pokedle.game.JSONPokemon;
 import fr.project.pokedle.game.PlayOfficialGame;
 import fr.project.pokedle.persistence.Pokemon;
 import fr.project.pokedle.persistence.User;
@@ -9,7 +8,6 @@ import fr.project.pokedle.persistence.repository.ClassicGamePlayerRepository;
 import fr.project.pokedle.persistence.repository.ClassicGameRepository;
 import fr.project.pokedle.persistence.repository.ClassicRoundRepository;
 import fr.project.pokedle.persistence.repository.PokemonRepository;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -22,12 +20,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 public class GameController {
