@@ -1,5 +1,7 @@
 package fr.project.pokedle.persistence;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -8,6 +10,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity(name = "Users")
+@Getter @Setter
 public class User {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -27,52 +30,5 @@ public class User {
     private Date creationDate;
 
     @Column
-    private String session;
-
-    @Column
     private String role;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public String getSession() {
-        return session;
-    }
-
-    public void setSession(String session) {
-        this.session = session;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }

@@ -1,4 +1,4 @@
-package fr.project.pokedle.connection;
+package fr.project.pokedle.service;
 
 import fr.project.pokedle.persistence.User;
 import fr.project.pokedle.persistence.repository.UserRepository;
@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -19,6 +19,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findFirstByUsername(username);
         if (user == null)
             throw new UsernameNotFoundException("User not found");
-        return new CustomUserDetails(user);
+        return new UserDetailsImpl(user);
     }
 }

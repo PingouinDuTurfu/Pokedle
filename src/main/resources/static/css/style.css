@@ -1,3 +1,6 @@
+.boby {
+    text-align: center;
+}
 /* Dropdown Button */
 .dropbtn {
     background-color: #04AA6D;
@@ -32,6 +35,7 @@
 .dropdown {
     position: relative;
     display: inline-block;
+    text-align: center;
 }
 
 /* Dropdown Content (Hidden by Default) */
