@@ -9,13 +9,10 @@ import fr.project.pokedle.persistence.repository.ClassicGamePlayerRepository;
 import fr.project.pokedle.persistence.repository.ClassicGameRepository;
 import fr.project.pokedle.persistence.repository.ClassicRoundRepository;
 import fr.project.pokedle.persistence.repository.PokemonRepository;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -82,11 +79,8 @@ public class PlayOfficialGame {
         try {
             jsonObject.put("pokemon", pokemonToTry.toJSON());
             jsonObject.put("difference", gameOfficialTry.toJSON());
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } finally {
+            return jsonObject;
         }
-
-        return jsonObject;
     }
-
 }

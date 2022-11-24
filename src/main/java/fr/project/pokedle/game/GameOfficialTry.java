@@ -1,8 +1,7 @@
 package fr.project.pokedle.game;
 
 import fr.project.pokedle.persistence.Pokemon;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 
 public class GameOfficialTry {
     boolean same;
@@ -104,8 +103,8 @@ public class GameOfficialTry {
             jsonObject.put("compareWeight", getCompareWeight().name());
             jsonObject.put("compareHeight", getCompareHeight().name());
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         return jsonObject;
