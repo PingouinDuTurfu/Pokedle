@@ -39,8 +39,10 @@ public class RegistrationController {
 
 
     @PostMapping("/register")
-    public String registerUser(UserDetailsForm userDetailsForm) {
-        userService.registerUser(userDetailsForm);
+    public String registerUser(UserDetailsForm userDetailsForm, HttpServletResponse response) throws ServletException {
+        User user = userService.registerUser(userDetailsForm);
+        if (user == null)
+            return "redirect:/register?errorNotMatchingPassword";
         return "redirect:/login";
     }
 }
