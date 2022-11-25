@@ -1,4 +1,4 @@
-package fr.project.pokedle.persistence;
+package fr.project.pokedle.persistence.data;
 
 import javax.persistence.*;
 import java.util.List;

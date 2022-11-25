@@ -1,4 +1,4 @@
-package fr.project.pokedle.persistence.repository;
+package fr.project.pokedle.repository;
 
 import fr.project.pokedle.persistence.classic.ClassicGame;
 import org.springframework.data.jpa.repository.JpaRepository;

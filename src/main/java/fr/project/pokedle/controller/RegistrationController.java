@@ -1,10 +1,9 @@
 package fr.project.pokedle.controller;
 
 import fr.project.pokedle.model.UserDetailsForm;
-import fr.project.pokedle.persistence.User;
+import fr.project.pokedle.persistence.registration.User;
 import fr.project.pokedle.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +16,6 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ApplicationEventPublisher publisher;
 
     @GetMapping("/register")
     public String registerPage(Model model) {

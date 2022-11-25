@@ -1,4 +1,4 @@
-package fr.project.pokedle.persistence;
+package fr.project.pokedle.persistence.registration;
 
 import lombok.Getter;
 import lombok.Setter;

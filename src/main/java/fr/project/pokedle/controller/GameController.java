@@ -2,8 +2,8 @@ package fr.project.pokedle.controller;
 
 import fr.project.pokedle.service.UserDetailsImpl;
 import fr.project.pokedle.game.PlayOfficialGame;
-import fr.project.pokedle.persistence.Pokemon;
-import fr.project.pokedle.persistence.repository.PokemonRepository;
+import fr.project.pokedle.persistence.data.Pokemon;
+import fr.project.pokedle.repository.PokemonRepository;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;

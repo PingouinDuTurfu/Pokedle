@@ -1,19 +1,18 @@
 package fr.project.pokedle.game;
 
-import fr.project.pokedle.persistence.Pokemon;
-import fr.project.pokedle.persistence.User;
+import fr.project.pokedle.persistence.data.Pokemon;
+import fr.project.pokedle.persistence.registration.User;
 import fr.project.pokedle.persistence.classic.ClassicGame;
 import fr.project.pokedle.persistence.classic.ClassicGamePlayer;
 import fr.project.pokedle.persistence.classic.ClassicRound;
-import fr.project.pokedle.persistence.repository.ClassicGamePlayerRepository;
-import fr.project.pokedle.persistence.repository.ClassicGameRepository;
-import fr.project.pokedle.persistence.repository.ClassicRoundRepository;
-import fr.project.pokedle.persistence.repository.PokemonRepository;
+import fr.project.pokedle.repository.ClassicGamePlayerRepository;
+import fr.project.pokedle.repository.ClassicGameRepository;
+import fr.project.pokedle.repository.ClassicRoundRepository;
+import fr.project.pokedle.repository.PokemonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GameOfficialManager {
