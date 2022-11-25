@@ -1,6 +1,7 @@
 package fr.project.pokedle.service;
 
 import fr.project.pokedle.persistence.registration.User;
+import lombok.Data;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
