@@ -1,6 +1,6 @@
 package fr.project.pokedle.persistence.classic;
 
-import fr.project.pokedle.persistence.Pokemon;
+import fr.project.pokedle.persistence.data.Pokemon;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 

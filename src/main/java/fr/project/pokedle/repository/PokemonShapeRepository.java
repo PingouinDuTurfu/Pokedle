@@ -1,6 +1,6 @@
-package fr.project.pokedle.persistence.repository;
+package fr.project.pokedle.repository;
 
-import fr.project.pokedle.persistence.PokemonShape;
+import fr.project.pokedle.persistence.data.PokemonShape;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

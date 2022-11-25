@@ -1,112 +1,80 @@
 package fr.project.pokedle.game;
 
-import fr.project.pokedle.persistence.Pokemon;
+import fr.project.pokedle.persistence.data.Pokemon;
 import org.json.simple.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameOfficialTry {
     boolean same;
 
-    private final Column compareType;
-    private final Column compareShape;
-    private final Column compareColor;
-    private final Column compareWeight;
-    private final Column compareHeight;
+    private final Map<String, Column> mapCompare;
 
 
     public GameOfficialTry(Pokemon pokemonToTry, Pokemon pokemonToFind) {
+        this.mapCompare = new HashMap<>();
         this.same = (pokemonToTry.getId() == pokemonToFind.getId());
-        this.compareType = compareType(pokemonToTry, pokemonToFind);
-        this.compareShape = compareShape(pokemonToTry, pokemonToFind);
-        this.compareColor = compareColor(pokemonToTry, pokemonToFind);
-        this.compareWeight = compareWeight(pokemonToTry, pokemonToFind);
-        this.compareHeight = compareHeight(pokemonToTry, pokemonToFind);
-
+        this.mapCompare.put("type", compareType(pokemonToTry, pokemonToFind));
+        this.mapCompare.put("shape", compareShape(pokemonToTry, pokemonToFind));
+        this.mapCompare.put("color", compareColor(pokemonToTry, pokemonToFind));
+        this.mapCompare.put("weight", compareWeight(pokemonToTry, pokemonToFind));
+        this.mapCompare.put("height", compareHeight(pokemonToTry, pokemonToFind));
     }
 
     public Column compareType(Pokemon pokemonToTry, Pokemon pokemonToFind) {
-        Column resultat;
-        if (pokemonToTry.getType1().equals(pokemonToFind.getType1()) || (pokemonToFind.getType2() != null && pokemonToTry.getType1().equals(pokemonToFind.getType2())))
-            resultat = Column.PARTIAL;
-        else
-            resultat = Column.INVALIDE;
+        boolean type1Correct = (pokemonToTry.getType1().equals(pokemonToFind.getType1()) || pokemonToTry.getType1().equals(pokemonToFind.getType2()));
         if (pokemonToTry.getType2() == null) {
-            if (resultat.equals(Column.PARTIAL))
-                resultat = Column.VALIDE;
-        } else if (pokemonToTry.getType2().equals(pokemonToFind.getType1()) || (pokemonToFind.getType2() != null && pokemonToTry.getType2().equals(pokemonToFind.getType2())))
-            resultat = Column.VALIDE;
-        return resultat;
+            if (type1Correct)
+                return Column.VALIDE;
+            return Column.INVALIDE;
+        }
+        boolean type2Correct = (pokemonToTry.getType2().equals(pokemonToFind.getType1()) || pokemonToTry.getType2().equals(pokemonToFind.getType2()));
+
+        if (type1Correct && type2Correct)
+            return Column.VALIDE;
+        if (type1Correct || type2Correct)
+            return Column.PARTIAL;
+        return Column.INVALIDE;
     }
 
     public Column compareShape(Pokemon pokemonToTry, Pokemon pokemonToFind) {
         if (pokemonToTry.getShape().equals(pokemonToFind.getShape()))
             return Column.VALIDE;
-        else
-            return Column.INVALIDE;
+        return Column.INVALIDE;
     }
 
     public Column compareColor(Pokemon pokemonToTry, Pokemon pokemonToFind) {
         if (pokemonToTry.getColor().equals(pokemonToFind.getColor()))
             return Column.VALIDE;
-        else
-            return Column.INVALIDE;
+        return Column.INVALIDE;
     }
 
     public Column compareWeight(Pokemon pokemonToTry, Pokemon pokemonToFind) {
         if (pokemonToTry.getWeight() > pokemonToFind.getWeight())
             return Column.LOWER;
-        else if (pokemonToTry.getWeight() < pokemonToFind.getWeight())
+        if (pokemonToTry.getWeight() < pokemonToFind.getWeight())
             return Column.UPPER ;
-        else
-            return Column.VALIDE;
+        return Column.VALIDE;
     }
 
     public Column compareHeight(Pokemon pokemonToTry, Pokemon pokemonToFind) {
         if (pokemonToTry.getHeight() > pokemonToFind.getHeight())
             return Column.LOWER;
-        else if (pokemonToTry.getHeight() < pokemonToFind.getHeight())
+        if (pokemonToTry.getHeight() < pokemonToFind.getHeight())
             return Column.UPPER;
-        else
-            return Column.VALIDE;
+        return Column.VALIDE;
     }
 
     public boolean isSame() {
         return same;
     }
 
-    public Column getCompareType() {
-        return compareType;
-    }
-
-    public Column getCompareShape() {
-        return compareShape;
-    }
-
-    public Column getCompareColor() {
-        return compareColor;
-    }
-
-    public Column getCompareWeight() {
-        return compareWeight;
-    }
-
-    public Column getCompareHeight() {
-        return compareHeight;
+    public Map<String, Column> getMapCompare() {
+        return mapCompare;
     }
 
     public JSONObject toJSON() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("isSame", isSame());
-            jsonObject.put("compareType", getCompareType().name());
-            jsonObject.put("compareShape", getCompareShape().name());
-            jsonObject.put("compareColor", getCompareColor().name());
-            jsonObject.put("compareWeight", getCompareWeight().name());
-            jsonObject.put("compareHeight", getCompareHeight().name());
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return jsonObject;
+        return new JSONObject(mapCompare);
     }
 }
