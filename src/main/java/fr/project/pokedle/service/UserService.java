@@ -19,7 +19,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public User registerUser(UserDetailsForm userDetailsForm) {
-        if (!userDetailsForm.getPassword().equals(userDetailsForm.getMachingPassword())) {
+        if (!userDetailsForm.getPassword().equals(userDetailsForm.getConfirmPassword())) {
             return null;
         }
         User user = new User();

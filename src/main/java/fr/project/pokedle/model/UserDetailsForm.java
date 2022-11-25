@@ -9,5 +9,5 @@ import lombok.*;
 public class UserDetailsForm {
     private String username;
     private String password;
-    private String machingPassword;
+    private String confirmPassword;
 }
