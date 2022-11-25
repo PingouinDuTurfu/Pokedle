@@ -1,6 +1,7 @@
 package fr.project.pokedle.persistence.data;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.json.simple.JSONObject;
 import org.springframework.util.StringUtils;
@@ -13,8 +14,11 @@ import java.util.Map;
 import java.util.function.Function;
 
 
+
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
-@Getter @Setter
 @Table(name = "Pokemons")
 public class Pokemon {
 
