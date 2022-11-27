@@ -2,3 +2,127 @@
 @import "fragments/header.css";
 @import "fragments/error.css";
 @import "fragments/footer.css";
+
+.game {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.search {
+    margin-top: 20px;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+}
+
+.search #selectSearchInput {
+    background-color: var(--dark-black);
+    width: 400px;
+    height: 60px;
+    font-size: 40px;
+    padding: 5px 10px;
+    border-color: var(--green);
+    border-radius: 5px;
+    border-style: solid;
+    color: var(--white);
+    box-sizing: border-box;
+}
+
+.search .searchContent {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    border-color: var(--green);
+    max-height: 270px;
+    overflow: auto;
+    width: 400px;
+    top: 60px;
+}
+
+.search .searchContent .searchItem {
+    display: none;
+    background-color: var(--blue);
+    padding: 5px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+    box-sizing: border-box;
+}
+
+.search .searchContent .searchItem:hover {
+    background-color: var(--light-blue);
+}
+
+.search .searchContent .searchItem span {
+    color: var(--white);
+    display: flex;
+    font-size: 40px;
+    padding: 2px;
+}
+
+.search .searchContent .searchItem img {
+    height: 80px;
+}
+
+.search .selectSearchButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    background-color: var(--green);
+    margin-left: 20px;
+    border-radius: 5px;
+    color: var(--dark-black);
+    transition: transform var(--delay-short-animation);
+}
+
+.search .selectSearchButton:hover {
+    transform: scale(1.1);
+}
+
+.answer {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dark-black);
+    width: 80%;
+    padding: 8px;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.answer .answerHeader ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.answer .answerHeader ul li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.answer .answerHeader ul li span {
+    font-size: 30px;
+    color: var(--white);
+}
+
+.answer .answerContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+/*
+rems2rems
+ */
+
