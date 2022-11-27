@@ -1,7 +1,5 @@
-
-
 function tryPokemon() {
-    const pokemonToTry = $("#myInput").val();
+    const pokemonToTry = $("#selectSearchInput").val();
     $.post("/play/official_try",
         {pokemonName: pokemonToTry},
         function(data, status){
@@ -9,38 +7,36 @@ function tryPokemon() {
     });
 }
 
+const FILTER_RESET = "----";
+const FILTER_NULL = "";
+
 
 function filterFunction() {
-    var input, filter, a, i;
-    input = document.getElementById("myInput");
-    console.log(input.value)
-    if (input.value === "")
-        filter = "42";
+    let input, filter, contentDiv, buttonItems;
+    input = document.getElementById("selectSearchInput");
+
+    if(input.value === FILTER_NULL)
+        filter = FILTER_RESET;
     else
         filter = input.value.toUpperCase();
-    div = document.getElementById("myDropdown");
-    a = div.getElementsByTagName("button");
-    console.log(a)
-    for (i = 0; i < a.length; i++) {
-        txtValue = a[i].getElementsByTagName("span").item(0).textContent;
-        if (txtValue.toUpperCase().startsWith(filter)) {
-            a[i].style.display = "";
-        } else {
-            a[i].style.display = "none";
-        }
+
+    contentDiv = document.getElementById("classicGameSearchContent");
+    buttonItems = contentDiv.getElementsByTagName("button");
+
+    for (const item of buttonItems) {
+        const textValue = item.getElementsByTagName("span").item(0).textContent;
+        if(!textValue.toUpperCase().startsWith(filter) || textValue.toUpperCase() === filter)
+            item.style.display = "none";
+        else
+            item.style.display = "flex";
     }
 }
 
 function selectPokemon(select) {
-    const pokemonToTry = $("#myInput").val(select.name);
+    $("#selectSearchInput").val(select.name);
     filterFunction();
 }
 
-
-
-
-
 $(document).ready(() => {
-    document.getElementById("myDropdown").classList.toggle("show");
     filterFunction();
 });

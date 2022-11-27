@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -61,6 +62,11 @@ public class Pokemon {
 
     @Column
     private String linkBigSprite;
+
+    public String getLinkIcon() {
+        System.out.println("getLinkIcon" + linkIcon);
+        return linkIcon.split("/")[linkIcon.split("/").length - 1];
+    }
 
     public JSONObject toJSON() {
         Map<String, String> jsonMap = new HashMap<>();

@@ -10,11 +10,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
     private static final String[] EVERYONE_LIST_URLS = {
-            "/", "/home", "/register", "/login"
+            "/", "/home", "/register", "/play/official", "/login"
     };
 
     private static final String[] USER_LIST_URLS = {
-            "/play/official", "/play/official_try"
+            "/play/official_try"
     };
 
     @Bean
