@@ -34,7 +34,7 @@ public class GameController {
 
         model.addAttribute("pokemonList", pokemonList);
 
-        return "play/classic";
+        return "classicGame";
     }
 
     @PostMapping(value = "/play/official_try", produces = MediaType.APPLICATION_JSON_VALUE)
