@@ -7,12 +7,25 @@
     --orange: #f8c555;
     --green: #4f9d70;
     --grey: #777777;
+    --dark-grey: #424242;
     --red: #BD1616;
     --light-red: #FF2626;
     --light-pink: #FFE6E6;
     --header-height: 80px;
     --delay-short-animation : 0.5s;
     --delay-medium-animation : 1s;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--grey);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-grey);
 }
 
 body {
@@ -26,6 +39,6 @@ body {
     min-height: 100%;
 }
 
-ul, li, a, a:hover {
+ul, li, a, a:hover, input, button {
     all: initial;
 }
