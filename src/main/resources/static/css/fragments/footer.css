@@ -1,5 +1,3 @@
-@import "../home.css";
-
 .foot {
     display: flex;
     background-color: var(--grey);
