@@ -1,4 +1,4 @@
-package fr.project.pokedle.application;
+package fr.project.pokedle;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
