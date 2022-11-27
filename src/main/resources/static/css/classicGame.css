@@ -3,21 +3,51 @@
 @import "fragments/error.css";
 @import "fragments/footer.css";
 
-.game {
+
+.main .content {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
-    width: 100%;
     align-items: center;
 }
 
-.search {
-    margin-top: 20px;
+.main .content .title {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--dark-black);
+    width: 80%;
+    padding: 8px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.main .content .title span {
+    font-size: 40px;
+    color: var(--white);
+}
+
+.main .game {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+    padding: 20px;
+    border-style: solid;
+    border-color: var(--light-blue);
+    border-radius: 30px;
+    margin-top: 30px;
+    box-sizing: border-box;
+}
+
+.main .game .search {
     display: flex;
     position: relative;
     flex-direction: row;
 }
 
-.search #selectSearchInput {
+.main .game .search #selectSearchInput {
     background-color: var(--dark-black);
     width: 400px;
     height: 60px;
@@ -30,7 +60,7 @@
     box-sizing: border-box;
 }
 
-.search .searchContent {
+.main .game .search .searchContent {
     display: flex;
     position: absolute;
     flex-direction: column;
@@ -41,7 +71,7 @@
     top: 60px;
 }
 
-.search .searchContent .searchItem {
+.main .game .search .searchContent .searchItem {
     display: none;
     background-color: var(--blue);
     padding: 5px;
@@ -52,22 +82,22 @@
     box-sizing: border-box;
 }
 
-.search .searchContent .searchItem:hover {
+.main .game .search .searchContent .searchItem:hover {
     background-color: var(--light-blue);
 }
 
-.search .searchContent .searchItem span {
+.main .game .search .searchContent .searchItem span {
     color: var(--white);
     display: flex;
     font-size: 40px;
     padding: 2px;
 }
 
-.search .searchContent .searchItem img {
+.main .game .search .searchContent .searchItem img {
     height: 80px;
 }
 
-.search .selectSearchButton {
+.main .game .search .selectSearchButton {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -82,46 +112,60 @@
     transition: transform var(--delay-short-animation);
 }
 
-.search .selectSearchButton:hover {
+.main .game .search .selectSearchButton:hover {
     transform: scale(1.1);
 }
 
-.answer {
+.main .game .answer {
     display: flex;
     flex-direction: column;
     background-color: var(--dark-black);
-    width: 80%;
     padding: 8px;
     border-radius: 10px;
     justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 20px;
 }
 
-.answer .answerHeader ul {
+.main .game .answer .answerLineContent {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.answer .answerHeader ul li {
+.main .game .answer .answerColumContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.main .game .answer .answerItem {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.answer .answerHeader ul li span {
+.main .game .answer .answerItem {
+    width: 130px;
+}
+
+.main .game .answer .answerItem span {
     font-size: 30px;
     color: var(--white);
 }
 
-.answer .answerContent {
+.main .game .answer .answerContent {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    border-top: 1px solid var(--grey);
 }
+
 /*
 rems2rems
  */
