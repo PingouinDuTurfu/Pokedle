@@ -2,8 +2,20 @@ function tryPokemon() {
     const pokemonToTry = $("#selectSearchInput").val();
     $.post("/play/official_try",
         {pokemonName: pokemonToTry},
-        function(data, status){
-        console.log(data)
+        function(data, status) {
+            const answerTable = $("#classic-game-answer-content");
+            const newLine = "" +
+                "<ul class=\"answerLineContent\">" +
+                    "<li class=\"answerItem\"><img src='http://www.pingouinduturfu.fr/pokedle/thumbnails-compressed/" + data["pokemon"]["linkIcon"] + "' alt='pokemon'></li>" +
+                    "<li class=\"answerItem\"><span>" + data["pokemon"]["nameFr"] + "</span></li>" +
+                    "<li class=\"answerItem\"><span>" + data["difference"]["color"] + "</span></li>" +
+                    "<li class=\"answerItem\"><span>" + data["difference"]["shape"] + "</span></li>" +
+                    "<li class=\"answerItem\"><span>" + data["difference"]["type"] + "</span></li>" +
+                    "<li class=\"answerItem\"><span>" + data["difference"]["weight"] + "</span></li>" +
+                    "<li class=\"answerItem\"><span>" + data["difference"]["height"] + "</span></li>" +
+                    "<li class=\"answerItem\"><span>" + "hasagy" + "</span></li>" +
+                "</ul>";
+            answerTable.append(newLine);
     });
 }
 

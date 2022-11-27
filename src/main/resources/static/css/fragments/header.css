@@ -1,5 +1,3 @@
-@import "../home.css";
-
 .header {
     background: var(--light-blue);
     height: var(--header-height);
