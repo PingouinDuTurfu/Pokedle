@@ -96,6 +96,7 @@ function selectPokemon(select) {
 }
 
 $(document).ready(() => {
+    // get all pokemon played
     $.post("/play/official/previous",
         {},
         function(data, status) {
