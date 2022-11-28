@@ -3,14 +3,6 @@
 @import "fragments/error.css";
 @import "fragments/footer.css";
 
-:root {
-    --filter-red: #3e0707;
-    --filter-green: #073e0c;
-    --filter-orange: #5d4b21;
-    --filter-out-light-color: #f1c8c861;
-    --filter-inside-light-color: #ffffff7d;
-    --default-black: black;
-}
 
 .main .content {
     margin-top: 20px;
@@ -41,8 +33,11 @@
     flex-direction: column;
     width: 80%;
     align-items: center;
-    padding-top: 10px;
-    margin: 30px 0;
+    padding: 20px;
+    border-style: solid;
+    border-color: var(--light-blue);
+    border-radius: 30px;
+    margin-top: 30px;
     box-sizing: border-box;
 }
 
@@ -74,7 +69,6 @@
     overflow: auto;
     width: 400px;
     top: 60px;
-    z-index: 10;
 }
 
 .main .game .search .searchContent .searchItem {
@@ -139,9 +133,6 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-}
-
-.main .game .answer .answerContent .answerLineContent {
     height: 120px;
 }
 
@@ -197,53 +188,13 @@
     height: 80px;
 }
 
-.main .game .answer .answerContent .answerItem .itemIcon .itemImage {
+.main .game .answer .answerContent .answerItem .itemIcon .itemImage{
     height: 110px;
     width: 110px;
-    filter: drop-shadow(2px 4px 6px var(--default-black));
-}
-
-.main .game .answer .answerContent .answerItem .itemColor .itemValue {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    position: relative;
-    filter: drop-shadow(2px 4px 6px var(--filter-red));
-}
-
-.main .game .answer .answerContent .answerItem .itemColor .itemValue::after {
-    position: absolute;
-    content: "";
-    box-shadow: 0px 0px 15px 10px var(--filter-out-light-color);
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-}
-
-.main .game .answer .answerContent .answerItem .itemColor .itemValue::before {
-    position: absolute;
-    content: "";
-    box-shadow: 0px 0px 10px 5px inset var(--filter-out-light-color);
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-}
-
-.main .game .answer .answerContent .answerItem .invalid .itemImage {
-    filter: drop-shadow(2px 4px 6px var(--filter-red))
-}
-
-.main .game .answer .answerContent .answerItem .valid .itemImage {
-    filter: drop-shadow(2px 4px 6px var(--filter-green))
-}
-
-.main .game .answer .answerContent .answerItem .partial .itemImage {
-    filter: drop-shadow(2px 4px 6px var(--filter-orange))
 }
 
 .main .game .answer .answerContent .answerItem .invalid {
     background-color: var(--red);
-    position: relative;
 }
 
 .main .game .answer .answerContent .answerItem .valid {
@@ -254,58 +205,18 @@
     background-color: var(--orange);
 }
 
-.main .game .answer .answerLineContent .answerItem .itemName {
-    border-color: var(--pink);
-    border-style: dashed;
-    box-sizing: border-box;
-    color: var(--white);
-    /* Will be reducing to container width in JS */
-    font-size: 40px;
-}
-
 .main .game .answer .answerContent .answerItem .pokemonImage {
     height: 80px;
-}
-
-.main .game .answer .answerContent .answerItem .upper, .main .game .answer .answerContent .answerItem .lower  {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    border-color: var(--pink);
-    border-style: dashed;
-    box-sizing: border-box;
 }
 
 .main .game .answer .answerContent .answerItem .upper .arrowUpper {
     height: 40px;
     transform: rotate(270deg);
-    filter: invert(100%) brightness(200%);
 }
 
 .main .game .answer .answerContent .answerItem .lower .arrowLower {
     height: 40px;
     transform: rotate(90deg);
-    filter: invert(100%) brightness(200%);
-}
-
-.main .game .answer .answerContent .answerItem .upper .itemValue,.main .game .answer .answerContent .answerItem .lower .itemValue {
-    color: var(--white);
-    font-size: 25px;
-}
-.main .game .answer .answerContent .answerItem .itemTopLeft {
-    position: relative;
-    clip-path: polygon(100% 0, 0% 100%, 0 0);
-    overflow: hidden;
-}
-
-.main .game .answer .answerContent .answerItem .itemBottomRight {
-    position: relative;
-    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
-    overflow: hidden;
-}
-
-.main .game .answer .answerContent .answerItem .itemTopLeft, .main .game .answer .answerContent .answerItem .itemBottomRight  {
-    position: absolute;
 }
 
 /*

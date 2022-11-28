@@ -2,7 +2,7 @@ const DEFAULT_RESSOURCE = "http://www.pingouinduturfu.fr/pokedle/";
 
 function tryPokemon() {
     const pokemonToTry = $("#selectSearchInput").val();
-    $.post("/play/classic/try",
+    $.post("/play/official/try",
         {pokemonName: pokemonToTry},
         function(data, status) {
             const answerTable = $("#classic-game-answer-content");
@@ -11,7 +11,7 @@ function tryPokemon() {
             const content = prefix +
                 getHTMLDifference("NEUTRAL", "itemIcon", getHTMLValue("IMAGE", data["pokemon"]["linkIcon"])) +
                 getHTMLDifference("NEUTRAL", "itemName", getHTMLValue("TEXT", data["pokemon"]["nameFr"])) +
-                getHTMLDifference(data["difference"]["color"], "itemColor", getHTMLValue("COLOR", data["pokemon"]["color"])) +
+                getHTMLDifference(data["difference"]["color"], "itemColor", getHTMLValue("TEXT", data["pokemon"]["color"])) +
                 getHTMLDifference(data["difference"]["shape"], "itemShape", getHTMLValue("IMAGE",data["pokemon"]["shape"]["linkIcon"])) +
                 getHTMLDifference(data["difference"]["type"], "itemType", getHTMLValue("IMAGE", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
                 getHTMLDifference(data["difference"]["height"], "itemHeight", getHTMLValue("TEXT", data["pokemon"]["height"])) +
@@ -34,8 +34,6 @@ function getHTMLValue(type, value1, value2) {
                 return "<span class=\"itemValue\">" + value1 + "</span><span class=\"itemValue\">" + value2 + "</span>";
             else
                 return "<span class=\"itemValue\">" + value1 + "</span>";
-        case "COLOR":
-            return "<span class=\"itemValue\" style=\"background-color: " + value1 + "\"></span>";
         default:
             return "<span class=\"itemValue\">" + value1 + "</span>";
     }
@@ -87,33 +85,10 @@ function filterFunction() {
     }
 }
 
-$.initialize(".itemName", function (e) {
-    resize_to_fit($(this));
-});
-
-function resize_to_fit(element){
-    const child = element.children(":first");
-    child.css('fontSize', parseFloat(child.css('font-size')) - 1);
-
-    if(child.width() >= element.width() - 10){
-        resize_to_fit(element);
-    }
-}
-
 function selectPokemon(select) {
     $("#selectSearchInput").val(select.name);
     filterFunction();
 }
 
 $(document).ready(() => {
-    // get all pokemon played
-    $.post("/play/classic/previous",
-        {},
-        function(data, status) {
-            console.log(data);
-            for (let i = 0; i < data.length; i++) {
-                displayLineAnswer(data[i]);
-            }
-        }
-    );
 });
