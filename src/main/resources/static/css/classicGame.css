@@ -157,6 +157,34 @@
     color: var(--white);
 }
 
+.main .game .answer .answerItem .invalid {
+    color: var(--red);
+}
+
+.main .game .answer .answerItem .valid {
+    color: var(--green);
+}
+
+.main .game .answer .answerItem .partial {
+    color: var(--orange);
+}
+
+.main .game .answer .answerItem .image .pokemonImage {
+    height: 80px;
+}
+
+.main .game .answer .answerItem .upper .arrowUpper {
+    height: 40px;
+    transform: rotate(270deg);
+}
+
+.main .game .answer .answerItem .lower .arrowLower {
+    height: 40px;
+    transform: rotate(90deg);
+}
+
+
+
 .main .game .answer .answerContent {
     display: flex;
     flex-direction: row;
