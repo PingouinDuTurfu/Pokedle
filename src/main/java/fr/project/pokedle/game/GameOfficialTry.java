@@ -26,28 +26,28 @@ public class GameOfficialTry {
         boolean type1Correct = (pokemonToTry.getType1().equals(pokemonToFind.getType1()) || pokemonToTry.getType1().equals(pokemonToFind.getType2()));
         if (pokemonToTry.getType2() == null) {
             if (type1Correct)
-                return Column.VALIDE;
-            return Column.INVALIDE;
+                return Column.VALID;
+            return Column.INVALID;
         }
         boolean type2Correct = (pokemonToTry.getType2().equals(pokemonToFind.getType1()) || pokemonToTry.getType2().equals(pokemonToFind.getType2()));
 
         if (type1Correct && type2Correct)
-            return Column.VALIDE;
+            return Column.VALID;
         if (type1Correct || type2Correct)
             return Column.PARTIAL;
-        return Column.INVALIDE;
+        return Column.INVALID;
     }
 
     public Column compareShape(Pokemon pokemonToTry, Pokemon pokemonToFind) {
         if (pokemonToTry.getShape().equals(pokemonToFind.getShape()))
-            return Column.VALIDE;
-        return Column.INVALIDE;
+            return Column.VALID;
+        return Column.INVALID;
     }
 
     public Column compareColor(Pokemon pokemonToTry, Pokemon pokemonToFind) {
         if (pokemonToTry.getColor().equals(pokemonToFind.getColor()))
-            return Column.VALIDE;
-        return Column.INVALIDE;
+            return Column.VALID;
+        return Column.INVALID;
     }
 
     public Column compareWeight(Pokemon pokemonToTry, Pokemon pokemonToFind) {
@@ -55,7 +55,7 @@ public class GameOfficialTry {
             return Column.LOWER;
         if (pokemonToTry.getWeight() < pokemonToFind.getWeight())
             return Column.UPPER ;
-        return Column.VALIDE;
+        return Column.VALID;
     }
 
     public Column compareHeight(Pokemon pokemonToTry, Pokemon pokemonToFind) {
@@ -63,7 +63,7 @@ public class GameOfficialTry {
             return Column.LOWER;
         if (pokemonToTry.getHeight() < pokemonToFind.getHeight())
             return Column.UPPER;
-        return Column.VALIDE;
+        return Column.VALID;
     }
 
     public boolean isSame() {
