@@ -31,9 +31,11 @@ public class PlayOfficialGame {
     @Autowired
     ClassicRoundRepository classicRoundRepository;
 
+    @Autowired
+    GameOfficialManager gameOfficialManager;
 
 
-    public JSONObject play(User user, String pokemonNameToTry) {
+    public ClassicGame getClassicGameOfToday() {
         /* verfify if there is a pokemon to find */
         LocalDateTime now = LocalDateTime.now(); //current date and time
         LocalDateTime start = now.toLocalDate().atStartOfDay();
@@ -41,47 +43,65 @@ public class PlayOfficialGame {
 
         GameOfficialManager gameOfficialManager = new GameOfficialManager(pokemonRepository, classicGameRepository, classicGamePlayerRepository, classicRoundRepository);
 
-        ClassicGame classicGame = classicGameRepository.findByDateBetween(
+        return classicGameRepository.findByDateBetween(
                 Date.from(start.atZone(ZoneId.systemDefault()).toInstant()),
                 Date.from(end.atZone(ZoneId.systemDefault()).toInstant())
         ).orElseGet(gameOfficialManager::createGame);
+    }
 
-        ClassicGamePlayer classicGamePlayer = classicGamePlayerRepository.findByUserAndCreationDateBetween(
+
+    public ClassicGamePlayer getClassicGamePlayerOfToday(User user, ClassicGame classicGame) {
+        return classicGamePlayerRepository.findByUserAndAndGameAnd(
                 user,
-                Date.from(start.atZone(ZoneId.systemDefault()).toInstant()),
-                Date.from(end.atZone(ZoneId.systemDefault()).toInstant())
+                classicGame
         ).orElseGet(() -> gameOfficialManager.createGamePlayer(user, classicGame));
+    }
 
+
+    public JSONObject play(User user, String pokemonNameToTry) {
+        JSONObject jsonObject = new JSONObject();
+
+        if (user == null) {
+            jsonObject.put("error", "invalid_user");
+            return jsonObject;
+        }
+
+        ClassicGame classicGame = getClassicGameOfToday();
+
+        ClassicGamePlayer classicGamePlayer = getClassicGamePlayerOfToday(user, classicGame);
+
+        // if game is already finished => exit
         if (classicGamePlayer.isSuccess()) {
-            System.out.println("already finished");
-            return new JSONObject();
+            jsonObject.put("error", "alredy_completed");
+            return jsonObject;
         }
 
         /* verfify if the pokemon enter is correct */
-        Pokemon pokemonToTry = pokemonRepository.findPokemonsByNameFr(pokemonNameToTry).orElseThrow(RuntimeException::new);
+        Pokemon pokemonToTry = pokemonRepository.findPokemonsByNameFr(pokemonNameToTry);
+
+        if ((pokemonToTry == null)) {
+            jsonObject.put("error", "pokemon_unknown");
+            return jsonObject;
+        }
 
         Pokemon pokemonToFind = classicGame.getPokemon();
-        System.out.println(pokemonToFind.getNameFr());
 
-        // comparaison des pokemon
+        // compare pokemons
         GameOfficialTry gameOfficialTry = new GameOfficialTry(pokemonToTry, pokemonToFind);
 
-        ClassicRound classicRound = gameOfficialManager.createGameRound(classicGamePlayer, pokemonToTry);
+        gameOfficialManager.createGameRound(classicGamePlayer, pokemonToTry);
+
+        jsonObject.put("is_same", gameOfficialTry.isSame());
+        jsonObject.put("pokemon", pokemonToTry.toJSON());
+        jsonObject.put("difference", gameOfficialTry.toJSON());
 
         if (gameOfficialTry.isSame()) {
             classicGamePlayer.setSuccess(true);
             classicGamePlayer.setSuccessDate(new Date());
-
+            // set score
+            // classicGamePlayer.setScore(  // score function // ));
             classicGamePlayerRepository.save(classicGamePlayer);
-            System.out.println("You found it !");
         }
-
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("pokemon", pokemonToTry.toJSON());
-            jsonObject.put("difference", gameOfficialTry.toJSON());
-        } finally {
-            return jsonObject;
-        }
+        return jsonObject;
     }
 }

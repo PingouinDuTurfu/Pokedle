@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameOfficialTry {
-    boolean same;
+    private boolean same;
 
     private final Map<String, Column> mapCompare;
 
