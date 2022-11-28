@@ -21,7 +21,7 @@
                     <div class="searchContent" id="classicGameSearchContent">
                         <button class="searchItem" onclick="selectPokemon(this)" th:each="pokemon : ${pokemonList}" th:href="${'#' + pokemon.nameFr}" th:name="${pokemon.nameFr}">
                             <span  th:text="${pokemon.nameFr}"></span>
-                            <img th:src="${'http://www.pingouinduturfu.fr/pokedle/thumbnails-compressed/' + pokemon.linkIcon}" alt="pokemon">
+                            <img th:src="${'http://www.pingouinduturfu.fr/pokedle/' + pokemon.linkIcon}" alt="pokemon">
                         </button>
                     </div>
                     <button class="selectSearchButton" type="button" onclick="tryPokemon()">Essayer</button>
@@ -66,5 +66,5 @@
     </div>
     <div th:replace="/fragments/footer::footer"></div>
 </body>
-<script type="text/javascript"  th:src="@{/js/play_pokemon.js}"> </script>
+<script type="text/javascript" th:src="@{/js/play_pokemon.js}"> </script>
 </html>
