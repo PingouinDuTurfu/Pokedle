@@ -19,7 +19,7 @@
                 <div class="search">
                     <input id="selectSearchInput" type="text" placeholder="Search.." onkeyup="filterFunction()">
                     <div class="searchContent" id="classicGameSearchContent">
-                        <button class="searchItem" onclick="selectPokemon(this)" th:each="pokemon : ${pokemonList}" th:href="${'#' + pokemon.nameFr}" th:name="${pokemon.nameFr}">
+                        <button class="searchItem" onclick="selectPokemon(this)" th:each="pokemon : ${pokemonList}" th:href="${'#' + pokemon.nameFr}" th:name="${pokemon.nameFr}" th:id="${'select_pokemon_' + pokemon.id}">
                             <span  th:text="${pokemon.nameFr}"></span>
                             <img th:src="${'http://***REMOVED***/pokedle/' + pokemon.linkIcon}" loading="lazy" alt="pokemon">
                         </button>

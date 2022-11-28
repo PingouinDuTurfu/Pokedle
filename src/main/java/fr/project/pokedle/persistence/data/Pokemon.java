@@ -101,9 +101,9 @@ public class Pokemon {
             jsonObject.put("id", getId());
             jsonObject.put("nameFr", getNameFr());
             jsonObject.put("nameEn", getNameEn());
-            jsonObject.put("shape", getShape().toJson());
-            jsonObject.put("type1", getType1().toJson());
-            jsonObject.put("type2", (getType2() != null ? getType2().toJson() : "null"));
+            jsonObject.put("shape", getShape().toJSON());
+            jsonObject.put("type1", getType1().toJSON());
+            jsonObject.put("type2", (getType2() != null ? getType2().toJSON() : "null"));
             jsonObject.put("color", getColor());
             jsonObject.put("height", getHeight());
             jsonObject.put("weight", getWeight());

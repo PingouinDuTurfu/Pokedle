@@ -49,7 +49,7 @@ public class PokemonShape {
         return linkIcon.split("asset")[1].substring(2);
     }
 
-    public JSONObject toJson() {
+    public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("id", getId());
         json.put("name", getName());

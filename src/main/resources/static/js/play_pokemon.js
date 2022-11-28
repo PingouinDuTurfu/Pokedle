@@ -5,12 +5,18 @@ function tryPokemon() {
     $.post("/play/official/try",
         {pokemonName: pokemonToTry},
         function(data, status) {
+            if (data.hasOwnProperty("error")) {
+                console.log("erreur : " + data["error"]);
+                return;
+            }
+            console.log(data)
             displayLineAnswer(data);
         }
     );
 }
 
 function displayLineAnswer(data) {
+    removeFromSelect(data["pokemon"]["id"]);
     const answerTable = $("#classic-game-answer-content");
     const prefix = "<ul class=\"answerLineContent\">";
     const suffix = "</ul>";
@@ -24,7 +30,14 @@ function displayLineAnswer(data) {
         getHTMLDifference(data["difference"]["weight"], getHTMLValue("TEXT", data["pokemon"]["weight"])) +
         getHTMLDifference(null, "0") +
         suffix;
-    answerTable.append(content);
+    answerTable.prepend(content);
+}
+
+
+function removeFromSelect(id) {
+    const elem = $("#select_pokemon_" + id);
+    if (elem != null)
+        elem.remove();
 }
 
 function getHTMLValue(type, value1, value2) {
@@ -71,14 +84,14 @@ const FILTER_NULL = "";
 
 function filterFunction() {
     let input, filter, contentDiv, buttonItems;
-    input = document.getElementById("selectSearchInput");
+    input = $("#selectSearchInput");
 
-    if(input.value === FILTER_NULL)
+    if(input.val() === FILTER_NULL)
         filter = FILTER_RESET;
     else
-        filter = input.value.toUpperCase();
+        filter = input.val().toUpperCase();
 
-    contentDiv = document.getElementById("classicGameSearchContent");
+    contentDiv = $("#classicGameSearchContent");
     buttonItems = contentDiv.getElementsByTagName("button");
 
     for (const item of buttonItems) {

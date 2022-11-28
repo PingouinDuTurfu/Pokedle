@@ -42,7 +42,7 @@ public class PokemonType {
         this.linkIcon = linkIcon;
     }
 
-    public JSONObject toJson() {
+    public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("id", getId());
         json.put("name", getName());
