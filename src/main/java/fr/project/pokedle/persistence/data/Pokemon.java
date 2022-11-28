@@ -63,10 +63,11 @@ public class Pokemon {
     private String linkBigSprite;
 
     public String getLinkIcon() {
-        return linkIcon.split("/")[linkIcon.split("/").length - 1];
+        return linkIcon.split("asset")[1].substring(2);
     }
 
     public JSONObject toJSON() {
+        /*
         Map<String, String> jsonMap = new HashMap<>();
 
         try {
@@ -92,23 +93,28 @@ public class Pokemon {
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
+        */
 
-//        try {
-//            jsonObject.put("id", getId());
-//            jsonObject.put("nameFr", getNameFr());
-//            jsonObject.put("nameEn", getNameEn());
-//            jsonObject.put("shape", getShape().getName());
-//            jsonObject.put("type1", getType1().getName());
-//            jsonObject.put("type2", (getType2() != null ? getType2().getName() : "null"));
-//            jsonObject.put("color", getColor());
-//            jsonObject.put("height", getHeight());
-//            jsonObject.put("weight", getWeight());
-//            jsonObject.put("linkIcon", getLinkIcon());
-//            jsonObject.put("linkSmallSprite", getLinkSmallSprite());
-//            jsonObject.put("linkBigSprite", getLinkBigSprite());
-//            } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("id", getId());
+            jsonObject.put("nameFr", getNameFr());
+            jsonObject.put("nameEn", getNameEn());
+            jsonObject.put("shape", getShape().toJson());
+            jsonObject.put("type1", getType1().toJson());
+            jsonObject.put("type2", (getType2() != null ? getType2().toJson() : "null"));
+            jsonObject.put("color", getColor());
+            jsonObject.put("height", getHeight());
+            jsonObject.put("weight", getWeight());
+            jsonObject.put("linkIcon", getLinkIcon());
+            jsonObject.put("linkSmallSprite", getLinkSmallSprite());
+            jsonObject.put("linkBigSprite", getLinkBigSprite());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+        }
+
+        return jsonObject;
     }
 
     public static class Builder {

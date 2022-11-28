@@ -1,27 +1,68 @@
+const DEFAULT_RESSOURCE = "http://***REMOVED***/pokedle/";
+
 function tryPokemon() {
     const pokemonToTry = $("#selectSearchInput").val();
     $.post("/play/official_try",
         {pokemonName: pokemonToTry},
         function(data, status) {
             const answerTable = $("#classic-game-answer-content");
-            const newLine = "" +
-                "<ul class=\"answerLineContent\">" +
-                    "<li class=\"answerItem\"><img src='http://***REMOVED***/pokedle/thumbnails-compressed/" + data["pokemon"]["linkIcon"] + "' alt='pokemon'></li>" +
-                    "<li class=\"answerItem\"><span>" + data["pokemon"]["nameFr"] + "</span></li>" +
-                    "<li class=\"answerItem\"><span>" + data["difference"]["color"] + "</span></li>" +
-                    "<li class=\"answerItem\"><span>" + data["difference"]["shape"] + "</span></li>" +
-                    "<li class=\"answerItem\"><span>" + data["difference"]["type"] + "</span></li>" +
-                    "<li class=\"answerItem\"><span>" + data["difference"]["weight"] + "</span></li>" +
-                    "<li class=\"answerItem\"><span>" + data["difference"]["height"] + "</span></li>" +
-                    "<li class=\"answerItem\"><span>" + "hasagy" + "</span></li>" +
-                "</ul>";
-            answerTable.append(newLine);
+            const prefix = "<ul class=\"answerLineContent\">";
+            const suffix = "</ul>";
+            const content = prefix +
+                getHTMLDifference("IMAGE", getHTMLValue("IMAGE", data["pokemon"]["linkIcon"])) +
+                getHTMLDifference(null, getHTMLValue("TEXT", data["pokemon"]["nameFr"])) +
+                getHTMLDifference(data["difference"]["color"], getHTMLValue("TEXT", data["pokemon"]["color"])) +
+                getHTMLDifference(data["difference"]["shape"], getHTMLValue("IMG",data["pokemon"]["shape"]["linkIcon"])) +
+                getHTMLDifference(data["difference"]["type"], getHTMLValue("IMG", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
+                getHTMLDifference(data["difference"]["height"], getHTMLValue("TEXT", data["pokemon"]["height"])) +
+                getHTMLDifference(data["difference"]["weight"], getHTMLValue("TEXT", data["pokemon"]["weight"])) +
+                getHTMLDifference(null, "0") +
+                suffix;
+            answerTable.append(content);
     });
+}
+
+function getHTMLValue(type, value1, value2) {
+    switch (type) {
+        case "IMAGE":
+            if (value2 != null)
+                return "<img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value1 + "'><img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value2 + "'>";
+            else
+                return "<img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value1 + "'>";
+        case "TEXT":
+            if(value2 != null)
+                return "<span class=\"itemValue\">" + value1 + "</span><span class=\"itemValue\">" + value2 + "</span>";
+            else
+                return "<span class=\"itemValue\">" + value1 + "</span>";
+        default:
+            return "<span class=\"itemValue\">" + value1 + "</span>";
+    }
+}
+
+function getHTMLDifference(difference, value) {
+    const prefix = "<li class=\"answerItem\">";
+    const suffix = "</li>";
+
+    switch (difference) {
+        case "INVALID":
+            return prefix + "<div class=\"invalid\">" + value + "</div>" + suffix;
+        case "VALID":
+            return prefix + "<div class=\"valid\">" + value + "</div>" + suffix;
+        case "UPPER":
+            return prefix + "<div class=\"upper\"><img class=\"arrowUpper\" src='/img/arrow.png'>" + value + "</div>" + suffix;
+        case "LOWER":
+            return prefix + "<div class=\"lower\"><img class=\"arrowLower\" src='/img/arrow.png'>" + value + "</div>" + suffix;
+        case "PARTIAL":
+            return prefix + "<div class=\"partial\">" + value + "</div>" + suffix;
+        case "NEUTRAL":
+            return prefix + "<div class=\"neutral\">" + value + "</div>" + suffix;
+        default:
+            return prefix + value + suffix;
+    }
 }
 
 const FILTER_RESET = "----";
 const FILTER_NULL = "";
-
 
 function filterFunction() {
     let input, filter, contentDiv, buttonItems;
@@ -50,5 +91,4 @@ function selectPokemon(select) {
 }
 
 $(document).ready(() => {
-    filterFunction();
 });
