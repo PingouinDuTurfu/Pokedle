@@ -1,7 +1,14 @@
 package fr.project.pokedle.persistence.data;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.json.simple.JSONObject;
+
 import javax.persistence.*;
 
+
+@Getter
+@Setter
 @Entity
 @Table(name = "PokemonTypes")
 public class PokemonType {
@@ -15,30 +22,6 @@ public class PokemonType {
 
     @Column
     private String linkIcon;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLinkIcon() {
-        return linkIcon;
-    }
-
-    public void setLinkIcon(String linkIcon) {
-        this.linkIcon = linkIcon;
-    }
 
     public static class Builder {
         private final PokemonType pokemonType;
@@ -60,5 +43,13 @@ public class PokemonType {
         public PokemonType build() {
             return pokemonType;
         }
+    }
+
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("id", getId());
+        json.put("name", getName());
+        json.put("linkIcon", getLinkIcon());
+        return new JSONObject(json);
     }
 }

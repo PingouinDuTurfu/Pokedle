@@ -13,5 +13,5 @@ import java.util.UUID;
 @Repository
 public interface ClassicGamePlayerRepository extends JpaRepository<ClassicGamePlayer, UUID> {
     Optional<ClassicGamePlayer> findByUserAndCreationDateBetween(User user, Date creationDate, Date creationDate2);
-    Optional<ClassicGamePlayer> findByUserAndAndGameAnd(User user, ClassicGame classicGame);
+    Optional<ClassicGamePlayer> findByUserAndGame(User user, ClassicGame classicGame);
 }
