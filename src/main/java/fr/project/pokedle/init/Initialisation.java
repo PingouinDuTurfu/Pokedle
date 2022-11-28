@@ -3,12 +3,12 @@ package fr.project.pokedle.init;
 
 import fr.project.pokedle.init.loader.PokemonItem;
 import fr.project.pokedle.init.loader.SpecieItem;
-import fr.project.pokedle.persistence.Pokemon;
-import fr.project.pokedle.persistence.PokemonShape;
-import fr.project.pokedle.persistence.PokemonType;
-import fr.project.pokedle.persistence.repository.PokemonRepository;
-import fr.project.pokedle.persistence.repository.PokemonShapeRepository;
-import fr.project.pokedle.persistence.repository.PokemonTypeRepository;
+import fr.project.pokedle.persistence.data.Pokemon;
+import fr.project.pokedle.persistence.data.PokemonShape;
+import fr.project.pokedle.persistence.data.PokemonType;
+import fr.project.pokedle.repository.PokemonRepository;
+import fr.project.pokedle.repository.PokemonShapeRepository;
+import fr.project.pokedle.repository.PokemonTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

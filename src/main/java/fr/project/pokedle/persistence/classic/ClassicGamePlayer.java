@@ -1,6 +1,6 @@
 package fr.project.pokedle.persistence.classic;
 
-import fr.project.pokedle.persistence.User;
+import fr.project.pokedle.persistence.registration.User;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
