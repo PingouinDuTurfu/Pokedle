@@ -80,6 +80,10 @@ public class Pokemon {
         return new JSONObject(json);
     }
 
+    public String getLinkIcon() {
+        return linkIcon.split("asset")[1].substring(2);
+   }
+
     public static class Builder {
 
         private final Pokemon pokemon;

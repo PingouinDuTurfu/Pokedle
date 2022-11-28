@@ -36,7 +36,7 @@ public class PreviousRoundService {
     public JSONArray getPreviousRoundsJSON(User user) {
         List<ClassicRound> rounds = getPreviousRounds(user);
 
-        if (rounds.size() > 0)
+        if (rounds.size() == 0)
             return new JSONArray();
 
         JSONArray json = new JSONArray();
