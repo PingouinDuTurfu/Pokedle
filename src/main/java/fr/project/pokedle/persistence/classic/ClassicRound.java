@@ -1,12 +1,16 @@
 package fr.project.pokedle.persistence.classic;
 
 import fr.project.pokedle.persistence.data.Pokemon;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+@Setter
+@Getter
 @Entity(name = "ClassicRounds")
 public class ClassicRound {
 
@@ -22,38 +26,10 @@ public class ClassicRound {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "classic_official", nullable = false)
-    private ClassicGamePlayer game;
+    private ClassicGamePlayer gamePlayer;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pokemon", nullable = false)
     private Pokemon pokemon;
 
-
-    public UUID getId() {
-        return id;
-    }
-
-    public long getRound() {
-        return round;
-    }
-
-    public void setRound(long round) {
-        this.round = round;
-    }
-
-    public ClassicGamePlayer getGame() {
-        return game;
-    }
-
-    public void setGame(ClassicGamePlayer game) {
-        this.game = game;
-    }
-
-    public Pokemon getPokemon() {
-        return pokemon;
-    }
-
-    public void setPokemon(Pokemon pokemon) {
-        this.pokemon = pokemon;
-    }
 }
