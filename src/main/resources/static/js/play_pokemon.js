@@ -2,7 +2,7 @@ const DEFAULT_RESSOURCE = "http://***REMOVED***/pokedle/";
 
 function tryPokemon() {
     const pokemonToTry = $("#selectSearchInput").val();
-    $.post("/play/official_try",
+    $.post("/play/official/try",
         {pokemonName: pokemonToTry},
         function(data, status) {
             const answerTable = $("#classic-game-answer-content");
@@ -12,8 +12,8 @@ function tryPokemon() {
                 getHTMLDifference("IMAGE", getHTMLValue("IMAGE", data["pokemon"]["linkIcon"])) +
                 getHTMLDifference(null, getHTMLValue("TEXT", data["pokemon"]["nameFr"])) +
                 getHTMLDifference(data["difference"]["color"], getHTMLValue("TEXT", data["pokemon"]["color"])) +
-                getHTMLDifference(data["difference"]["shape"], getHTMLValue("IMG",data["pokemon"]["shape"]["linkIcon"])) +
-                getHTMLDifference(data["difference"]["type"], getHTMLValue("IMG", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
+                getHTMLDifference(data["difference"]["shape"], getHTMLValue("IMAGE",data["pokemon"]["shape"]["linkIcon"])) +
+                getHTMLDifference(data["difference"]["type"], getHTMLValue("IMAGE", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
                 getHTMLDifference(data["difference"]["height"], getHTMLValue("TEXT", data["pokemon"]["height"])) +
                 getHTMLDifference(data["difference"]["weight"], getHTMLValue("TEXT", data["pokemon"]["weight"])) +
                 getHTMLDifference(null, "0") +
