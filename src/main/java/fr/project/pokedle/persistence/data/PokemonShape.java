@@ -1,5 +1,7 @@
 package fr.project.pokedle.persistence.data;
 
+import org.json.simple.JSONObject;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -35,16 +37,24 @@ public class PokemonShape {
         this.name = name;
     }
 
-    public String getLinkIcon() {
-        return linkIcon;
-    }
-
     public void setLinkIcon(String linkIcon) {
         this.linkIcon = linkIcon;
     }
 
     public List<Pokemon> getPokemons() {
         return pokemons;
+    }
+
+    public String getLinkIcon() {
+        return linkIcon.split("asset")[1].substring(2);
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("id", getId());
+        json.put("name", getName());
+        json.put("linkIcon", getLinkIcon());
+        return json;
     }
 
     public static class Builder {
