@@ -2,3 +2,199 @@
 @import "fragments/header.css";
 @import "fragments/error.css";
 @import "fragments/footer.css";
+
+
+.main .content {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main .content .title {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--dark-black);
+    width: 80%;
+    padding: 8px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.main .content .title span {
+    font-size: 40px;
+    color: var(--white);
+}
+
+.main .game {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+    padding: 20px;
+    border-style: solid;
+    border-color: var(--light-blue);
+    border-radius: 30px;
+    margin-top: 30px;
+    box-sizing: border-box;
+}
+
+.main .game .search {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+}
+
+.main .game .search #selectSearchInput {
+    background-color: var(--dark-black);
+    width: 400px;
+    height: 60px;
+    font-size: 40px;
+    padding: 5px 10px;
+    border-color: var(--green);
+    border-radius: 5px;
+    border-style: solid;
+    color: var(--white);
+    box-sizing: border-box;
+}
+
+.main .game .search .searchContent {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    border-color: var(--green);
+    max-height: 270px;
+    overflow: auto;
+    width: 400px;
+    top: 60px;
+}
+
+.main .game .search .searchContent .searchItem {
+    display: none;
+    background-color: var(--blue);
+    padding: 5px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+    box-sizing: border-box;
+}
+
+.main .game .search .searchContent .searchItem:hover {
+    background-color: var(--light-blue);
+}
+
+.main .game .search .searchContent .searchItem span {
+    color: var(--white);
+    display: flex;
+    font-size: 40px;
+    padding: 2px;
+}
+
+.main .game .search .searchContent .searchItem img {
+    height: 80px;
+}
+
+.main .game .search .selectSearchButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    background-color: var(--green);
+    margin-left: 20px;
+    border-radius: 5px;
+    color: var(--dark-black);
+    transition: transform var(--delay-short-animation);
+}
+
+.main .game .search .selectSearchButton:hover {
+    transform: scale(1.1);
+}
+
+.main .game .answer {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dark-black);
+    padding: 8px;
+    border-radius: 10px;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.main .game .answer .answerLineContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main .game .answer .answerColumContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.main .game .answer .answerItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main .game .answer .answerItem {
+    width: 130px;
+}
+
+.main .game .answer .answerItem span {
+    font-size: 30px;
+    color: var(--white);
+}
+
+.main .game .answer .answerItem .invalid {
+    color: var(--red);
+}
+
+.main .game .answer .answerItem .valid {
+    color: var(--green);
+}
+
+.main .game .answer .answerItem .partial {
+    color: var(--orange);
+}
+
+.main .game .answer .answerItem .image .pokemonImage {
+    height: 80px;
+}
+
+.main .game .answer .answerItem .upper .arrowUpper {
+    height: 40px;
+    transform: rotate(270deg);
+}
+
+.main .game .answer .answerItem .lower .arrowLower {
+    height: 40px;
+    transform: rotate(90deg);
+}
+
+
+
+.main .game .answer .answerContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    border-top: 1px solid var(--grey);
+}
+
+/*
+rems2rems
+ */
+

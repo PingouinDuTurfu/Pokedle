@@ -19,7 +19,7 @@ public class WebSecurityConfig {
     };
 
     private static final String[] USER_LIST_URLS = {
-            "/play/official", "/play/official_try"
+            "/play/official_try", "/play/official"
     };
 
     @Bean
