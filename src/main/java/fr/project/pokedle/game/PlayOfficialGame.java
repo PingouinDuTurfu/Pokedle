@@ -4,10 +4,8 @@ import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.persistence.registration.User;
 import fr.project.pokedle.persistence.classic.ClassicGame;
 import fr.project.pokedle.persistence.classic.ClassicGamePlayer;
-import fr.project.pokedle.persistence.classic.ClassicRound;
 import fr.project.pokedle.repository.ClassicGamePlayerRepository;
 import fr.project.pokedle.repository.ClassicGameRepository;
-import fr.project.pokedle.repository.ClassicRoundRepository;
 import fr.project.pokedle.repository.PokemonRepository;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +18,16 @@ import java.util.Date;
 @Component
 public class PlayOfficialGame {
     @Autowired
-    PokemonRepository pokemonRepository;
+    private PokemonRepository pokemonRepository;
 
     @Autowired
-    ClassicGameRepository classicGameRepository;
+    private ClassicGameRepository classicGameRepository;
 
     @Autowired
-    ClassicGamePlayerRepository classicGamePlayerRepository;
+    private ClassicGamePlayerRepository classicGamePlayerRepository;
 
     @Autowired
-    ClassicRoundRepository classicRoundRepository;
-
-    @Autowired
-    GameOfficialManager gameOfficialManager;
+    private GameOfficialManager gameOfficialManager;
 
 
     public ClassicGame getClassicGameOfToday() {
@@ -40,8 +35,6 @@ public class PlayOfficialGame {
         LocalDateTime now = LocalDateTime.now(); //current date and time
         LocalDateTime start = now.toLocalDate().atStartOfDay();
         LocalDateTime end = now.toLocalDate().atStartOfDay().plusDays(1);
-
-        GameOfficialManager gameOfficialManager = new GameOfficialManager(pokemonRepository, classicGameRepository, classicGamePlayerRepository, classicRoundRepository);
 
         return classicGameRepository.findByDateBetween(
                 Date.from(start.atZone(ZoneId.systemDefault()).toInstant()),
@@ -51,7 +44,7 @@ public class PlayOfficialGame {
 
 
     public ClassicGamePlayer getClassicGamePlayerOfToday(User user, ClassicGame classicGame) {
-        return classicGamePlayerRepository.findByUserAndAndGameAnd(
+        return classicGamePlayerRepository.findByUserAndGame(
                 user,
                 classicGame
         ).orElseGet(() -> gameOfficialManager.createGamePlayer(user, classicGame));

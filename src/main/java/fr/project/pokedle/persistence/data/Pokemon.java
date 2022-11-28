@@ -66,51 +66,6 @@ public class Pokemon {
     @Column
     private String linkBigSprite;
 
-    public JSONObject toJSON() {
-        Map<String, String> jsonMap = new HashMap<>();
-
-        try {
-            for (Method m : this.getClass().getMethods()) {
-                if (!m.getName().equals("getClass") && m.getName().startsWith("get") && m.getParameterTypes().length == 0) {
-                    final Object o = m.invoke(this);
-                    if (o != null) {
-                        jsonMap.put(
-                                StringUtils.uncapitalize(m.getName().substring(3)),
-                                // If the map contains the class of the object, we apply the function
-                                // Else, we just return the object as a string
-                                // We need to split the class name because the class name contains the lazy creation of Hibernate
-                                functionMap
-                                        .getOrDefault(o.getClass().toString().split("\\$")[0], Object::toString)
-                                        .apply(o)
-                        );
-                    } else
-                        jsonMap.put(StringUtils.uncapitalize(m.getName().substring(3)), "null");
-                }
-            }
-            //System.out.println(new JSONObject(jsonMap));
-            return new JSONObject(jsonMap);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
-
-//        try {
-//            jsonObject.put("id", getId());
-//            jsonObject.put("nameFr", getNameFr());
-//            jsonObject.put("nameEn", getNameEn());
-//            jsonObject.put("shape", getShape().getName());
-//            jsonObject.put("type1", getType1().getName());
-//            jsonObject.put("type2", (getType2() != null ? getType2().getName() : "null"));
-//            jsonObject.put("color", getColor());
-//            jsonObject.put("height", getHeight());
-//            jsonObject.put("weight", getWeight());
-//            jsonObject.put("linkIcon", getLinkIcon());
-//            jsonObject.put("linkSmallSprite", getLinkSmallSprite());
-//            jsonObject.put("linkBigSprite", getLinkBigSprite());
-//            } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-    }
-
     public static class Builder {
 
         private final Pokemon pokemon;
@@ -182,5 +137,22 @@ public class Pokemon {
         public Pokemon build() {
             return pokemon;
         }
+    }
+
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("id", getId());
+        json.put("nameFr", getNameFr());
+        json.put("nameEn", getNameEn());
+        json.put("shape", getShape().toJSON());
+        json.put("type1", getType1().toJSON());
+        json.put("type2", (getType2() != null ? getType2().toJSON() : "null"));
+        json.put("color", getColor());
+        json.put("height", getHeight());
+        json.put("weight", getWeight());
+        json.put("linkIcon", getLinkIcon());
+        json.put("linkSmallSprite", getLinkSmallSprite());
+        json.put("linkBigSprite", getLinkBigSprite());
+        return new JSONObject(json);
     }
 }

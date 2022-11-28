@@ -8,11 +8,11 @@ import fr.project.pokedle.repository.ClassicRoundRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 public class PreviousRoundService {
 
     @Autowired
@@ -27,7 +27,7 @@ public class PreviousRoundService {
                 user,
                 playOfficialGame.getClassicGameOfToday()
         );
-        List<ClassicRound> rounds = classicRoundRepository.findAllByGame(ClassicGamePlayer);
+        List<ClassicRound> rounds = classicRoundRepository.findAllByGamePlayer(ClassicGamePlayer);
         rounds.sort((o1, o2) -> (int) (o2.getRound() - o1.getRound()));
 
         return rounds;

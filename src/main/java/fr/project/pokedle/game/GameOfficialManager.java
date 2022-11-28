@@ -9,24 +9,27 @@ import fr.project.pokedle.repository.ClassicGamePlayerRepository;
 import fr.project.pokedle.repository.ClassicGameRepository;
 import fr.project.pokedle.repository.ClassicRoundRepository;
 import fr.project.pokedle.repository.PokemonRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
 
-@Service
+@Component
 public class GameOfficialManager {
-    PokemonRepository pokemonRepository;
-    ClassicGameRepository classicGameRepository;
-    ClassicGamePlayerRepository classicGamePlayerRepository;
-    ClassicRoundRepository classicRoundRepository;
 
-    public GameOfficialManager(PokemonRepository pokemonRepository, ClassicGameRepository classicGameRepository, ClassicGamePlayerRepository classicGamePlayerRepository, ClassicRoundRepository classicRoundRepository) {
-        this.pokemonRepository = pokemonRepository;
-        this.classicGameRepository = classicGameRepository;
-        this.classicGamePlayerRepository = classicGamePlayerRepository;
-        this.classicRoundRepository = classicRoundRepository;
-    }
+    @Autowired
+    private PokemonRepository pokemonRepository;
+
+    @Autowired
+    private ClassicGameRepository classicGameRepository;
+
+    @Autowired
+    private ClassicGamePlayerRepository classicGamePlayerRepository;
+
+    @Autowired
+    private ClassicRoundRepository classicRoundRepository;
+
 
     public ClassicGame createGame() {
         long numberPokemon = pokemonRepository.count();
@@ -64,7 +67,7 @@ public class GameOfficialManager {
         classicRound.setGamePlayer(classicGamePlayer);
         classicRound.setPokemon(pokemon);
 
-        List<ClassicRound> rounds = classicRoundRepository.findAllByGame(classicGamePlayer);
+        List<ClassicRound> rounds = classicRoundRepository.findAllByGamePlayer(classicGamePlayer);
 
         long indexRound = rounds.stream().map(ClassicRound::getRound).max((o1, o2) -> Math.toIntExact(o1 > o2 ? o1 : o2)).orElse(0L) + 1;
         classicRound.setRound(indexRound);
