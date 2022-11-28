@@ -1,10 +1,14 @@
 package fr.project.pokedle.persistence.data;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.json.simple.JSONObject;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "PokemonTypes")
 public class PokemonType {
 
@@ -18,28 +22,8 @@ public class PokemonType {
     @Column
     private String linkIcon;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getLinkIcon() {
         return linkIcon.split("asset")[1].substring(2);
-    }
-
-    public void setLinkIcon(String linkIcon) {
-        this.linkIcon = linkIcon;
     }
 
     public JSONObject toJSON() {

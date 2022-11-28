@@ -10,7 +10,8 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity(name = "Users")
-@Getter @Setter
+@Getter
+@Setter
 public class User {
     @Id
     @GeneratedValue(generator = "uuid2")
