@@ -5,21 +5,26 @@ function tryPokemon() {
     $.post("/play/official/try",
         {pokemonName: pokemonToTry},
         function(data, status) {
-            const answerTable = $("#classic-game-answer-content");
-            const prefix = "<ul class=\"answerLineContent\">";
-            const suffix = "</ul>";
-            const content = prefix +
-                getHTMLDifference("IMAGE", getHTMLValue("IMAGE", data["pokemon"]["linkIcon"])) +
-                getHTMLDifference(null, getHTMLValue("TEXT", data["pokemon"]["nameFr"])) +
-                getHTMLDifference(data["difference"]["color"], getHTMLValue("TEXT", data["pokemon"]["color"])) +
-                getHTMLDifference(data["difference"]["shape"], getHTMLValue("IMAGE",data["pokemon"]["shape"]["linkIcon"])) +
-                getHTMLDifference(data["difference"]["type"], getHTMLValue("IMAGE", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
-                getHTMLDifference(data["difference"]["height"], getHTMLValue("TEXT", data["pokemon"]["height"])) +
-                getHTMLDifference(data["difference"]["weight"], getHTMLValue("TEXT", data["pokemon"]["weight"])) +
-                getHTMLDifference(null, "0") +
-                suffix;
-            answerTable.append(content);
-    });
+            displayLineAnswer(data);
+        }
+    );
+}
+
+function displayLineAnswer(data) {
+    const answerTable = $("#classic-game-answer-content");
+    const prefix = "<ul class=\"answerLineContent\">";
+    const suffix = "</ul>";
+    const content = prefix +
+        getHTMLDifference("IMAGE", getHTMLValue("IMAGE", data["pokemon"]["linkIcon"])) +
+        getHTMLDifference(null, getHTMLValue("TEXT", data["pokemon"]["nameFr"])) +
+        getHTMLDifference(data["difference"]["color"], getHTMLValue("TEXT", data["pokemon"]["color"])) +
+        getHTMLDifference(data["difference"]["shape"], getHTMLValue("IMAGE",data["pokemon"]["shape"]["linkIcon"])) +
+        getHTMLDifference(data["difference"]["type"], getHTMLValue("IMAGE", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
+        getHTMLDifference(data["difference"]["height"], getHTMLValue("TEXT", data["pokemon"]["height"])) +
+        getHTMLDifference(data["difference"]["weight"], getHTMLValue("TEXT", data["pokemon"]["weight"])) +
+        getHTMLDifference(null, "0") +
+        suffix;
+    answerTable.append(content);
 }
 
 function getHTMLValue(type, value1, value2) {
@@ -91,4 +96,13 @@ function selectPokemon(select) {
 }
 
 $(document).ready(() => {
+    $.post("/play/official/previous",
+        {},
+        function(data, status) {
+            console.log(data);
+            for (let i = 0; i < data.length; i++) {
+                displayLineAnswer(data[i]);
+            }
+        }
+    );
 });
