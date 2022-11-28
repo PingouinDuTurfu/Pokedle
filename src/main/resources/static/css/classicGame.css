@@ -133,6 +133,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    height: 120px;
 }
 
 .main .game .answer .answerColumContent {
@@ -141,49 +142,21 @@
     width: 100%;
 }
 
-.main .game .answer .answerItem {
+.main .game .answer .answerHeader .answerItem {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.main .game .answer .answerItem {
+.main .game .answer .answerHeader .answerItem {
     width: 130px;
 }
 
-.main .game .answer .answerItem span {
+.main .game .answer .answerHeader .answerItem span {
     font-size: 30px;
     color: var(--white);
 }
-
-.main .game .answer .answerItem .invalid {
-    color: var(--red);
-}
-
-.main .game .answer .answerItem .valid {
-    color: var(--green);
-}
-
-.main .game .answer .answerItem .partial {
-    color: var(--orange);
-}
-
-.main .game .answer .answerItem .image .pokemonImage {
-    height: 80px;
-}
-
-.main .game .answer .answerItem .upper .arrowUpper {
-    height: 40px;
-    transform: rotate(270deg);
-}
-
-.main .game .answer .answerItem .lower .arrowLower {
-    height: 40px;
-    transform: rotate(90deg);
-}
-
-
 
 .main .game .answer .answerContent {
     display: flex;
@@ -192,6 +165,58 @@
     align-items: center;
     margin-top: 10px;
     border-top: 1px solid var(--grey);
+}
+
+.main .game .answer .answerContent .answerItem {
+    display: flex;
+    width: 130px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main .game .answer .answerContent .answerItem div {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.main .game .answer .answerContent .answerItem .itemImage {
+    height: 80px;
+}
+
+.main .game .answer .answerContent .answerItem .itemIcon .itemImage{
+    height: 110px;
+    width: 110px;
+}
+
+.main .game .answer .answerContent .answerItem .invalid {
+    background-color: var(--red);
+}
+
+.main .game .answer .answerContent .answerItem .valid {
+    background-color: var(--green);
+}
+
+.main .game .answer .answerContent .answerItem .partial {
+    background-color: var(--orange);
+}
+
+.main .game .answer .answerContent .answerItem .pokemonImage {
+    height: 80px;
+}
+
+.main .game .answer .answerContent .answerItem .upper .arrowUpper {
+    height: 40px;
+    transform: rotate(270deg);
+}
+
+.main .game .answer .answerContent .answerItem .lower .arrowLower {
+    height: 40px;
+    transform: rotate(90deg);
 }
 
 /*
