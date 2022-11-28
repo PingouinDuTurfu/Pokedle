@@ -7,9 +7,6 @@ import org.json.simple.JSONObject;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -65,6 +62,23 @@ public class Pokemon {
 
     @Column
     private String linkBigSprite;
+
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("id", getId());
+        json.put("nameFr", getNameFr());
+        json.put("nameEn", getNameEn());
+        json.put("shape", getShape().toJSON());
+        json.put("type1", getType1().toJSON());
+        json.put("type2", (getType2() != null ? getType2().toJSON() : "null"));
+        json.put("color", getColor());
+        json.put("height", getHeight());
+        json.put("weight", getWeight());
+        json.put("linkIcon", getLinkIcon());
+        json.put("linkSmallSprite", getLinkSmallSprite());
+        json.put("linkBigSprite", getLinkBigSprite());
+        return new JSONObject(json);
+    }
 
     public static class Builder {
 
@@ -137,22 +151,5 @@ public class Pokemon {
         public Pokemon build() {
             return pokemon;
         }
-    }
-
-    public JSONObject toJSON() {
-        JSONObject json = new JSONObject();
-        json.put("id", getId());
-        json.put("nameFr", getNameFr());
-        json.put("nameEn", getNameEn());
-        json.put("shape", getShape().toJSON());
-        json.put("type1", getType1().toJSON());
-        json.put("type2", (getType2() != null ? getType2().toJSON() : "null"));
-        json.put("color", getColor());
-        json.put("height", getHeight());
-        json.put("weight", getWeight());
-        json.put("linkIcon", getLinkIcon());
-        json.put("linkSmallSprite", getLinkSmallSprite());
-        json.put("linkBigSprite", getLinkBigSprite());
-        return new JSONObject(json);
     }
 }
