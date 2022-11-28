@@ -9,14 +9,14 @@ function tryPokemon() {
             const prefix = "<ul class=\"answerLineContent\">";
             const suffix = "</ul>";
             const content = prefix +
-                getHTMLDifference("IMAGE", getHTMLValue("IMAGE", data["pokemon"]["linkIcon"])) +
-                getHTMLDifference(null, getHTMLValue("TEXT", data["pokemon"]["nameFr"])) +
-                getHTMLDifference(data["difference"]["color"], getHTMLValue("TEXT", data["pokemon"]["color"])) +
-                getHTMLDifference(data["difference"]["shape"], getHTMLValue("IMAGE",data["pokemon"]["shape"]["linkIcon"])) +
-                getHTMLDifference(data["difference"]["type"], getHTMLValue("IMAGE", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
-                getHTMLDifference(data["difference"]["height"], getHTMLValue("TEXT", data["pokemon"]["height"])) +
-                getHTMLDifference(data["difference"]["weight"], getHTMLValue("TEXT", data["pokemon"]["weight"])) +
-                getHTMLDifference(null, "0") +
+                getHTMLDifference("NEUTRAL", "itemIcon", getHTMLValue("IMAGE", data["pokemon"]["linkIcon"])) +
+                getHTMLDifference("NEUTRAL", "itemName", getHTMLValue("TEXT", data["pokemon"]["nameFr"])) +
+                getHTMLDifference(data["difference"]["color"], "itemColor", getHTMLValue("TEXT", data["pokemon"]["color"])) +
+                getHTMLDifference(data["difference"]["shape"], "itemShape", getHTMLValue("IMAGE",data["pokemon"]["shape"]["linkIcon"])) +
+                getHTMLDifference(data["difference"]["type"], "itemType", getHTMLValue("IMAGE", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
+                getHTMLDifference(data["difference"]["height"], "itemHeight", getHTMLValue("TEXT", data["pokemon"]["height"])) +
+                getHTMLDifference(data["difference"]["weight"], "itemWeight", getHTMLValue("TEXT", data["pokemon"]["weight"])) +
+                getHTMLDifference(null, "null", "0") +
                 suffix;
             answerTable.append(content);
     });
@@ -26,7 +26,7 @@ function getHTMLValue(type, value1, value2) {
     switch (type) {
         case "IMAGE":
             if (value2 != null)
-                return "<img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value1 + "'><img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value2 + "'>";
+                return "<div class=\"itemTopLeft\"><img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value1 + "'></div><div class=\"itemBottomRight\"><img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value2 + "'></div>";
             else
                 return "<img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value1 + "'>";
         case "TEXT":
@@ -39,23 +39,23 @@ function getHTMLValue(type, value1, value2) {
     }
 }
 
-function getHTMLDifference(difference, value) {
+function getHTMLDifference(difference, className, value) {
     const prefix = "<li class=\"answerItem\">";
     const suffix = "</li>";
 
     switch (difference) {
         case "INVALID":
-            return prefix + "<div class=\"invalid\">" + value + "</div>" + suffix;
+            return prefix + "<div class=\"invalid "  + className + "\">" + value + "</div>" + suffix;
         case "VALID":
-            return prefix + "<div class=\"valid\">" + value + "</div>" + suffix;
+            return prefix + "<div class=\"valid "  + className + "\">" + value + "</div>" + suffix;
         case "UPPER":
-            return prefix + "<div class=\"upper\"><img class=\"arrowUpper\" src='/img/arrow.png'>" + value + "</div>" + suffix;
+            return prefix + "<div class=\"upper "  + className + "\"><img class=\"arrowUpper\" src='/img/arrow.png'>" + value + "</div>" + suffix;
         case "LOWER":
-            return prefix + "<div class=\"lower\"><img class=\"arrowLower\" src='/img/arrow.png'>" + value + "</div>" + suffix;
+            return prefix + "<div class=\"lower "  + className + "\"><img class=\"arrowLower\" src='/img/arrow.png'>" + value + "</div>" + suffix;
         case "PARTIAL":
-            return prefix + "<div class=\"partial\">" + value + "</div>" + suffix;
+            return prefix + "<div class=\"partial "  + className + "\">" + value + "</div>" + suffix;
         case "NEUTRAL":
-            return prefix + "<div class=\"neutral\">" + value + "</div>" + suffix;
+            return prefix + "<div class=\"neutral "  + className + "\">" + value + "</div>" + suffix;
         default:
             return prefix + value + suffix;
     }
