@@ -61,7 +61,7 @@ public class GameOfficialManager {
 
     public ClassicRound createGameRound(ClassicGamePlayer classicGamePlayer, Pokemon pokemon) {
         ClassicRound classicRound = new ClassicRound();
-        classicRound.setGame(classicGamePlayer);
+        classicRound.setGamePlayer(classicGamePlayer);
         classicRound.setPokemon(pokemon);
 
         List<ClassicRound> rounds = classicRoundRepository.findAllByGame(classicGamePlayer);
