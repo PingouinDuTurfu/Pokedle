@@ -3,18 +3,15 @@ package fr.project.pokedle.persistence.data;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.simple.JSONObject;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @Table(name = "Pokemons")
 public class Pokemon {
 
