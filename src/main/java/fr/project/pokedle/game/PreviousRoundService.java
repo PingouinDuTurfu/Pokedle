@@ -10,6 +10,8 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -23,12 +25,12 @@ public class PreviousRoundService {
 
 
     public List<ClassicRound> getPreviousRounds(User user) {
-        ClassicGamePlayer ClassicGamePlayer = playOfficialGame.getClassicGamePlayerOfToday(
+        ClassicGamePlayer classicGamePlayer = playOfficialGame.getClassicGamePlayerOfToday(
                 user,
                 playOfficialGame.getClassicGameOfToday()
         );
-        List<ClassicRound> rounds = classicRoundRepository.findAllByGamePlayer(ClassicGamePlayer);
-        rounds.sort((o1, o2) -> (int) (o2.getRound() - o1.getRound()));
+        List<ClassicRound> rounds = new ArrayList<>(classicGamePlayer.getRounds());
+        Collections.sort(rounds, (o1, o2) -> (int) (o1.getRound() - o2.getRound()));
 
         return rounds;
     }

@@ -12,6 +12,8 @@ import fr.project.pokedle.repository.PokemonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -67,10 +69,15 @@ public class GameOfficialManager {
         classicRound.setGamePlayer(classicGamePlayer);
         classicRound.setPokemon(pokemon);
 
-        List<ClassicRound> rounds = classicRoundRepository.findAllByGamePlayer(classicGamePlayer);
-
-        long indexRound = rounds.stream().map(ClassicRound::getRound).max((o1, o2) -> Math.toIntExact(o1 > o2 ? o1 : o2)).orElse(0L) + 1;
-        classicRound.setRound(indexRound);
+        if (classicGamePlayer.getRounds().size() > 0) {
+            List<Long> indexRounds = new ArrayList<>(classicGamePlayer.getRounds().stream().map(ClassicRound::getRound).toList());
+            System.out.println(indexRounds);
+            Collections.sort(indexRounds);
+            System.out.println(indexRounds.get(indexRounds.size() - 1));
+            classicRound.setRound(1 + indexRounds.get(indexRounds.size() - 1));
+        } else {
+            classicRound.setRound(0);
+        }
 
         classicRoundRepository.save(classicRound);
 

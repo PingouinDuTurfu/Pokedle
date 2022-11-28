@@ -8,5 +8,4 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ClassicRoundRepository extends JpaRepository<ClassicRound, UUID> {
-    List<ClassicRound> findAllByGamePlayer(ClassicGamePlayer classicGamePlayer);
 }

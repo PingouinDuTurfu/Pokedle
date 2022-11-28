@@ -1,13 +1,19 @@
 package fr.project.pokedle.persistence.classic;
 
+import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.persistence.registration.User;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+@Setter
+@Getter
 @Entity(name = "ClassicOfficials")
 public class ClassicGamePlayer {
 
@@ -40,55 +46,7 @@ public class ClassicGamePlayer {
     @JoinColumn(name = "classic_game", nullable = false)
     private ClassicGame game;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public double getScore() {
-        return score;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Date getSuccessDate() {
-        return successDate;
-    }
-
-    public void setSuccessDate(Date successDate) {
-        this.successDate = successDate;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public ClassicGame getGame() {
-        return game;
-    }
-
-    public void setGame(ClassicGame game) {
-        this.game = game;
-    }
+    @OneToMany(mappedBy = "gamePlayer", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<ClassicRound> rounds;
 }
