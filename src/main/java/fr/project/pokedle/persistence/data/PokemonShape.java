@@ -27,8 +27,13 @@ public class PokemonShape {
             cascade = CascadeType.ALL)
     private List<Pokemon> pokemons;
 
-    public PokemonShape() {}
-
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("id", getId());
+        json.put("name", getName());
+        json.put("linkIcon", getLinkIcon());
+        return new JSONObject(json);
+    }
 
     public static class Builder {
 
@@ -51,13 +56,5 @@ public class PokemonShape {
         public PokemonShape build() {
             return pokemonShape;
         }
-    }
-
-    public JSONObject toJSON() {
-        JSONObject json = new JSONObject();
-        json.put("id", getId());
-        json.put("name", getName());
-        json.put("linkIcon", getLinkIcon());
-        return new JSONObject(json);
     }
 }

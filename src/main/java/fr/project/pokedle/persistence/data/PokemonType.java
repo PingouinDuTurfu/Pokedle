@@ -23,6 +23,14 @@ public class PokemonType {
     @Column
     private String linkIcon;
 
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("id", getId());
+        json.put("name", getName());
+        json.put("linkIcon", getLinkIcon());
+        return new JSONObject(json);
+    }
+
     public static class Builder {
         private final PokemonType pokemonType;
 
@@ -43,13 +51,5 @@ public class PokemonType {
         public PokemonType build() {
             return pokemonType;
         }
-    }
-
-    public JSONObject toJSON() {
-        JSONObject json = new JSONObject();
-        json.put("id", getId());
-        json.put("name", getName());
-        json.put("linkIcon", getLinkIcon());
-        return new JSONObject(json);
     }
 }
