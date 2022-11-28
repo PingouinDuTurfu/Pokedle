@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-    <label for="select_pokemon">Selectionner le pokemon :</label>
-    <input list="pokemons" type="text" id="select_pokemon">
 
-    <datalist id="pokemons" >
-            <option th:each="pokemon : ${pokemonList}" th:value="${pokemon.nameFr}"></option>
-    </datalist>
+<div class="dropdown">
+    <div id="myDropdown" class="dropdown-content">
+        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+        <button onclick="selectPokemon(this)" th:each="pokemon : ${pokemonList}" th:href="${'#' + pokemon.nameFr}" th:name="${pokemon.nameFr}">
+            <span th:text="${pokemon.nameFr}"></span>
+        </button>
+    </div>
+</div>
+<button onclick="tryPokemon()" type="submit">tester</button>
 
 
-    <button type="button" onclick="tryPokemon()">Try</button>
+
 
 </body>
 <script type="text/javascript"  th:src="@{/js/play_pokemon.js}"> </script>
