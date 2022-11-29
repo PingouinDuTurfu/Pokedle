@@ -11,6 +11,7 @@ function tryPokemon() {
             }
             console.log(data)
             displayLineAnswer(data);
+            $("#selectSearchInput").val("");
         }
     );
 }

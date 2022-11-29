@@ -1,6 +1,6 @@
 package fr.project.pokedle.controller;
 
-import fr.project.pokedle.game.PreviousRound;
+import fr.project.pokedle.game.GameManager;
 import fr.project.pokedle.service.UserDetailsImpl;
 import fr.project.pokedle.game.PlayOfficialGame;
 import fr.project.pokedle.persistence.data.Pokemon;
@@ -30,7 +30,8 @@ public class GameController {
     private PlayOfficialGame playOfficialGame;
 
     @Autowired
-    private PreviousRound previousRoundService;
+    private GameManager gameManager;
+
 
     @GetMapping("/play/official")
     public String showOfficialGame(Model model) {
@@ -49,7 +50,7 @@ public class GameController {
     @PostMapping(value = "/play/official/previous", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getPreviousTriesOfficialGame(Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        JSONArray json = previousRoundService.getPreviousRoundsJSON(userDetails.getUser());
+        JSONArray json = gameManager.getPreviousRoundsJSON(userDetails.getUser());
         return ResponseEntity.status(HttpStatus.OK).body(json);
     }
 }

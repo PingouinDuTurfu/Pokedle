@@ -1,18 +1,15 @@
 package fr.project.pokedle.game;
 
+import fr.project.pokedle.persistence.classic.ClassicRound;
 import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.persistence.registration.User;
 import fr.project.pokedle.persistence.classic.ClassicGame;
 import fr.project.pokedle.persistence.classic.ClassicGamePlayer;
 import fr.project.pokedle.repository.ClassicGamePlayerRepository;
-import fr.project.pokedle.repository.ClassicGameRepository;
 import fr.project.pokedle.repository.PokemonRepository;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 
 @Component
@@ -21,34 +18,10 @@ public class PlayOfficialGame {
     private PokemonRepository pokemonRepository;
 
     @Autowired
-    private ClassicGameRepository classicGameRepository;
-
-    @Autowired
     private ClassicGamePlayerRepository classicGamePlayerRepository;
 
     @Autowired
-    private GameOfficialManager gameOfficialManager;
-
-
-    public ClassicGame getClassicGameOfToday() {
-        /* verfify if there is a pokemon to find */
-        LocalDateTime now = LocalDateTime.now(); //current date and time
-        LocalDateTime start = now.toLocalDate().atStartOfDay();
-        LocalDateTime end = now.toLocalDate().atStartOfDay().plusDays(1);
-
-        return classicGameRepository.findByDateBetween(
-                Date.from(start.atZone(ZoneId.systemDefault()).toInstant()),
-                Date.from(end.atZone(ZoneId.systemDefault()).toInstant())
-        ).orElseGet(gameOfficialManager::createGame);
-    }
-
-
-    public ClassicGamePlayer getClassicGamePlayerOfToday(User user, ClassicGame classicGame) {
-        return classicGamePlayerRepository.findByUserAndGame(
-                user,
-                classicGame
-        ).orElseGet(() -> gameOfficialManager.createGamePlayer(user, classicGame));
-    }
+    private GameManager gameManager;
 
 
     public JSONObject play(User user, String pokemonNameToTry) {
@@ -59,15 +32,16 @@ public class PlayOfficialGame {
             return jsonObject;
         }
 
-        ClassicGame classicGame = getClassicGameOfToday();
+        ClassicGame classicGame = gameManager.getClassicGameOfToday();
 
-        ClassicGamePlayer classicGamePlayer = getClassicGamePlayerOfToday(user, classicGame);
+        ClassicGamePlayer classicGamePlayer = gameManager.getClassicGamePlayerOfToday(user, classicGame);
 
         // if game is already finished => exit
         if (classicGamePlayer.isSuccess()) {
             jsonObject.put("error", "alredy_completed");
             return jsonObject;
         }
+
 
         /* verfify if the pokemon enter is correct */
         Pokemon pokemonToTry = pokemonRepository.findPokemonsByNameFr(pokemonNameToTry);
@@ -77,12 +51,17 @@ public class PlayOfficialGame {
             return jsonObject;
         }
 
+        if (gameManager.getPreviousRounds(user).stream().map(ClassicRound::getPokemon).toList().contains(pokemonToTry)) {
+            jsonObject.put("error", "pokemon_already_tried");
+            return jsonObject;
+        }
+
         Pokemon pokemonToFind = classicGame.getPokemon();
 
         // compare pokemons
         GameOfficialTry gameOfficialTry = new GameOfficialTry(pokemonToTry, pokemonToFind);
 
-        gameOfficialManager.createGameRound(classicGamePlayer, pokemonToTry);
+        gameManager.createGameRound(classicGamePlayer, pokemonToTry);
 
         jsonObject.put("is_same", gameOfficialTry.isSame());
         jsonObject.put("pokemon", pokemonToTry.toJSON());
