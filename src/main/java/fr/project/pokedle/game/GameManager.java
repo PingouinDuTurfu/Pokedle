@@ -9,16 +9,20 @@ import fr.project.pokedle.repository.ClassicGamePlayerRepository;
 import fr.project.pokedle.repository.ClassicGameRepository;
 import fr.project.pokedle.repository.ClassicRoundRepository;
 import fr.project.pokedle.repository.PokemonRepository;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 @Component
-public class GameOfficialManager {
+public class GameManager {
 
     @Autowired
     private PokemonRepository pokemonRepository;
@@ -71,9 +75,7 @@ public class GameOfficialManager {
 
         if (classicGamePlayer.getRounds().size() > 0) {
             List<Long> indexRounds = new ArrayList<>(classicGamePlayer.getRounds().stream().map(ClassicRound::getRound).toList());
-            System.out.println(indexRounds);
             Collections.sort(indexRounds);
-            System.out.println(indexRounds.get(indexRounds.size() - 1));
             classicRound.setRound(1 + indexRounds.get(indexRounds.size() - 1));
         } else {
             classicRound.setRound(0);
@@ -82,5 +84,58 @@ public class GameOfficialManager {
         classicRoundRepository.save(classicRound);
 
         return classicRound;
+    }
+
+    public ClassicGame getClassicGameOfToday() {
+        /* verfify if there is a pokemon to find */
+        LocalDateTime now = LocalDateTime.now(); //current date and time
+        LocalDateTime start = now.toLocalDate().atStartOfDay();
+        LocalDateTime end = now.toLocalDate().atStartOfDay().plusDays(1);
+
+        return classicGameRepository.findByDateBetween(
+                Date.from(start.atZone(ZoneId.systemDefault()).toInstant()),
+                Date.from(end.atZone(ZoneId.systemDefault()).toInstant())
+        ).orElseGet(this::createGame);
+    }
+
+
+    public ClassicGamePlayer getClassicGamePlayerOfToday(User user, ClassicGame classicGame) {
+        return classicGamePlayerRepository.findByUserAndGame(
+                user,
+                classicGame
+        ).orElseGet(() -> createGamePlayer(user, classicGame));
+    }
+
+    public List<ClassicRound> getPreviousRounds(User user) {
+        ClassicGamePlayer classicGamePlayer = getClassicGamePlayerOfToday(
+                user,
+                getClassicGameOfToday()
+        );
+        List<fr.project.pokedle.persistence.classic.ClassicRound> rounds = classicGamePlayer.getRounds();
+        Collections.sort(rounds, (o1, o2) -> (int) (o1.getRound() - o2.getRound()));
+
+        return rounds;
+    }
+
+    public JSONArray getPreviousRoundsJSON(User user) {
+        List<ClassicRound> rounds = getPreviousRounds(user);
+
+        if (rounds.size() == 0)
+            return new JSONArray();
+
+        JSONArray json = new JSONArray();
+
+        Pokemon pokemonToFind = rounds.get(0).getGamePlayer().getGame().getPokemon();
+        rounds.forEach(round -> {
+            GameOfficialTry gameOfficialTry = new GameOfficialTry(round.getPokemon(), pokemonToFind);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("is_same", gameOfficialTry.isSame());
+            jsonObject.put("pokemon", round.getPokemon().toJSON());
+            jsonObject.put("difference", gameOfficialTry.toJSON());
+
+            json.add(jsonObject);
+        });
+
+        return json;
     }
 }
