@@ -11,7 +11,7 @@ function tryPokemon() {
             const content = prefix +
                 getHTMLDifference("NEUTRAL", "itemIcon", getHTMLValue("IMAGE", data["pokemon"]["linkIcon"])) +
                 getHTMLDifference("NEUTRAL", "itemName", getHTMLValue("TEXT", data["pokemon"]["nameFr"])) +
-                getHTMLDifference(data["difference"]["color"], "itemColor", getHTMLValue("TEXT", data["pokemon"]["color"])) +
+                getHTMLDifference(data["difference"]["color"], "itemColor", getHTMLValue("COLOR", data["pokemon"]["color"])) +
                 getHTMLDifference(data["difference"]["shape"], "itemShape", getHTMLValue("IMAGE",data["pokemon"]["shape"]["linkIcon"])) +
                 getHTMLDifference(data["difference"]["type"], "itemType", getHTMLValue("IMAGE", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
                 getHTMLDifference(data["difference"]["height"], "itemHeight", getHTMLValue("TEXT", data["pokemon"]["height"])) +
@@ -34,6 +34,8 @@ function getHTMLValue(type, value1, value2) {
                 return "<span class=\"itemValue\">" + value1 + "</span><span class=\"itemValue\">" + value2 + "</span>";
             else
                 return "<span class=\"itemValue\">" + value1 + "</span>";
+        case "COLOR":
+            return "<span class=\"itemValue\" style=\"background-color: " + value1 + "\"></span>";
         default:
             return "<span class=\"itemValue\">" + value1 + "</span>";
     }
