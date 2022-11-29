@@ -1,6 +1,6 @@
 package fr.project.pokedle.repository;
 
-import fr.project.pokedle.persistence.classic.ClassicGame;
+import fr.project.pokedle.persistence.game.classic.ClassicGame;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;
