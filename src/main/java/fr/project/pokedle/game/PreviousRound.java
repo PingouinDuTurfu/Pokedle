@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-public class PreviousRoundService {
+public class PreviousRound {
 
     @Autowired
     PlayOfficialGame playOfficialGame;
@@ -29,7 +29,6 @@ public class PreviousRoundService {
                 user,
                 playOfficialGame.getClassicGameOfToday()
         );
-        System.out.println(classicGamePlayer);
         List<ClassicRound> rounds = new ArrayList<>(classicGamePlayer.getRounds());
         Collections.sort(rounds, (o1, o2) -> (int) (o1.getRound() - o2.getRound()));
 

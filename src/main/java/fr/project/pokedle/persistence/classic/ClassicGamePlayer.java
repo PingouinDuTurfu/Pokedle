@@ -1,6 +1,5 @@
 package fr.project.pokedle.persistence.classic;
 
-import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.persistence.registration.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +13,7 @@ import java.util.UUID;
 
 @Setter
 @Getter
-@Entity(name = "ClassicOfficials")
+@Entity(name = "ClassicGamesPlayer")
 public class ClassicGamePlayer {
 
     @Id

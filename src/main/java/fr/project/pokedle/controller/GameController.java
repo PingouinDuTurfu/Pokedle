@@ -1,6 +1,6 @@
 package fr.project.pokedle.controller;
 
-import fr.project.pokedle.game.PreviousRoundService;
+import fr.project.pokedle.game.PreviousRound;
 import fr.project.pokedle.service.UserDetailsImpl;
 import fr.project.pokedle.game.PlayOfficialGame;
 import fr.project.pokedle.persistence.data.Pokemon;
@@ -30,17 +30,12 @@ public class GameController {
     private PlayOfficialGame playOfficialGame;
 
     @Autowired
-    private PreviousRoundService previousRoundService;
-
-
+    private PreviousRound previousRoundService;
 
     @GetMapping("/play/official")
     public String showOfficialGame(Model model) {
         List<Pokemon> pokemonList = pokemonRepository.findAll();
-
-
         model.addAttribute("pokemonList", pokemonList);
-
         return "play/classicGame";
     }
 

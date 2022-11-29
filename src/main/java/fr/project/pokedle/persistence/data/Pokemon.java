@@ -8,11 +8,9 @@ import javax.persistence.*;
 import java.util.Map;
 import java.util.function.Function;
 
-
-@Entity
 @Getter
 @Setter
-@Table(name = "Pokemons")
+@Entity(name = "Pokemons")
 public class Pokemon {
 
     private static final Map<String, Function<Object, String>> functionMap = Map.of(
