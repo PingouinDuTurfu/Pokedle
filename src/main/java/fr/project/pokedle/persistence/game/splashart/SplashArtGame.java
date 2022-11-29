@@ -1,5 +1,6 @@
-package fr.project.pokedle.persistence.classic;
+package fr.project.pokedle.persistence.game.splashart;
 
+import fr.project.pokedle.persistence.game.classic.ClassicGamePlayer;
 import fr.project.pokedle.persistence.data.Pokemon;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,13 +14,13 @@ import java.util.UUID;
 
 @Setter
 @Getter
-@Entity(name = "ClassicGames")
-public class ClassicGame {
+@Entity(name = "SplashArtGames")
+public class SplashArtGame {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "classic_game_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
+    @Column(name = "splash_art_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
     private UUID id;
 
@@ -30,6 +31,12 @@ public class ClassicGame {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pokemon", nullable = false)
     private Pokemon pokemon;
+
+    @Column
+    private double center_x;
+
+    @Column
+    private double center_y;
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)

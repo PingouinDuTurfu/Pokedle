@@ -1,8 +1,8 @@
 package fr.project.pokedle.controller;
 
-import fr.project.pokedle.game.GameManager;
+import fr.project.pokedle.game.classic_game.ClassicGameManager;
 import fr.project.pokedle.service.UserDetailsImpl;
-import fr.project.pokedle.game.PlayOfficialGame;
+import fr.project.pokedle.game.classic_game.PlayClassicGame;
 import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.repository.PokemonRepository;
 import org.json.simple.JSONArray;
@@ -27,10 +27,10 @@ public class GameController {
     private PokemonRepository pokemonRepository;
 
     @Autowired
-    private PlayOfficialGame playOfficialGame;
+    private PlayClassicGame playClassicGame;
 
     @Autowired
-    private GameManager gameManager;
+    private ClassicGameManager gameManager;
 
 
     @GetMapping("/play/official")
@@ -43,7 +43,7 @@ public class GameController {
     @PostMapping(value = "/play/official/try", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> tryPokemonOfficialGame(@Param("pokemonName") String pokemonName, Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        JSONObject json = playOfficialGame.play(userDetails.getUser(), pokemonName);
+        JSONObject json = playClassicGame.play(userDetails.getUser(), pokemonName);
         return ResponseEntity.status(HttpStatus.OK).body(json);
     }
 
