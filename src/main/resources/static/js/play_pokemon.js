@@ -91,7 +91,7 @@ function filterFunction() {
     else
         filter = input.val().toUpperCase();
 
-    contentDiv = $("#classicGameSearchContent");
+    contentDiv = document.getElementById("classicGameSearchContent");
     buttonItems = contentDiv.getElementsByTagName("button");
 
     for (const item of buttonItems) {

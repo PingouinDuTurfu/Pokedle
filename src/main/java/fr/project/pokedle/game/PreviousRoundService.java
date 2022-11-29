@@ -29,6 +29,7 @@ public class PreviousRoundService {
                 user,
                 playOfficialGame.getClassicGameOfToday()
         );
+        System.out.println(classicGamePlayer);
         List<ClassicRound> rounds = new ArrayList<>(classicGamePlayer.getRounds());
         Collections.sort(rounds, (o1, o2) -> (int) (o1.getRound() - o2.getRound()));
 
