@@ -1,30 +1,9 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Register</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
-</head>
-<body>
-<h1>Salut!</h1>
-
-<p>Registration</p>
-
-
-
-</body>
-</html>
-
-
-
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>S'enregistrer</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/classicGame.css}">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 <body>
 <div th:replace="/fragments/header::header"></div>
@@ -40,15 +19,15 @@
             <form th:action="@{/register}" method="post" th:object="${user}">
                 <div>
                     <div>
-                        <label for="username" class="sr-only">Username</label>
+                        <label for="username" class="sr-only">Login</label>
                         <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
                     </div>
                     <div>
-                        <label for="password" class="sr-only">Username</label>
+                        <label for="password" class="sr-only">MDP</label>
                         <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="" autofocus="">
                     </div>
                     <div>
-                        <label for="confirmPassword" class="sr-only">Username</label>
+                        <label for="confirmPassword" class="sr-only">Confirmation</label>
                         <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm password" required="" autofocus="">
                     </div>
                     <div><button type="submit" class="btn btn-lg btn-primary btn-block">submit</button></div>
@@ -60,5 +39,4 @@
 </div>
 <div th:replace="/fragments/footer::footer"></div>
 </body>
-<script type="text/javascript" th:src="@{/js/play_pokemon.js}"> </script>
 </html>

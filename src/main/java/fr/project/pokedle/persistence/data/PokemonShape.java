@@ -7,10 +7,9 @@ import org.json.simple.JSONObject;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
-@Table(name = "PokemonShapes")
+@Entity(name = "PokemonShapes")
 public class PokemonShape {
 
     @Id

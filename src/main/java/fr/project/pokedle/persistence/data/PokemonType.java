@@ -6,10 +6,9 @@ import org.json.simple.JSONObject;
 
 import javax.persistence.*;
 
-@Entity
 @Getter
 @Setter
-@Table(name = "PokemonTypes")
+@Entity(name = "PokemonTypes")
 public class PokemonType {
 
     @Id
