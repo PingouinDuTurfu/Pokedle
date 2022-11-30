@@ -1,14 +1,11 @@
 package fr.project.pokedle.game.splashart_game;
 
 import fr.project.pokedle.game.GameManager;
-import fr.project.pokedle.game.classic_game.ClassicGameTry;
 import fr.project.pokedle.persistence.data.Pokemon;
-import fr.project.pokedle.persistence.game.classic.ClassicRound;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGame;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGamePlayer;
 import fr.project.pokedle.persistence.game.splashart.SplashArtRound;
 import fr.project.pokedle.persistence.registration.User;
-import fr.project.pokedle.repository.PokemonRepository;
 import fr.project.pokedle.repository.SplashArtGamePlayerRepository;
 import fr.project.pokedle.repository.SplashArtGameRepository;
 import fr.project.pokedle.repository.SplashArtRoundRepository;
@@ -19,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -123,10 +119,10 @@ public class SplashArtGameManager {
 
         int numberRounds = splashArtGamePlayer.getRounds().size();
         return new double[]{
-                Math.max(0, splashArtGame.getCenter_x() - 0.1 * (1 + numberRounds)),
-                Math.max(0, splashArtGame.getCenter_y() - 0.1 * (1 + numberRounds)),
-                Math.min(1, splashArtGame.getCenter_x() + 0.1 * (1 + numberRounds)),
-                Math.min(1, splashArtGame.getCenter_y() + 0.1 * (1 + numberRounds))
+                Math.max(0, splashArtGame.getCenter_x() - 0.01 * (10 + numberRounds)),
+                Math.max(0, splashArtGame.getCenter_y() - 0.01 * (10 + numberRounds)),
+                Math.min(1, splashArtGame.getCenter_x() + 0.01 * (10 + numberRounds)),
+                Math.min(1, splashArtGame.getCenter_y() + 0.01 * (10 + numberRounds))
         };
 
     }
@@ -151,7 +147,7 @@ public class SplashArtGameManager {
 
     public BufferedImage getImage(User user) throws IOException {
         //String pathImg = getSplashArtGameOfToday().getPokemon().getLinkBigSprite();
-        String pathImg = "http://www.pingouinduturfu.fr/pokedle/imagesHQ/001.png";
+        String pathImg = "http://www.pingouinduturfu.fr/pokedle/imagesHQ/291.png";
         BufferedImage img = ImageIO.read(new URL(pathImg));
 
 
