@@ -87,6 +87,19 @@ function filterFunction() {
     }
 }
 
+$.initialize(".itemName", function (e) {
+    resize_to_fit($(this));
+});
+
+function resize_to_fit(element){
+    const child = element.children(":first");
+    child.css('fontSize', parseFloat(child.css('font-size')) - 1);
+
+    if(child.width() >= element.width() - 10){
+        resize_to_fit(element);
+    }
+}
+
 function selectPokemon(select) {
     $("#selectSearchInput").val(select.name);
     filterFunction();
