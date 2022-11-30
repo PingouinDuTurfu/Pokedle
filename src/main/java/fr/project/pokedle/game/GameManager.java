@@ -19,4 +19,10 @@ public class GameManager {
         /* verfify if the pokemon is correct */
         return pokemonRepository.findById(id).orElseThrow(RuntimeException::new);
     }
+
+    public Pokemon getPokemonByName(String pokemonName) {
+        return pokemonRepository.findByNameEn(pokemonName)
+                .orElse(pokemonRepository.findByNameFr(pokemonName)
+                        .orElse(null));
+    }
 }

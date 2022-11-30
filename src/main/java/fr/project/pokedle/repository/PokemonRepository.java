@@ -4,8 +4,10 @@ import fr.project.pokedle.persistence.data.Pokemon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface PokemonRepository extends JpaRepository<Pokemon, Long> {
-    Pokemon findPokemonById(long pokemon_id);
-    Pokemon findPokemonsByNameFr(String name_fr);
+    Optional<Pokemon> findByNameFr(String name_fr);
+    Optional<Pokemon> findByNameEn(String name_en);
 }

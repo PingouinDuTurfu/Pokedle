@@ -1,7 +1,9 @@
 package fr.project.pokedle.game.splashart_game;
 
 import fr.project.pokedle.game.GameManager;
+import fr.project.pokedle.game.classic_game.ClassicGameTry;
 import fr.project.pokedle.persistence.data.Pokemon;
+import fr.project.pokedle.persistence.game.classic.ClassicRound;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGame;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGamePlayer;
 import fr.project.pokedle.persistence.game.splashart.SplashArtRound;
@@ -10,9 +12,16 @@ import fr.project.pokedle.repository.PokemonRepository;
 import fr.project.pokedle.repository.SplashArtGamePlayerRepository;
 import fr.project.pokedle.repository.SplashArtGameRepository;
 import fr.project.pokedle.repository.SplashArtRoundRepository;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -23,17 +32,11 @@ import java.util.List;
 @Component
 public class SplashArtGameManager {
     @Autowired
-    private PokemonRepository pokemonRepository;
-
-    @Autowired
     private SplashArtGameRepository splashArtGameRepository;
-
     @Autowired
     private SplashArtGamePlayerRepository splashArtGamePlayerRepository;
-
     @Autowired
     private SplashArtRoundRepository splashArtRoundRepository;
-
     @Autowired
     private GameManager gameManager;
 
@@ -45,7 +48,7 @@ public class SplashArtGameManager {
         splashArtGame.setPokemon(pokemon);
         splashArtGame.setDate(new Date());
         splashArtGame.setCenter_x(0.3 + 0.4 * Math.random());
-        splashArtGame.setCenter_x(0.3 + 0.4 * Math.random());
+        splashArtGame.setCenter_y(0.3 + 0.4 * Math.random());
 
         splashArtGameRepository.save(splashArtGame);
 
@@ -105,11 +108,70 @@ public class SplashArtGameManager {
                 getSplashArtGameOfToday()
         );
         List<SplashArtRound> rounds = splashArtGamePlayer.getRounds();
-        Collections.sort(rounds, (o1, o2) -> (int) (o1.getRound() - o2.getRound()));
-
+        System.out.println(rounds);
+        if (rounds != null && rounds.size() > 0)
+            Collections.sort(rounds, (o1, o2) -> (int) (o1.getRound() - o2.getRound()));
         return rounds;
     }
 
+    public double[] getCoordonatesImage(User user) {
+        SplashArtGame splashArtGame = getSplashArtGameOfToday();
+        SplashArtGamePlayer splashArtGamePlayer = getSplashArtGamePlayerOfToday(
+                user,
+                splashArtGame
+        );
+
+        int numberRounds = splashArtGamePlayer.getRounds().size();
+        return new double[]{
+                Math.max(0, splashArtGame.getCenter_x() - 0.1 * (1 + numberRounds)),
+                Math.max(0, splashArtGame.getCenter_y() - 0.1 * (1 + numberRounds)),
+                Math.min(1, splashArtGame.getCenter_x() + 0.1 * (1 + numberRounds)),
+                Math.min(1, splashArtGame.getCenter_y() + 0.1 * (1 + numberRounds))
+        };
+
+    }
+
+    public JSONObject getPreviousRoundsJSON(User user) {
+        List<SplashArtRound> rounds = getPreviousRounds(user);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject json = new JSONObject();
+
+        if (rounds.size() != 0) {
+            Pokemon pokemonToFind = rounds.get(0).getGamePlayer().getGame().getPokemon();
+            rounds.forEach(round -> {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("is_same", round.getPokemon().equals(pokemonToFind));
+                jsonObject.put("pokemon", round.getPokemon().toJSON());
+                jsonArray.add(jsonObject);
+            });
+        }
+        json.put("list", jsonArray);
+        return json;
+    }
+
+    public BufferedImage getImage(User user) throws IOException {
+        //String pathImg = getSplashArtGameOfToday().getPokemon().getLinkBigSprite();
+        String pathImg = "http://www.pingouinduturfu.fr/pokedle/imagesHQ/001.png";
+        BufferedImage img = ImageIO.read(new URL(pathImg));
 
 
+        double[] coords = getCoordonatesImage(user);
+
+        int height = img.getHeight();
+        int width = img.getWidth();
+        System.out.println(height + " " + width);
+
+        System.out.println((width * coords[0]) +" "+
+                (height * coords[1]) +" "+
+                (width * (coords[2] - coords[0]))+" "+
+                (height * (coords[3] - coords[1])));
+        BufferedImage cropImg = img.getSubimage(
+                (int) (width * coords[0]),
+                (int) (height * coords[1]),
+                (int) (width * (coords[2] - coords[0])),
+                (int) (height * (coords[3] - coords[1]))
+        );
+
+        return cropImg;
+    }
 }

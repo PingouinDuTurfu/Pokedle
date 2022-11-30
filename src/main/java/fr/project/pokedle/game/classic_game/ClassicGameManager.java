@@ -1,7 +1,6 @@
 package fr.project.pokedle.game.classic_game;
 
 import fr.project.pokedle.game.GameManager;
-import fr.project.pokedle.game.classic_game.ClassicGameTry;
 import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.persistence.game.classic.ClassicGame;
 import fr.project.pokedle.persistence.game.classic.ClassicGamePlayer;
@@ -10,7 +9,6 @@ import fr.project.pokedle.persistence.registration.User;
 import fr.project.pokedle.repository.ClassicGamePlayerRepository;
 import fr.project.pokedle.repository.ClassicGameRepository;
 import fr.project.pokedle.repository.ClassicRoundRepository;
-import fr.project.pokedle.repository.PokemonRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,19 +23,12 @@ import java.util.List;
 
 @Component
 public class ClassicGameManager {
-
-    @Autowired
-    private PokemonRepository pokemonRepository;
-
     @Autowired
     private ClassicGameRepository classicGameRepository;
-
     @Autowired
     private ClassicGamePlayerRepository classicGamePlayerRepository;
-
     @Autowired
     private ClassicRoundRepository classicRoundRepository;
-
     @Autowired
     private GameManager gameManager;
 
@@ -54,7 +45,7 @@ public class ClassicGameManager {
         return classicGame;
     }
 
-    public ClassicGamePlayer createGamePlayer(User user, ClassicGame classicGame) {
+    public ClassicGamePlayer createClassicGamePlayer(User user, ClassicGame classicGame) {
         ClassicGamePlayer classicGamePlayer = new ClassicGamePlayer();
         classicGamePlayer.setUser(user);
         classicGamePlayer.setGame(classicGame);
@@ -66,7 +57,7 @@ public class ClassicGameManager {
         return classicGamePlayer;
     }
 
-    public ClassicRound createGameRound(ClassicGamePlayer classicGamePlayer, Pokemon pokemon) {
+    public ClassicRound createClassicRound(ClassicGamePlayer classicGamePlayer, Pokemon pokemon) {
         ClassicRound classicRound = new ClassicRound();
         classicRound.setGamePlayer(classicGamePlayer);
         classicRound.setPokemon(pokemon);
@@ -100,7 +91,7 @@ public class ClassicGameManager {
         return classicGamePlayerRepository.findByUserAndGame(
                 user,
                 classicGame
-        ).orElseGet(() -> createGamePlayer(user, classicGame));
+        ).orElseGet(() -> createClassicGamePlayer(user, classicGame));
     }
 
     public List<ClassicRound> getPreviousRounds(User user) {
@@ -109,18 +100,18 @@ public class ClassicGameManager {
                 getClassicGameOfToday()
         );
         List<ClassicRound> rounds = classicGamePlayer.getRounds();
-        Collections.sort(rounds, (o1, o2) -> (int) (o1.getRound() - o2.getRound()));
+        if (rounds != null && rounds.size() > 0)
+            Collections.sort(rounds, (o1, o2) -> (int) (o1.getRound() - o2.getRound()));
 
         return rounds;
     }
 
     public JSONArray getPreviousRoundsJSON(User user) {
         List<ClassicRound> rounds = getPreviousRounds(user);
+        JSONArray json = new JSONArray();
 
         if (rounds.size() == 0)
-            return new JSONArray();
-
-        JSONArray json = new JSONArray();
+            return json;
 
         Pokemon pokemonToFind = rounds.get(0).getGamePlayer().getGame().getPokemon();
         rounds.forEach(round -> {

@@ -1,7 +1,11 @@
 package fr.project.pokedle.game.splashart_game;
 
+import fr.project.pokedle.game.GameManager;
 import fr.project.pokedle.game.classic_game.ClassicGameTry;
 import fr.project.pokedle.persistence.data.Pokemon;
+import fr.project.pokedle.persistence.game.classic.ClassicGame;
+import fr.project.pokedle.persistence.game.classic.ClassicGamePlayer;
+import fr.project.pokedle.persistence.game.classic.ClassicRound;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGame;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGamePlayer;
 import fr.project.pokedle.persistence.game.splashart.SplashArtRound;
@@ -16,15 +20,12 @@ import java.util.Date;
 
 @Component
 public class PlaySplashArtGame {
-
-    @Autowired
-    private PokemonRepository pokemonRepository;
-
     @Autowired
     private SplashArtGameManager splashArtGameManager;
-
     @Autowired
     private SplashArtGamePlayerRepository splashArtGamePlayerRepository;
+    @Autowired
+    private GameManager gameManager;
 
     public JSONObject play(User user, String pokemonNameToTry) {
         JSONObject jsonObject = new JSONObject();
@@ -35,9 +36,7 @@ public class PlaySplashArtGame {
         }
 
         SplashArtGame splashArtGame = splashArtGameManager.getSplashArtGameOfToday();
-
         SplashArtGamePlayer splashArtGamePlayer = splashArtGameManager.getSplashArtGamePlayerOfToday(user, splashArtGame);
-
         // if game is already finished => exit
         if (splashArtGamePlayer.isSuccess()) {
             jsonObject.put("error", "alredy_completed");
@@ -45,8 +44,7 @@ public class PlaySplashArtGame {
         }
 
         /* verfify if the pokemon enter is correct */
-        Pokemon pokemonToTry = pokemonRepository.findPokemonsByNameFr(pokemonNameToTry);
-
+        Pokemon pokemonToTry = gameManager.getPokemonByName(pokemonNameToTry);
         if ((pokemonToTry == null)) {
             jsonObject.put("error", "pokemon_unknown");
             return jsonObject;
@@ -59,16 +57,14 @@ public class PlaySplashArtGame {
 
         Pokemon pokemonToFind = splashArtGame.getPokemon();
 
-        // compare pokemons
-        ClassicGameTry classicGameTry = new ClassicGameTry(pokemonToTry, pokemonToFind);
-
         splashArtGameManager.createSplashArtRound(splashArtGamePlayer, pokemonToTry);
 
-        jsonObject.put("is_same", classicGameTry.isSame());
+        // compare pokemons
+        jsonObject.put("is_same", pokemonToTry.equals(pokemonToFind));
         jsonObject.put("pokemon", pokemonToTry.toJSON());
-        jsonObject.put("difference", classicGameTry.toJSON());
+        jsonObject.put("coordonnates", splashArtGameManager.getCoordonatesImage(user));
 
-        if (classicGameTry.isSame()) {
+        if (pokemonToTry.equals(pokemonToFind)) {
             splashArtGamePlayer.setSuccess(true);
             splashArtGamePlayer.setSuccessDate(new Date());
             // set score
