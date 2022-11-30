@@ -1,5 +1,6 @@
 package fr.project.pokedle.game.classic_game;
 
+import fr.project.pokedle.game.GameManager;
 import fr.project.pokedle.persistence.game.classic.ClassicRound;
 import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.persistence.registration.User;
@@ -14,15 +15,12 @@ import java.util.Date;
 
 @Component
 public class PlayClassicGame {
-    @Autowired
-    private PokemonRepository pokemonRepository;
-
-    @Autowired
+   @Autowired
     private ClassicGamePlayerRepository classicGamePlayerRepository;
-
     @Autowired
     private ClassicGameManager classicGameManager;
-
+    @Autowired
+    private GameManager gameManager;
 
     public JSONObject play(User user, String pokemonNameToTry) {
         JSONObject jsonObject = new JSONObject();
@@ -33,19 +31,15 @@ public class PlayClassicGame {
         }
 
         ClassicGame classicGame = classicGameManager.getClassicGameOfToday();
-
         ClassicGamePlayer classicGamePlayer = classicGameManager.getClassicGamePlayerOfToday(user, classicGame);
-
         // if game is already finished => exit
         if (classicGamePlayer.isSuccess()) {
             jsonObject.put("error", "alredy_completed");
             return jsonObject;
         }
 
-
         /* verfify if the pokemon enter is correct */
-        Pokemon pokemonToTry = pokemonRepository.findPokemonsByNameFr(pokemonNameToTry);
-
+        Pokemon pokemonToTry = gameManager.getPokemonByName(pokemonNameToTry);
         if ((pokemonToTry == null)) {
             jsonObject.put("error", "pokemon_unknown");
             return jsonObject;
@@ -61,7 +55,7 @@ public class PlayClassicGame {
         // compare pokemons
         ClassicGameTry classicGameTry = new ClassicGameTry(pokemonToTry, pokemonToFind);
 
-        classicGameManager.createGameRound(classicGamePlayer, pokemonToTry);
+        classicGameManager.createClassicRound(classicGamePlayer, pokemonToTry);
 
         jsonObject.put("is_same", classicGameTry.isSame());
         jsonObject.put("pokemon", pokemonToTry.toJSON());

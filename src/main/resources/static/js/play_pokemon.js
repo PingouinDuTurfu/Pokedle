@@ -2,7 +2,7 @@ const DEFAULT_RESSOURCE = "http://***REMOVED***/pokedle/";
 
 function tryPokemon() {
     const pokemonToTry = $("#selectSearchInput").val();
-    $.post("/play/official/try",
+    $.post("/play/classic/try",
         {pokemonName: pokemonToTry},
         function(data, status) {
             if (data.hasOwnProperty("error")) {
@@ -111,7 +111,7 @@ function selectPokemon(select) {
 
 $(document).ready(() => {
     // get all pokemon played
-    $.post("/play/official/previous",
+    $.post("/play/classic/previous",
         {},
         function(data, status) {
             console.log(data);

@@ -19,7 +19,8 @@ public class WebSecurityConfig {
     };
 
     private static final String[] USER_LIST_URLS = {
-            "/play/official_try", "/play/official"
+            "/play/classic", "/play/classic/try", "/play/classic/previous",
+            "/play/splash_art", "/play/splash_art/try", "/play/splash_art/previous", "play/splash_art/partial_splash_art"
     };
 
     @Bean

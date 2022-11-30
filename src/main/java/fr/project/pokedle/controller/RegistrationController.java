@@ -27,7 +27,6 @@ import java.io.IOException;
 
 @Controller
 public class RegistrationController {
-
     @Autowired
     private UserService userService;
 
@@ -36,7 +35,6 @@ public class RegistrationController {
         model.addAttribute("user", new UserDetailsForm());
         return "registration/register";
     }
-
 
     @PostMapping("/register")
     public String registerUser(UserDetailsForm userDetailsForm, HttpServletResponse response) throws ServletException {
