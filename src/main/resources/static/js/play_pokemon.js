@@ -35,7 +35,7 @@ function getHTMLValue(type, value1, value2) {
             else
                 return "<span class=\"itemValue\">" + value1 + "</span>";
         case "COLOR":
-            return "<span class=\"itemValue\" style=\"background-color: " + value1 + "\"></span>";
+            return "<span class=\"itemValue\" style=\"background-color: " + (value1 !== "brown" ? value1 : "#8b4513") + "\"></span>";
         default:
             return "<span class=\"itemValue\">" + value1 + "</span>";
     }
@@ -87,10 +87,20 @@ function filterFunction() {
     }
 }
 
+$.initialize(".itemName", function (e) {
+    resize_to_fit($(this));
+});
+
+function resize_to_fit(element){
+    const child = element.children(":first");
+    child.css('fontSize', parseFloat(child.css('font-size')) - 1);
+
+    if(child.width() >= element.width() - 10){
+        resize_to_fit(element);
+    }
+}
+
 function selectPokemon(select) {
     $("#selectSearchInput").val(select.name);
     filterFunction();
 }
-
-$(document).ready(() => {
-});
