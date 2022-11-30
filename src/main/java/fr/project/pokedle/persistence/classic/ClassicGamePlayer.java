@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity(name = "ClassicOfficials")
+@Entity(name = "ClassicGamesPlayer")
 public class ClassicGamePlayer {
 
     @Id
