@@ -1,16 +1,11 @@
 package fr.project.pokedle.game.splashart_game;
 
 import fr.project.pokedle.game.GameManager;
-import fr.project.pokedle.game.classic_game.ClassicGameTry;
 import fr.project.pokedle.persistence.data.Pokemon;
-import fr.project.pokedle.persistence.game.classic.ClassicGame;
-import fr.project.pokedle.persistence.game.classic.ClassicGamePlayer;
-import fr.project.pokedle.persistence.game.classic.ClassicRound;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGame;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGamePlayer;
 import fr.project.pokedle.persistence.game.splashart.SplashArtRound;
 import fr.project.pokedle.persistence.registration.User;
-import fr.project.pokedle.repository.PokemonRepository;
 import fr.project.pokedle.repository.SplashArtGamePlayerRepository;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +30,8 @@ public class PlaySplashArtGame {
             return jsonObject;
         }
 
-        SplashArtGame splashArtGame = splashArtGameManager.getSplashArtGameOfToday();
-        SplashArtGamePlayer splashArtGamePlayer = splashArtGameManager.getSplashArtGamePlayerOfToday(user, splashArtGame);
+        SplashArtGame splashArtGame = splashArtGameManager.getSplashArtGameOfDay(new Date());
+        SplashArtGamePlayer splashArtGamePlayer = splashArtGameManager.getSplashArtGamePlayer(user, splashArtGame);
         // if game is already finished => exit
         if (splashArtGamePlayer.isSuccess()) {
             jsonObject.put("error", "alredy_completed");

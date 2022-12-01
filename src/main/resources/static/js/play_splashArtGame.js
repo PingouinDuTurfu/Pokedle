@@ -82,6 +82,22 @@ function selectPokemon(select) {
     filterFunction();
 }
 
+
+
+function getSprite() {
+    $.ajax({
+        type: "POST",
+        url: "/play/splash_art/partial_splash_art",
+        datatype: "image/png",
+        contentType: "text/plain",
+        success: function (result) {
+            $("#splash-art-image").attr("src", "data:image/png;base64," + result);
+        }
+    });
+}
+
+
+
 $(document).ready(() => {
     // get all pokemon played
     $.post("/play/splash_art/previous",
@@ -95,46 +111,3 @@ $(document).ready(() => {
         }
     );
 });
-
-
-//resize the image and draw it to the canvas
-function modifCanvas(byteImage) {
-    $("#splash-art-image").attr("src", "data:image/png;base64," + byteImage);
-    /*//get a reference to the canvas
-    const canvas = document.getElementById('canvas');
-    "data:image/png;base64," + yourByteArrayAsBase64
-    const image= new Image();
-    image.src = "data:image/png;base64," + byteImage;
-
-
-    //get the original image size and aspect ratio
-    const width = image.naturalWidth;
-    const height = image.naturalHeight;
-    console.log(width, height)
-
-    const ctx = canvas.getContext('2d');
-
-        //render the image
-        ctx.drawImage(
-            image,
-            0, 0, width, height,
-            0, 0, 1024, 1024
-        );*/
-        console.log("fini afficher");
-}
-
-
-function getSprite() {
-    $.ajax({
-        type: "POST",
-        url: "/play/splash_art/partial_splash_art",
-        datatype: "image/png",
-        contentType: "text/plain",
-        success: function (result) {
-            $("#splash-art-image").attr("src", "data:image/png;base64," + result);
-        }
-    });
-
-}
-
-
