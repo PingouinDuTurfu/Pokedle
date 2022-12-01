@@ -18,8 +18,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -45,21 +43,15 @@ public class SplashArtGameManager {
         splashArtGame.setDate(new Date());
         splashArtGame.setCenter_x(0.3 + 0.4 * Math.random());
         splashArtGame.setCenter_y(0.3 + 0.4 * Math.random());
-
         splashArtGameRepository.save(splashArtGame);
-
         return splashArtGame;
     }
 
-    public SplashArtGame getSplashArtGameOfToday() {
+    public SplashArtGame getSplashArtGameOfDay(Date date) {
         /* verfify if there is a pokemon to find */
-        LocalDateTime now = LocalDateTime.now(); //current date and time
-        LocalDateTime start = now.toLocalDate().atStartOfDay();
-        LocalDateTime end = now.toLocalDate().atStartOfDay().plusDays(1);
-
         return splashArtGameRepository.findByDateBetween(
-                Date.from(start.atZone(ZoneId.systemDefault()).toInstant()),
-                Date.from(end.atZone(ZoneId.systemDefault()).toInstant())
+                gameManager.startOfDay(date),
+                gameManager.endOfDay(date)
         ).orElseGet(this::createSplashArtGame);
     }
 
@@ -69,13 +61,11 @@ public class SplashArtGameManager {
         splashArtGamePlayer.setGame(splashArtGame);
         splashArtGamePlayer.setSuccess(false);
         splashArtGamePlayer.setCreationDate(new Date());
-
         splashArtGamePlayerRepository.save(splashArtGamePlayer);
-
         return splashArtGamePlayer;
     }
 
-    public SplashArtGamePlayer getSplashArtGamePlayerOfToday(User user, SplashArtGame splashArtGame) {
+    public SplashArtGamePlayer getSplashArtGamePlayer(User user, SplashArtGame splashArtGame) {
         return splashArtGamePlayerRepository.findByUserAndGame(
                 user,
                 splashArtGame
@@ -91,28 +81,29 @@ public class SplashArtGameManager {
             List<Long> indexRounds = new ArrayList<>(splashArtGamePlayer.getRounds().stream().map(SplashArtRound::getRound).toList());
             Collections.sort(indexRounds);
             splashArtRound.setRound(1 + indexRounds.get(indexRounds.size() - 1));
-        } else {
+        } else
             splashArtRound.setRound(0);
-        }
         splashArtRoundRepository.save(splashArtRound);
         return splashArtRound;
     }
 
     public List<SplashArtRound> getPreviousRounds(User user) {
-        SplashArtGamePlayer splashArtGamePlayer = getSplashArtGamePlayerOfToday(
+        SplashArtGamePlayer splashArtGamePlayer = getSplashArtGamePlayer(
                 user,
-                getSplashArtGameOfToday()
+                getSplashArtGameOfDay(new Date())
         );
         List<SplashArtRound> rounds = splashArtGamePlayer.getRounds();
-        System.out.println(rounds);
-        if (rounds != null && rounds.size() > 0)
+        if (rounds != null && rounds.size() > 0) {
             Collections.sort(rounds, (o1, o2) -> (int) (o1.getRound() - o2.getRound()));
-        return rounds;
+            return rounds;
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     public double[] getCoordonatesImage(User user) {
-        SplashArtGame splashArtGame = getSplashArtGameOfToday();
-        SplashArtGamePlayer splashArtGamePlayer = getSplashArtGamePlayerOfToday(
+        SplashArtGame splashArtGame = getSplashArtGameOfDay(new Date());
+        SplashArtGamePlayer splashArtGamePlayer = getSplashArtGamePlayer(
                 user,
                 splashArtGame
         );
@@ -124,7 +115,6 @@ public class SplashArtGameManager {
                 Math.min(1, splashArtGame.getCenter_x() + 0.01 * (10 + numberRounds)),
                 Math.min(1, splashArtGame.getCenter_y() + 0.01 * (10 + numberRounds))
         };
-
     }
 
     public JSONObject getPreviousRoundsJSON(User user) {
@@ -146,10 +136,9 @@ public class SplashArtGameManager {
     }
 
     public BufferedImage getImage(User user) throws IOException {
-        //String pathImg = getSplashArtGameOfToday().getPokemon().getLinkBigSprite();
-        String pathImg = "http://***REMOVED***/pokedle/imagesHQ/291.png";
+        // Attention ligne a changer !!!
+        String pathImg = getSplashArtGameOfDay(new Date()).getPokemon().getLinkBigSprite();
         BufferedImage img = ImageIO.read(new URL(pathImg));
-
 
         double[] coords = getCoordonatesImage(user);
 

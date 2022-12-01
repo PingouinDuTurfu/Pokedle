@@ -5,6 +5,10 @@ import fr.project.pokedle.repository.PokemonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
 @Component
 public class GameManager {
     @Autowired
@@ -24,5 +28,21 @@ public class GameManager {
         return pokemonRepository.findByNameEn(pokemonName)
                 .orElse(pokemonRepository.findByNameFr(pokemonName)
                         .orElse(null));
+    }
+
+    public Date startOfDay(Date date) {
+        return Date.from(
+                LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
+                        .toLocalDate().atStartOfDay()
+                        .atZone(ZoneId.systemDefault()).toInstant()
+        );
+    }
+
+    public Date endOfDay(Date date) {
+        return Date.from(
+                LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
+                        .toLocalDate().atStartOfDay().plusDays(1)
+                        .atZone(ZoneId.systemDefault()).toInstant()
+        );
     }
 }

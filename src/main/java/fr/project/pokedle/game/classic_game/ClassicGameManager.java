@@ -14,8 +14,6 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -39,9 +37,7 @@ public class ClassicGameManager {
         ClassicGame classicGame = new ClassicGame();
         classicGame.setPokemon(pokemon);
         classicGame.setDate(new Date());
-
         classicGameRepository.save(classicGame);
-
         return classicGame;
     }
 
@@ -51,9 +47,7 @@ public class ClassicGameManager {
         classicGamePlayer.setGame(classicGame);
         classicGamePlayer.setSuccess(false);
         classicGamePlayer.setCreationDate(new Date());
-
         classicGamePlayerRepository.save(classicGamePlayer);
-
         return classicGamePlayer;
     }
 
@@ -66,28 +60,21 @@ public class ClassicGameManager {
             List<Long> indexRounds = new ArrayList<>(classicGamePlayer.getRounds().stream().map(ClassicRound::getRound).toList());
             Collections.sort(indexRounds);
             classicRound.setRound(1 + indexRounds.get(indexRounds.size() - 1));
-        } else {
+        } else
             classicRound.setRound(0);
-        }
-
         classicRoundRepository.save(classicRound);
-
         return classicRound;
     }
 
-    public ClassicGame getClassicGameOfToday() {
+    public ClassicGame getClassicGameOfDay(Date date) {
         /* verfify if there is a pokemon to find */
-        LocalDateTime now = LocalDateTime.now(); //current date and time
-        LocalDateTime start = now.toLocalDate().atStartOfDay();
-        LocalDateTime end = now.toLocalDate().atStartOfDay().plusDays(1);
-
         return classicGameRepository.findByDateBetween(
-                Date.from(start.atZone(ZoneId.systemDefault()).toInstant()),
-                Date.from(end.atZone(ZoneId.systemDefault()).toInstant())
+                gameManager.startOfDay(date),
+                gameManager.endOfDay(date)
         ).orElseGet(this::createClassicGame);
     }
 
-    public ClassicGamePlayer getClassicGamePlayerOfToday(User user, ClassicGame classicGame) {
+    public ClassicGamePlayer getClassicGamePlayer(User user, ClassicGame classicGame) {
         return classicGamePlayerRepository.findByUserAndGame(
                 user,
                 classicGame
@@ -95,14 +82,13 @@ public class ClassicGameManager {
     }
 
     public List<ClassicRound> getPreviousRounds(User user) {
-        ClassicGamePlayer classicGamePlayer = getClassicGamePlayerOfToday(
+        ClassicGamePlayer classicGamePlayer = getClassicGamePlayer(
                 user,
-                getClassicGameOfToday()
+                getClassicGameOfDay(new Date())
         );
         List<ClassicRound> rounds = classicGamePlayer.getRounds();
         if (rounds != null && rounds.size() > 0)
             Collections.sort(rounds, (o1, o2) -> (int) (o1.getRound() - o2.getRound()));
-
         return rounds;
     }
 
@@ -125,6 +111,4 @@ public class ClassicGameManager {
         });
         return json;
     }
-
-
 }
