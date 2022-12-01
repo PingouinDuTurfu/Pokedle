@@ -44,11 +44,9 @@ public class LeaderBoard {
         return jsonScores;
     }
 
-    public JSONArray getLeaderBoardClassicGame(Date date) {
-        JSONArray jsonScores = new JSONArray();
-
-        List<ClassicGame> listGames = classicGameRepository.findAll();
-        Map<User, Double> mapScore = listGames
+    public Map<User, Double> getMapScore() {
+        return classicGameRepository
+                .findAll()
                 .stream()
                 .map(ClassicGame::getGamePlayers)
                 .flatMap(List::stream)
@@ -63,6 +61,12 @@ public class LeaderBoard {
                                         .reduce(0.0, (sum, classicGamePlayer) -> sum + classicGamePlayer.getScore(), Double::sum)
                         )
                 );
+    }
+
+    public JSONArray getLeaderBoardClassicGame(Date date) {
+        JSONArray jsonScores = new JSONArray();
+
+
 
         return jsonScores;
     }
