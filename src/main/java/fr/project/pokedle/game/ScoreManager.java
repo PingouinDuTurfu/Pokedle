@@ -3,10 +3,10 @@ package fr.project.pokedle.game;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Score {
+public class ScoreManager {
     public double computeScore(int numberRounds) {
         return Math.floor(
-          100 / Math.log(2 + 0.2 * (numberRounds - 1))
+          100.0 / Math.log10(10.0 + 10.0 * (numberRounds))
         );
     }
 }

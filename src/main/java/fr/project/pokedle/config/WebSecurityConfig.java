@@ -42,7 +42,7 @@ public class WebSecurityConfig {
                         .anyRequest()
                         .permitAll()
                 .and()
-                .formLogin().permitAll()
+                .formLogin().loginPage("/login").permitAll()
                 .and().requestCache().requestCache(new CookieRequestCache())
                 .and()
                 .logout().permitAll();
