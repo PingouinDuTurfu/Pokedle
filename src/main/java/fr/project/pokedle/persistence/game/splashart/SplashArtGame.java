@@ -1,6 +1,5 @@
 package fr.project.pokedle.persistence.game.splashart;
 
-import fr.project.pokedle.persistence.game.classic.ClassicGamePlayer;
 import fr.project.pokedle.persistence.data.Pokemon;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,5 +39,5 @@ public class SplashArtGame {
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private List<ClassicGamePlayer> gamePlayers;
+    private List<SplashArtGamePlayer> gamePlayers;
 }
