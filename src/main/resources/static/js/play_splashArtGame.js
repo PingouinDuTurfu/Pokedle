@@ -96,8 +96,6 @@ function getSprite() {
     });
 }
 
-
-
 $(document).ready(() => {
     // get all pokemon played
     $.post("/play/splash_art/previous",

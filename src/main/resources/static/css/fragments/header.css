@@ -18,6 +18,7 @@
 .header .name .content {
     padding-left: 10px;
     font-size: 50px;
+    color: var(--white);
 }
 
 .header .connect {
@@ -74,6 +75,7 @@
     transition: background-color var(--delay-short-animation), padding-bottom var(--delay-medium-animation);
     -webkit-transition: background-color var(--delay-short-animation), padding-bottom var(--delay-medium-animation);
     margin: 0 5px;
+    width: max-content;
 }
 
 .header .menu #ul-header-menu li a {

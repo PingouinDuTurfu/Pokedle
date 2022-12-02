@@ -10,6 +10,7 @@
     --dark-grey: #424242;
     --red: #BD1616;
     --light-red: #FF2626;
+    --pink: #8f5da3;
     --light-pink: #FFE6E6;
     --header-height: 80px;
     --delay-short-animation : 0.5s;
@@ -36,7 +37,7 @@ body {
     padding: 0;
     font-family: Friz Quadrata Std,Mobilo,Helvetica,Arial;
     color: var(--white);
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 ul, li, a, a:hover, input, button {

@@ -6,12 +6,14 @@
 <body>
     <div th:fragment="header" class="header">
         <div class="name">
-            <span class="content">Pokedle</span>
+            <a class="content" href="/home">
+                Pokedle
+            </a>
         </div>
         <div class="menu">
             <ul id="ul-header-menu">
-                <li><a href="/classicGame">Classic</a></li>
-                <li><a href="/multiplayerGame">Multiplayer</a></li>
+                <li><a href="/play/classic">Classic</a></li>
+                <li><a href="/play/splash_art">Splash Art</a></li>
             </ul>
         </div>
         <div class="connect">
