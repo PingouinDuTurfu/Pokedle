@@ -90,7 +90,6 @@ public class GameController {
         byte[] imageBytes = stream.toByteArray();
         byte[] imgBase64 = Base64.encodeBase64(imageBytes);
 
-        byte [] data = stream.toByteArray();
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.IMAGE_PNG)
                 .body(imgBase64);
