@@ -1,34 +1,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>Page d'accueil</title>
-    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <title>Login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
 <div th:replace="/fragments/header::header"></div>
 
-<div th:if="${param.error}">
-    <span>Invalid username and password.</span>
-</div>
-<div th:if="${param.logout}">
-    <span>You have been logged out.</span>
-</div>
-<div th:if="${param.registration_complete}">
-    <span>You have successfuly register, ${name}.</span>
-</div>
 <div class="main">
-    <form method="post" th:action="@{/
-    }">
-        <div>
-            <input name="username" placeholder="Username" type="text"/>
+    <div th:replace="/fragments/error::error"></div>
+
+    <div class="content">
+        <div class="title">
+            <span>Login</span>
         </div>
-        <div>
-            <input name="password" placeholder="Password" type="password"/>
+        <div class="formLogin">
+            <img th:src="@{/img/gif/bulbizar_1.gif}"/>
+            <form th:action="@{/login}" method="post" th:object="${user}">
+                <div class="formLoginItems">
+                    <input class="formLoginItem" type="text" id="username" name="username" placeholder="Username" required="" autofocus="">
+                    <input class="formLoginItem" type="password" id="password" name="password" placeholder="Password" required="" autofocus="">
+                    <button class="formLoginButton" type="submit">Submit</button>
+                </div>
+            </form>
         </div>
-        <input type="submit" value="Log in"/>
-    </form>
+    </div>
 </div>
 
 <div th:replace="/fragments/footer::footer"></div>
 </body>
+</html>
 
