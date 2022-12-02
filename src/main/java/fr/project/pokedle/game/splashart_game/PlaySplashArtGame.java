@@ -1,6 +1,7 @@
 package fr.project.pokedle.game.splashart_game;
 
 import fr.project.pokedle.game.GameManager;
+import fr.project.pokedle.game.ScoreManager;
 import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGame;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGamePlayer;
@@ -21,6 +22,8 @@ public class PlaySplashArtGame {
     private SplashArtGamePlayerRepository splashArtGamePlayerRepository;
     @Autowired
     private GameManager gameManager;
+    @Autowired
+    private ScoreManager scoreManager;
 
     public JSONObject play(User user, String pokemonNameToTry) {
         JSONObject jsonObject = new JSONObject();
@@ -57,13 +60,11 @@ public class PlaySplashArtGame {
         // compare pokemons
         jsonObject.put("is_same", pokemonToTry.equals(pokemonToFind));
         jsonObject.put("pokemon", pokemonToTry.toJSON());
-        jsonObject.put("coordonnates", splashArtGameManager.getCoordonatesImage(user));
 
         if (pokemonToTry.equals(pokemonToFind)) {
             splashArtGamePlayer.setSuccess(true);
             splashArtGamePlayer.setSuccessDate(new Date());
-            // set score
-            // splashArtGamePlayer.setScore(  // score function // ));
+            splashArtGamePlayer.setScore(scoreManager.computeScore(splashArtGamePlayer.getRounds().size()));
             splashArtGamePlayerRepository.save(splashArtGamePlayer);
         }
         return jsonObject;

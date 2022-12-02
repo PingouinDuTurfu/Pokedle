@@ -30,6 +30,11 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/login")
+    public String login() {
+        return "registration/login";
+    }
+
     @GetMapping("/register")
     public String registerPage(Model model) {
         model.addAttribute("user", new UserDetailsForm());
@@ -41,6 +46,6 @@ public class RegistrationController {
         User user = userService.registerUser(userDetailsForm);
         if (user == null)
             return "redirect:/register?errorNotMatchingPassword";
-        return "redirect:/login";
+        return "redirect:/login?registration_complete";
     }
 }

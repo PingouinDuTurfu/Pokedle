@@ -23,10 +23,14 @@ public class LeaderBoard {
     @Autowired
     private ClassicGameRepository classicGameRepository;
 
-    public JSONObject getScoreOnePlayerToday(ClassicGamePlayer classicGamePlayer) {
+    public JSONObject getJSONScoreOnePlayer(ClassicGamePlayer classicGamePlayer) {
+        return getJSONScoreOnePlayer(classicGamePlayer.getUser(), classicGamePlayer.getScore());
+    }
+
+    public JSONObject getJSONScoreOnePlayer(User user, Double score) {
         JSONObject json = new JSONObject();
-        json.put("username", classicGamePlayer.getUser().getUsername());
-        json.put("score", classicGamePlayer.getScore());
+        json.put("username", user.getUsername());
+        json.put("score", score);
         return json;
     }
 
@@ -38,7 +42,7 @@ public class LeaderBoard {
         playerList.stream()
                 .filter(ClassicGamePlayer::isSuccess)
                 .sorted((o1, o2) -> (int) (o2.getScore() - o1.getScore()))
-                .map(this::getScoreOnePlayerToday)
+                .map(this::getJSONScoreOnePlayer)
                 .map(jsonScores::add);
 
         return jsonScores;
@@ -66,6 +70,10 @@ public class LeaderBoard {
     public JSONArray getLeaderBoardClassicGame(Date date) {
         JSONArray jsonScores = new JSONArray();
         Map<User, Double> mapScore = getMapScore();
+        mapScore.entrySet()
+                .stream()
+                .sorted((o1, o2) -> (int) (o2.getValue() - o1.getValue()))
+                .map(userDoubleEntry -> jsonScores.add(getJSONScoreOnePlayer(userDoubleEntry.getKey(), userDoubleEntry.getValue())));
         return jsonScores;
     }
 }

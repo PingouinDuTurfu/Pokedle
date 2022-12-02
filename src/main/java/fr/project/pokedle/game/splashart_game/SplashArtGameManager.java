@@ -101,21 +101,6 @@ public class SplashArtGameManager {
         }
     }
 
-    public double[] getCoordonatesImage(User user) {
-        SplashArtGame splashArtGame = getSplashArtGameOfDay(new Date());
-        SplashArtGamePlayer splashArtGamePlayer = getSplashArtGamePlayer(
-                user,
-                splashArtGame
-        );
-
-        int numberRounds = splashArtGamePlayer.getRounds().size();
-        return new double[]{
-                Math.max(0, splashArtGame.getCenter_x() - 0.01 * (10 + numberRounds)),
-                Math.max(0, splashArtGame.getCenter_y() - 0.01 * (10 + numberRounds)),
-                Math.min(1, splashArtGame.getCenter_x() + 0.01 * (10 + numberRounds)),
-                Math.min(1, splashArtGame.getCenter_y() + 0.01 * (10 + numberRounds))
-        };
-    }
 
     public JSONObject getPreviousRoundsJSON(User user) {
         List<SplashArtRound> rounds = getPreviousRounds(user);
@@ -136,27 +121,27 @@ public class SplashArtGameManager {
     }
 
     public BufferedImage getImage(User user) throws IOException {
-        // Attention ligne a changer !!!
+        SplashArtGame splashArtGame = getSplashArtGameOfDay(new Date());
+        SplashArtGamePlayer splashArtGamePlayer = getSplashArtGamePlayer(
+                user,
+                splashArtGame
+        );
+
         String pathImg = getSplashArtGameOfDay(new Date()).getPokemon().getLinkBigSprite();
         BufferedImage img = ImageIO.read(new URL(pathImg));
 
-        double[] coords = getCoordonatesImage(user);
+        if (splashArtGamePlayer.isSuccess())
+            return img;
 
+        int numberRounds = splashArtGamePlayer.getRounds().size();
         int height = img.getHeight();
         int width = img.getWidth();
-        System.out.println(height + " " + width);
 
-        System.out.println((width * coords[0]) +" "+
-                (height * coords[1]) +" "+
-                (width * (coords[2] - coords[0]))+" "+
-                (height * (coords[3] - coords[1])));
-        BufferedImage cropImg = img.getSubimage(
-                (int) (width * coords[0]),
-                (int) (height * coords[1]),
-                (int) (width * (coords[2] - coords[0])),
-                (int) (height * (coords[3] - coords[1]))
+        return img.getSubimage(
+                (int) (width * Math.max(0, splashArtGame.getCenter_x() - 0.01 * (10 + numberRounds))),
+                (int) (height * Math.max(0, splashArtGame.getCenter_y() - 0.01 * (10 + numberRounds))),
+                (int) (width * (0.02 * (10 + numberRounds))),
+                (int) (height * (0.02 * (10 + numberRounds)))
         );
-
-        return cropImg;
     }
 }
