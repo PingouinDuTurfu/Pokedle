@@ -27,9 +27,13 @@ import java.io.IOException;
 
 @Controller
 public class RegistrationController {
-
     @Autowired
     private UserService userService;
+
+    @GetMapping("/login")
+    public String login() {
+        return "registration/login";
+    }
 
     @GetMapping("/register")
     public String registerPage(Model model) {
@@ -37,12 +41,11 @@ public class RegistrationController {
         return "registration/register";
     }
 
-
     @PostMapping("/register")
     public String registerUser(UserDetailsForm userDetailsForm, HttpServletResponse response) throws ServletException {
         User user = userService.registerUser(userDetailsForm);
         if (user == null)
             return "redirect:/register?errorNotMatchingPassword";
-        return "redirect:/login";
+        return "redirect:/login?registration_complete";
     }
 }

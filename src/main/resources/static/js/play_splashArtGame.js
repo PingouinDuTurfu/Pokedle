@@ -2,7 +2,7 @@ const DEFAULT_RESSOURCE = "http://***REMOVED***/pokedle/";
 
 function tryPokemon() {
     const pokemonToTry = $("#selectSearchInput").val();
-    $.post("/play/classic/try",
+    $.post("/play/splash_art/try",
         {pokemonName: pokemonToTry},
         function(data, status) {
             if (data.hasOwnProperty("error")) {
@@ -12,6 +12,7 @@ function tryPokemon() {
             console.log(data)
             displayLineAnswer(data);
             $("#selectSearchInput").val("");
+            getSprite();
         }
     );
 }
@@ -22,14 +23,8 @@ function displayLineAnswer(data) {
     const prefix = "<ul class=\"answerLineContent\">";
     const suffix = "</ul>";
     const content = prefix +
-        getHTMLDifference("IMAGE", getHTMLValue("IMAGE", data["pokemon"]["linkIcon"])) +
-        getHTMLDifference(null, getHTMLValue("TEXT", data["pokemon"]["nameFr"])) +
-        getHTMLDifference(data["difference"]["color"], getHTMLValue("TEXT", data["pokemon"]["color"])) +
-        getHTMLDifference(data["difference"]["shape"], getHTMLValue("IMAGE",data["pokemon"]["shape"]["linkIcon"])) +
-        getHTMLDifference(data["difference"]["type"], getHTMLValue("IMAGE", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
-        getHTMLDifference(data["difference"]["height"], getHTMLValue("TEXT", data["pokemon"]["height"])) +
-        getHTMLDifference(data["difference"]["weight"], getHTMLValue("TEXT", data["pokemon"]["weight"])) +
-        getHTMLDifference(null, "0") +
+        getHTMLValue("IMAGE", data["pokemon"]["linkIcon"]) +
+        getHTMLValue("TEXT", data["pokemon"]["nameFr"]) +
         suffix;
     answerTable.prepend(content);
 }
@@ -55,28 +50,6 @@ function getHTMLValue(type, value1, value2) {
                 return "<span class=\"itemValue\">" + value1 + "</span>";
         default:
             return "<span class=\"itemValue\">" + value1 + "</span>";
-    }
-}
-
-function getHTMLDifference(difference, value) {
-    const prefix = "<li class=\"answerItem\">";
-    const suffix = "</li>";
-
-    switch (difference) {
-        case "INVALID":
-            return prefix + "<div class=\"invalid\">" + value + "</div>" + suffix;
-        case "VALID":
-            return prefix + "<div class=\"valid\">" + value + "</div>" + suffix;
-        case "UPPER":
-            return prefix + "<div class=\"upper\"><img class=\"arrowUpper\" src='/img/arrow.png'>" + value + "</div>" + suffix;
-        case "LOWER":
-            return prefix + "<div class=\"lower\"><img class=\"arrowLower\" src='/img/arrow.png'>" + value + "</div>" + suffix;
-        case "PARTIAL":
-            return prefix + "<div class=\"partial\">" + value + "</div>" + suffix;
-        case "NEUTRAL":
-            return prefix + "<div class=\"neutral\">" + value + "</div>" + suffix;
-        default:
-            return prefix + value + suffix;
     }
 }
 
@@ -109,15 +82,32 @@ function selectPokemon(select) {
     filterFunction();
 }
 
+
+
+function getSprite() {
+    $.ajax({
+        type: "POST",
+        url: "/play/splash_art/partial_splash_art",
+        datatype: "image/png",
+        contentType: "text/plain",
+        success: function (result) {
+            $("#splash-art-image").attr("src", "data:image/png;base64," + result);
+        }
+    });
+}
+
+
+
 $(document).ready(() => {
     // get all pokemon played
-    $.post("/play/classic/previous",
+    $.post("/play/splash_art/previous",
         {},
         function(data, status) {
             console.log(data);
             for (let i = 0; i < data.length; i++) {
                 displayLineAnswer(data[i]);
             }
+            getSprite();
         }
     );
 });

@@ -19,7 +19,8 @@ public class WebSecurityConfig {
     };
 
     private static final String[] USER_LIST_URLS = {
-            "/play/official_try", "/play/official"
+            "/play/classic", "/play/classic/try", "/play/classic/previous",
+            "/play/splash_art", "/play/splash_art/try", "/play/splash_art/previous", "play/splash_art/partial_splash_art"
     };
 
     @Bean
@@ -41,7 +42,7 @@ public class WebSecurityConfig {
                         .anyRequest()
                         .permitAll()
                 .and()
-                .formLogin().permitAll()
+                .formLogin().loginPage("/login").permitAll()
                 .and().requestCache().requestCache(new CookieRequestCache())
                 .and()
                 .logout().permitAll();

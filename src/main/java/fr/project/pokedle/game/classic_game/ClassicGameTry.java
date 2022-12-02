@@ -1,4 +1,4 @@
-package fr.project.pokedle.game;
+package fr.project.pokedle.game.classic_game;
 
 import fr.project.pokedle.persistence.data.Pokemon;
 import org.json.simple.JSONObject;
@@ -6,13 +6,13 @@ import org.json.simple.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameOfficialTry {
+public class ClassicGameTry {
     private boolean same;
 
     private final Map<String, Column> mapCompare;
 
 
-    public GameOfficialTry(Pokemon pokemonToTry, Pokemon pokemonToFind) {
+    public ClassicGameTry(Pokemon pokemonToTry, Pokemon pokemonToFind) {
         this.mapCompare = new HashMap<>();
         this.same = (pokemonToTry.getId() == pokemonToFind.getId());
         this.mapCompare.put("type", compareType(pokemonToTry, pokemonToFind));

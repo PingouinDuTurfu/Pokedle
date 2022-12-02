@@ -1,12 +1,15 @@
 package fr.project.pokedle.persistence.data;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.json.simple.JSONObject;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "PokemonShapes")
+@Getter
+@Setter
+@Entity(name = "PokemonShapes")
 public class PokemonShape {
 
     @Id
@@ -23,33 +26,11 @@ public class PokemonShape {
             cascade = CascadeType.ALL)
     private List<Pokemon> pokemons;
 
-    public PokemonShape() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setLinkIcon(String linkIcon) {
-        this.linkIcon = linkIcon;
-    }
-
-    public List<Pokemon> getPokemons() {
-        return pokemons;
-    }
-
     public String getLinkIcon() {
         return linkIcon.split("asset")[1].substring(2);
     }
 
-    public JSONObject toJson() {
+    public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("id", getId());
         json.put("name", getName());
