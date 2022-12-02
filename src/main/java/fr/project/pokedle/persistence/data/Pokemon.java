@@ -3,14 +3,19 @@ package fr.project.pokedle.persistence.data;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.simple.JSONObject;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-@Getter
-@Setter
-@Entity(name = "Pokemons")
+
+@Entity
+@Getter @Setter
+@Table(name = "Pokemons")
 public class Pokemon {
 
     private static final Map<String, Function<Object, String>> functionMap = Map.of(
@@ -58,23 +63,47 @@ public class Pokemon {
     private String linkBigSprite;
 
     public String getLinkIcon() {
-        return linkIcon.split("assets/")[1];
-    }
-
-    public String getLinkBigSprite() {
-        // !!!!
-        return "http://www.pingouinduturfu.fr/pokedle/imagesHQ/" + linkBigSprite.split("imgagesHQ/")[1];
+        return linkIcon.split("asset")[1].substring(2);
     }
 
     public JSONObject toJSON() {
-       JSONObject jsonObject = new JSONObject();
+       /*
+        Map<String, String> jsonMap = new HashMap<>();
+
+        try {
+            for (Method m : this.getClass().getMethods()) {
+                if (!m.getName().equals("getClass") && m.getName().startsWith("get") && m.getParameterTypes().length == 0) {
+                    final Object o = m.invoke(this);
+                    if (o != null) {
+                        jsonMap.put(
+                                StringUtils.uncapitalize(m.getName().substring(3)),
+                                // If the map contains the class of the object, we apply the function
+                                // Else, we just return the object as a string
+                                // We need to split the class name because the class name contains the lazy creation of Hibernate
+                                functionMap
+                                        .getOrDefault(o.getClass().toString().split("\\$")[0], Object::toString)
+                                        .apply(o)
+                        );
+                    } else
+                        jsonMap.put(StringUtils.uncapitalize(m.getName().substring(3)), "null");
+                }
+            }
+            //System.out.println(new JSONObject(jsonMap));
+            return new JSONObject(jsonMap);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+        */
+
+        JSONObject jsonObject = new JSONObject();
+
         try {
             jsonObject.put("id", getId());
             jsonObject.put("nameFr", getNameFr());
             jsonObject.put("nameEn", getNameEn());
-            jsonObject.put("shape", getShape().toJSON());
-            jsonObject.put("type1", getType1().toJSON());
-            jsonObject.put("type2", (getType2() != null ? getType2().toJSON() : "null"));
+            jsonObject.put("shape", getShape().toJson());
+            jsonObject.put("type1", getType1().toJson());
+            jsonObject.put("type2", (getType2() != null ? getType2().toJson() : "null"));
             jsonObject.put("color", getColor());
             jsonObject.put("height", getHeight());
             jsonObject.put("weight", getWeight());
@@ -84,10 +113,12 @@ public class Pokemon {
             } catch (Exception e) {
                 throw new RuntimeException(e);
         }
+
         return jsonObject;
     }
 
     public static class Builder {
+
         private final Pokemon pokemon;
 
         public Builder() {
