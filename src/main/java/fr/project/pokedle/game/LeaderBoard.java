@@ -65,9 +65,7 @@ public class LeaderBoard {
 
     public JSONArray getLeaderBoardClassicGame(Date date) {
         JSONArray jsonScores = new JSONArray();
-
-
-
+        Map<User, Double> mapScore = getMapScore();
         return jsonScores;
     }
 }

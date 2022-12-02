@@ -1,16 +1,16 @@
 package fr.project.pokedle.game.classic_game;
 
 import fr.project.pokedle.game.GameManager;
-import fr.project.pokedle.persistence.game.classic.ClassicRound;
 import fr.project.pokedle.persistence.data.Pokemon;
-import fr.project.pokedle.persistence.registration.User;
 import fr.project.pokedle.persistence.game.classic.ClassicGame;
 import fr.project.pokedle.persistence.game.classic.ClassicGamePlayer;
+import fr.project.pokedle.persistence.game.classic.ClassicRound;
+import fr.project.pokedle.persistence.registration.User;
 import fr.project.pokedle.repository.ClassicGamePlayerRepository;
-import fr.project.pokedle.repository.PokemonRepository;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.util.Date;
 
 @Component
@@ -30,8 +30,8 @@ public class PlayClassicGame {
             return jsonObject;
         }
 
-        ClassicGame classicGame = classicGameManager.getClassicGameOfToday();
-        ClassicGamePlayer classicGamePlayer = classicGameManager.getClassicGamePlayerOfToday(user, classicGame);
+        ClassicGame classicGame = classicGameManager.getClassicGameOfDay(new Date());
+        ClassicGamePlayer classicGamePlayer = classicGameManager.getClassicGamePlayer(user, classicGame);
         // if game is already finished => exit
         if (classicGamePlayer.isSuccess()) {
             jsonObject.put("error", "alredy_completed");
