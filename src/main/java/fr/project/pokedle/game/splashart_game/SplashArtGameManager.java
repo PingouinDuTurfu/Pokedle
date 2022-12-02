@@ -102,10 +102,9 @@ public class SplashArtGameManager {
     }
 
 
-    public JSONObject getPreviousRoundsJSON(User user) {
+    public JSONArray getPreviousRoundsJSON(User user) {
         List<SplashArtRound> rounds = getPreviousRounds(user);
-        JSONArray jsonArray = new JSONArray();
-        JSONObject json = new JSONObject();
+        JSONArray json = new JSONArray();
 
         if (rounds.size() != 0) {
             Pokemon pokemonToFind = rounds.get(0).getGamePlayer().getGame().getPokemon();
@@ -113,10 +112,9 @@ public class SplashArtGameManager {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("is_same", round.getPokemon().equals(pokemonToFind));
                 jsonObject.put("pokemon", round.getPokemon().toJSON());
-                jsonArray.add(jsonObject);
+                json.add(jsonObject);
             });
         }
-        json.put("list", jsonArray);
         return json;
     }
 
