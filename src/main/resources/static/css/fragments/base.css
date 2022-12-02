@@ -37,7 +37,7 @@ body {
     padding: 0;
     font-family: Friz Quadrata Std,Mobilo,Helvetica,Arial;
     color: var(--white);
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 ul, li, a, a:hover, input, button {
