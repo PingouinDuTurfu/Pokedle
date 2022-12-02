@@ -40,5 +40,5 @@ public class SplashArtGame {
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private List<ClassicGamePlayer> gamePlayers;
+    private List<SplashArtGamePlayer> gamePlayers;
 }

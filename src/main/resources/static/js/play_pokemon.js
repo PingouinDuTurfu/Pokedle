@@ -1,25 +1,37 @@
 const DEFAULT_RESSOURCE = "http://www.pingouinduturfu.fr/pokedle/";
+const FILTER_RESET = "----";
+const FILTER_NULL = "";
 
 function tryPokemon() {
     const pokemonToTry = $("#selectSearchInput").val();
-    $.post("/play/official/try",
+    $.post("/play/classic/try",
         {pokemonName: pokemonToTry},
         function(data, status) {
-            const answerTable = $("#classic-game-answer-content");
-            const prefix = "<ul class=\"answerLineContent\">";
-            const suffix = "</ul>";
-            const content = prefix +
-                getHTMLDifference("NEUTRAL", "itemIcon", getHTMLValue("IMAGE", data["pokemon"]["linkIcon"])) +
-                getHTMLDifference("NEUTRAL", "itemName", getHTMLValue("TEXT", data["pokemon"]["nameFr"])) +
-                getHTMLDifference(data["difference"]["color"], "itemColor", getHTMLValue("COLOR", data["pokemon"]["color"])) +
-                getHTMLDifference(data["difference"]["shape"], "itemShape", getHTMLValue("IMAGE",data["pokemon"]["shape"]["linkIcon"])) +
-                getHTMLDifference(data["difference"]["type"], "itemType", getHTMLValue("IMAGE", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
-                getHTMLDifference(data["difference"]["height"], "itemHeight", getHTMLValue("TEXT", data["pokemon"]["height"])) +
-                getHTMLDifference(data["difference"]["weight"], "itemWeight", getHTMLValue("TEXT", data["pokemon"]["weight"])) +
-                getHTMLDifference(null, "null", "0") +
-                suffix;
-            answerTable.append(content);
-    });
+            if(data.hasOwnProperty("error")) {
+                console.log("erreur: " + data["error"]);
+                return
+            }
+            displayLineAnswer(data);
+            $("#selectSearchInput").val(FILTER_NULL);
+        });
+}
+
+function displayLineAnswer(data) {
+    removeFromSelect(data["pokemon"]["id"]);
+    const answerTable = $("#classic-game-answer-content");
+    const prefix = "<ul class=\"answerLineContent\">";
+    const suffix = "</ul>";
+    const content = prefix +
+        getHTMLDifference("NEUTRAL", "itemIcon", getHTMLValue("IMAGE", data["pokemon"]["linkIcon"])) +
+        getHTMLDifference("NEUTRAL", "itemName", getHTMLValue("TEXT", data["pokemon"]["nameFr"])) +
+        getHTMLDifference(data["difference"]["color"], "itemColor", getHTMLValue("COLOR", data["pokemon"]["color"])) +
+        getHTMLDifference(data["difference"]["shape"], "itemShape", getHTMLValue("IMAGE",data["pokemon"]["shape"]["linkIcon"])) +
+        getHTMLDifference(data["difference"]["type"], "itemType", getHTMLValue("IMAGE", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
+        getHTMLDifference(data["difference"]["height"], "itemHeight", getHTMLValue("TEXT", data["pokemon"]["height"])) +
+        getHTMLDifference(data["difference"]["weight"], "itemWeight", getHTMLValue("TEXT", data["pokemon"]["weight"])) +
+        getHTMLDifference(null, "null", "0") +
+        suffix;
+    answerTable.prepend(content);
 }
 
 function getHTMLValue(type, value1, value2) {
@@ -63,9 +75,6 @@ function getHTMLDifference(difference, className, value) {
     }
 }
 
-const FILTER_RESET = "----";
-const FILTER_NULL = "";
-
 function filterFunction() {
     let input, filter, contentDiv, buttonItems;
     input = document.getElementById("selectSearchInput");
@@ -100,7 +109,26 @@ function resize_to_fit(element){
     }
 }
 
+function removeFromSelect(id) {
+    const elem = $("#select_pokemon_" + id);
+    if (elem != null)
+        elem.remove();
+}
+
 function selectPokemon(select) {
     $("#selectSearchInput").val(select.name);
     filterFunction();
 }
+
+$(document).ready(() => {
+    // get all pokemon played
+    $.post("/play/classic/previous",
+        {},
+        function(data, status) {
+            console.log(data);
+            for (let i = 0; i < data.length; i++) {
+                displayLineAnswer(data[i]);
+            }
+        }
+    );
+});
