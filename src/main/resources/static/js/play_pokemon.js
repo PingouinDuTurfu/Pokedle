@@ -2,7 +2,7 @@ const DEFAULT_RESSOURCE = "http://www.pingouinduturfu.fr/pokedle/";
 
 function tryPokemon() {
     const pokemonToTry = $("#selectSearchInput").val();
-    $.post("/play/classic/try",
+    $.post("/play/official/try",
         {pokemonName: pokemonToTry},
         function(data, status) {
             const answerTable = $("#classic-game-answer-content");
@@ -34,8 +34,6 @@ function getHTMLValue(type, value1, value2) {
                 return "<span class=\"itemValue\">" + value1 + "</span><span class=\"itemValue\">" + value2 + "</span>";
             else
                 return "<span class=\"itemValue\">" + value1 + "</span>";
-        case "COLOR":
-            return "<span class=\"itemValue\" style=\"background-color: " + value1 + "\"></span>";
         default:
             return "<span class=\"itemValue\">" + value1 + "</span>";
     }
