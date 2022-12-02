@@ -47,7 +47,7 @@ function getHTMLValue(type, value1, value2) {
             else
                 return "<span class=\"itemValue\">" + value1 + "</span>";
         case "COLOR":
-            return "<span class=\"itemValue\" style=\"background-color: " + value1 + "\"></span>";
+            return "<span class=\"itemValue\" style=\"background-color: " + (value1 !== "brown" ? value1 : "#8b4513") + "\"></span>";
         default:
             return "<span class=\"itemValue\">" + value1 + "</span>";
     }
