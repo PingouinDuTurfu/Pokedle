@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AppController {
-
-    @Autowired
-    private UserRepository userRepository;
-
     @GetMapping("")
     public String showRoot() {
         return "redirect:home";
@@ -20,5 +16,4 @@ public class AppController {
     public String showHome2() {
         return "home";
     }
-
 }

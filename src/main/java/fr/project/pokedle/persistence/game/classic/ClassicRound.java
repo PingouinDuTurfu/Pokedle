@@ -1,4 +1,4 @@
-package fr.project.pokedle.persistence.classic;
+package fr.project.pokedle.persistence.game.classic;
 
 import fr.project.pokedle.persistence.data.Pokemon;
 import lombok.Getter;

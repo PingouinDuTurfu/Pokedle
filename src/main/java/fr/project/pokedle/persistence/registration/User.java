@@ -9,8 +9,9 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
+@Getter
+@Setter
 @Entity(name = "Users")
-@Getter @Setter
 public class User {
     @Id
     @GeneratedValue(generator = "uuid2")
