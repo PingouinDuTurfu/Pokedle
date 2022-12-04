@@ -1,7 +1,7 @@
-@import "fragments/base.css";
-@import "fragments/header.css";
-@import "fragments/error.css";
-@import "fragments/footer.css";
+@import "../fragments/base.css";
+@import "../fragments/header.css";
+@import "../fragments/error.css";
+@import "../fragments/footer.css";
 
 :root {
     --filter-red: #3e0707;
@@ -267,6 +267,11 @@
     height: 80px;
 }
 
+.main .game .answer .answerContent .answerItem .valid {
+    font-size: 30px;
+    color: var(--white);
+}
+
 .main .game .answer .answerContent .answerItem .upper, .main .game .answer .answerContent .answerItem .lower  {
     display: flex;
     flex-direction: column;
@@ -288,7 +293,7 @@
     filter: invert(100%) brightness(200%);
 }
 
-.main .game .answer .answerContent .answerItem .upper .itemValue,.main .game .answer .answerContent .answerItem .lower .itemValue {
+.main .game .answer .answerContent .answerItem .upper .itemValue, .main .game .answer .answerContent .answerItem .lower .itemValue {
     color: var(--white);
     font-size: 25px;
 }
