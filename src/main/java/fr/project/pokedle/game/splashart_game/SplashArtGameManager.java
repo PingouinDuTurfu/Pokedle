@@ -132,14 +132,16 @@ public class SplashArtGameManager {
             return img;
 
         int numberRounds = splashArtGamePlayer.getRounds().size();
-        int height = img.getHeight();
-        int width = img.getWidth();
+        int imageHeight = img.getHeight();
+        int imageWidth = img.getWidth();
+
+        double size = 0.02 * (2 + numberRounds);
 
         return img.getSubimage(
-                (int) (width * Math.max(0, splashArtGame.getCenter_x() - 0.01 * (10 + numberRounds))),
-                (int) (height * Math.max(0, splashArtGame.getCenter_y() - 0.01 * (10 + numberRounds))),
-                (int) (width * (0.02 * (10 + numberRounds))),
-                (int) (height * (0.02 * (10 + numberRounds)))
+                (int) (imageWidth * Math.max(0, splashArtGame.getCenter_x() - size)),
+                (int) (imageHeight * Math.max(0, splashArtGame.getCenter_y() - size)),
+                (int) (imageWidth * 2 * size),
+                (int) (imageHeight * 2 * size)
         );
     }
 }
