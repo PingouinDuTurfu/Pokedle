@@ -1,10 +1,13 @@
 package fr.project.pokedle.game.classic_game;
 
 import fr.project.pokedle.persistence.data.Pokemon;
+import fr.project.pokedle.persistence.data.PokemonType;
 import org.json.simple.JSONObject;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class ClassicGameTry {
     private boolean same;
@@ -23,17 +26,21 @@ public class ClassicGameTry {
     }
 
     public Column compareType(Pokemon pokemonToTry, Pokemon pokemonToFind) {
-        boolean type1Correct = (pokemonToTry.getType1().equals(pokemonToFind.getType1()) || pokemonToTry.getType1().equals(pokemonToFind.getType2()));
-        if (pokemonToTry.getType2() == null) {
-            if (type1Correct)
-                return Column.VALID;
-            return Column.INVALID;
-        }
-        boolean type2Correct = (pokemonToTry.getType2().equals(pokemonToFind.getType1()) || pokemonToTry.getType2().equals(pokemonToFind.getType2()));
+        Set<PokemonType> typesToTry = new HashSet<>(Set.of(
+                pokemonToTry.getType1()
+        ));
+        if(pokemonToTry.getType2() != null)
+            typesToTry.add(pokemonToTry.getType2());
 
-        if (type1Correct && type2Correct)
+        Set<PokemonType> typesToFind = new HashSet<>(Set.of(
+                pokemonToFind.getType1()
+        ));
+        if(pokemonToFind.getType2() != null)
+            typesToFind.add(pokemonToFind.getType2());
+
+        if (typesToFind.containsAll(typesToTry))
             return Column.VALID;
-        if (type1Correct || type2Correct)
+        if (typesToTry.stream().anyMatch(typesToFind::contains))
             return Column.PARTIAL;
         return Column.INVALID;
     }

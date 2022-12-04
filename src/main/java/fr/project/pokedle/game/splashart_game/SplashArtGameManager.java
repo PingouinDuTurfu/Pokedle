@@ -102,10 +102,9 @@ public class SplashArtGameManager {
     }
 
 
-    public JSONObject getPreviousRoundsJSON(User user) {
+    public JSONArray getPreviousRoundsJSON(User user) {
         List<SplashArtRound> rounds = getPreviousRounds(user);
-        JSONArray jsonArray = new JSONArray();
-        JSONObject json = new JSONObject();
+        JSONArray json = new JSONArray();
 
         if (rounds.size() != 0) {
             Pokemon pokemonToFind = rounds.get(0).getGamePlayer().getGame().getPokemon();
@@ -113,10 +112,9 @@ public class SplashArtGameManager {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("is_same", round.getPokemon().equals(pokemonToFind));
                 jsonObject.put("pokemon", round.getPokemon().toJSON());
-                jsonArray.add(jsonObject);
+                json.add(jsonObject);
             });
         }
-        json.put("list", jsonArray);
         return json;
     }
 
@@ -134,14 +132,16 @@ public class SplashArtGameManager {
             return img;
 
         int numberRounds = splashArtGamePlayer.getRounds().size();
-        int height = img.getHeight();
-        int width = img.getWidth();
+        int imageHeight = img.getHeight();
+        int imageWidth = img.getWidth();
+
+        double size = 0.02 * (2 + numberRounds);
 
         return img.getSubimage(
-                (int) (width * Math.max(0, splashArtGame.getCenter_x() - 0.01 * (10 + numberRounds))),
-                (int) (height * Math.max(0, splashArtGame.getCenter_y() - 0.01 * (10 + numberRounds))),
-                (int) (width * (0.02 * (10 + numberRounds))),
-                (int) (height * (0.02 * (10 + numberRounds)))
+                (int) (imageWidth * Math.max(0, splashArtGame.getCenter_x() - size)),
+                (int) (imageHeight * Math.max(0, splashArtGame.getCenter_y() - size)),
+                (int) (imageWidth * 2 * size),
+                (int) (imageHeight * 2 * size)
         );
     }
 }
