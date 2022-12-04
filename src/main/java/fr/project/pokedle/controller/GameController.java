@@ -44,7 +44,7 @@ public class GameController {
     public String showOfficialGame(Model model) {
         List<Pokemon> pokemonList = pokemonRepository.findAll().stream().sorted(Comparator.comparing(Pokemon::getNameFr)).toList();
         model.addAttribute("pokemonList", pokemonList);
-        return "play/classicGame";
+        return "game/classic";
     }
 
     @PostMapping(value = "/play/classic/try", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -66,7 +66,7 @@ public class GameController {
     public String showSplashArtGame(Model model) {
         List<Pokemon> pokemonList = pokemonRepository.findAll().stream().sorted(Comparator.comparing(Pokemon::getNameFr)).toList();
         model.addAttribute("pokemonList", pokemonList);
-        return "play/splashArtGame";
+        return "game/splashArt";
     }
 
     @PostMapping(value = "/play/splash_art/try", produces = MediaType.APPLICATION_JSON_VALUE)
