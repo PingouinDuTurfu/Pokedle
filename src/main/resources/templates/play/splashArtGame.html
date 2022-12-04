@@ -3,42 +3,40 @@
     <meta charset="UTF-8">
     <title>Page d'accueil</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" th:href="@{/css/classicGame.css}">
+    <link rel="stylesheet" th:href="@{/css/game/splash.css}">
 </head>
 <body>
-<div th:replace="/fragments/header::header"></div>
+    <div th:replace="/fragments/header::header"></div>
 
-<div class="main">
-    <div th:replace="/fragments/error::error"></div>
-    <div class="content">
-        <div class="title">
-            <span>Trouver le pokemon du jour !</span>
-        </div>
-        <div class="game">
-            <div>
-                <img th:src="@{/img/gif/loading.gif}" id="splash-art-image" width=300 height=300>
+    <div class="main">
+        <div th:replace="/fragments/error::error"></div>
+        <div class="content">
+            <div class="title">
+                <span>Trouver le pokemon du jour !</span>
             </div>
-            <div class="search">
-                <input id="selectSearchInput" type="text" placeholder="Search.." onkeyup="filterFunction()">
-                <div class="searchContent" id="classicGameSearchContent">
-                    <button class="searchItem" onclick="selectPokemon(this)" th:each="pokemon : ${pokemonList}" th:href="${'#' + pokemon.nameFr}" th:name="${pokemon.nameFr}" th:id="${'select_pokemon_' + pokemon.id}">
-                        <span  th:text="${pokemon.nameFr}"></span>
-                        <img th:src="${'http://www.pingouinduturfu.fr/pokedle/' + pokemon.linkIcon}" loading="lazy" alt="pokemon">
-                    </button>
+            <div class="game">
+                <div>
+                    <img id="splash-art-image" src="" width=300 height=300>
                 </div>
-                <button class="selectSearchButton" type="button" onclick="tryPokemon()">Essayer</button>
-            </div>
-            <div class="answer">
-                <div class="answerContent">
-                    <ul class="answerColumContent" id="classic-game-answer-content">
+                <div class="search">
+                    <input id="selectSearchInput" type="text" placeholder="Search.." onkeyup="filterFunction()">
+                    <div class="searchContent" id="splashGameSearchContent">
+                        <button class="searchItem" onclick="selectPokemon(this)" th:each="pokemon : ${pokemonList}" th:href="${'#' + pokemon.nameFr}" th:name="${pokemon.nameFr}" th:id="${'select_pokemon_' + pokemon.id}">
+                            <span  th:text="${pokemon.nameFr}"></span>
+                        </button>
+                    </div>
+                    <button class="selectSearchButton" type="button" onclick="tryPokemon()">Essayer</button>
+                </div>
+                <div class="answer">
+                    <ul class="answerContent" id="splash-game-answer-content">
 
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div th:replace="/fragments/footer::footer"></div>
+
+    <div th:replace="/fragments/footer::footer"></div>
 </body>
 <script type="text/javascript" th:src="@{/js/play_splashArtGame.js}"> </script>
 </html>
