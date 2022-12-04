@@ -46,6 +46,15 @@
     box-sizing: border-box;
 }
 
+.main .game .gameImagePreview {
+    display: flex;
+}
+
+.main .game .gameImagePreview img {
+    height: 300px;
+    width: 300px;
+}
+
 .main .game .search {
     display: flex;
     position: relative;
@@ -126,6 +135,23 @@
     border-radius: 10px;
     justify-content: center;
     box-sizing: border-box;
-    width: 100%;
     margin-top: 20px;
+}
+
+.main .game .answer .answerContent {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.main .game .answer .answerContent .answerItem {
+    display: flex;
+    border-radius: 10px;
+    background-color: var(--blue);
+    padding: 5px;
+    margin: 5px;
+}
+
+.main .game .answer .answerContent .answerItem .itemImage {
+    width: 100px;
+    height: 100px;
 }
