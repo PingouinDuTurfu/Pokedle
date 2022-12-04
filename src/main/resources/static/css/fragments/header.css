@@ -88,26 +88,3 @@
     background-color: var(--green);
     padding-bottom: 15px;
 }
-
-/*
-    Responsive part for header bar
- */
-@media screen and (max-width: 500px) {
-    .header .name {
-        display: none;
-    }
-
-    .header .connect #ul-header-connect {
-        flex-direction: column;
-    }
-
-    .header .connect #ul-header-connect li {
-        width: 65px;
-        justify-content: center;
-    }
-
-    .header .connect #ul-header-connect li a {
-        font-size: 15px;
-        padding: 2px;
-    }
-}
