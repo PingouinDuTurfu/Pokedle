@@ -27,6 +27,7 @@ function displayLineAnswer(data) {
         getHTMLValue("TEXT", data["pokemon"]["nameFr"]) +
         suffix;
     answerTable.prepend(content);
+    console.log("a")
 }
 
 

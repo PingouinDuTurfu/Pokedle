@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller("/play")
@@ -41,20 +42,20 @@ public class GameController {
 
     @GetMapping("/play/classic")
     public String showOfficialGame(Model model) {
-        List<Pokemon> pokemonList = pokemonRepository.findAll();
+        List<Pokemon> pokemonList = pokemonRepository.findAll().stream().sorted(Comparator.comparing(Pokemon::getNameFr)).toList();
         model.addAttribute("pokemonList", pokemonList);
         return "play/classicGame";
     }
 
     @PostMapping(value = "/play/classic/try", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> tryPokemonOfficialGame(@Param("pokemonName") String pokemonName, Authentication authentication) {
+    public ResponseEntity<JSONObject> tryPokemonOfficialGame(@Param("pokemonName") String pokemonName, Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         JSONObject json = playClassicGame.play(userDetails.getUser(), pokemonName);
         return ResponseEntity.status(HttpStatus.OK).body(json);
     }
 
     @PostMapping(value = "/play/classic/previous", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> getPreviousTriesOfficialGame(Authentication authentication) {
+    public ResponseEntity<JSONArray> getPreviousTriesOfficialGame(Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         JSONArray json = classicGameManager.getPreviousRoundsJSON(userDetails.getUser());
         return ResponseEntity.status(HttpStatus.OK).body(json);
@@ -63,22 +64,22 @@ public class GameController {
 
     @GetMapping("/play/splash_art")
     public String showSplashArtGame(Model model) {
-        List<Pokemon> pokemonList = pokemonRepository.findAll();
+        List<Pokemon> pokemonList = pokemonRepository.findAll().stream().sorted(Comparator.comparing(Pokemon::getNameFr)).toList();
         model.addAttribute("pokemonList", pokemonList);
         return "play/splashArtGame";
     }
 
     @PostMapping(value = "/play/splash_art/try", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> tryPokemonSplashArtGame(@Param("pokemonName") String pokemonName, Authentication authentication) {
+    public ResponseEntity<JSONObject> tryPokemonSplashArtGame(@Param("pokemonName") String pokemonName, Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         JSONObject json = playSplashArtGame.play(userDetails.getUser(), pokemonName);
         return ResponseEntity.status(HttpStatus.OK).body(json);
     }
 
     @PostMapping(value = "/play/splash_art/previous", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> getPreviousTriesSplashArtGame(Authentication authentication) {
+    public ResponseEntity<JSONArray> getPreviousTriesSplashArtGame(Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        JSONObject json = splashArtGameManager.getPreviousRoundsJSON(userDetails.getUser());
+        JSONArray json = splashArtGameManager.getPreviousRoundsJSON(userDetails.getUser());
         return ResponseEntity.status(HttpStatus.OK).body(json);
     }
 
@@ -90,7 +91,6 @@ public class GameController {
         byte[] imageBytes = stream.toByteArray();
         byte[] imgBase64 = Base64.encodeBase64(imageBytes);
 
-        byte [] data = stream.toByteArray();
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.IMAGE_PNG)
                 .body(imgBase64);
