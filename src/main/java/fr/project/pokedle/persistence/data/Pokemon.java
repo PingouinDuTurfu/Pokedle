@@ -82,6 +82,7 @@ public class Pokemon {
             jsonObject.put("color", getColor());
             jsonObject.put("height", getHeight());
             jsonObject.put("weight", getWeight());
+            jsonObject.put("generation", getGeneration());
             jsonObject.put("linkIcon", getLinkIcon());
             jsonObject.put("linkSmallSprite", getLinkSmallSprite());
             jsonObject.put("linkBigSprite", getLinkBigSprite());
@@ -136,6 +137,11 @@ public class Pokemon {
 
         public Builder setWeight(double weight) {
             pokemon.setWeight(weight);
+            return this;
+        }
+
+        public Builder setGeneration(long generation) {
+            pokemon.setGeneration(generation);
             return this;
         }
 
