@@ -9,14 +9,14 @@
     <div th:replace="/fragments/header::header"></div>
 
     <div class="main">
-        <div th:replace="/fragments/error::error"></div>
+        <div th:replace="/fragments/message::message"></div>
 
         <div class="content">
             <div class="title">
                 <span>Register</span>
             </div>
             <div class="formRegister">
-                <img th:src="@{/img/gif/bulbizar_1.gif}"/>
+                <img th:src="@{/img/gif/carapuce_1.gif}"/>
                 <form th:action="@{/register}" method="post" th:object="${user}">
                     <div class="formRegisterItems">
                         <input class="formRegisterItem" type="text" id="username" name="username" placeholder="Username" required="" autofocus="">
