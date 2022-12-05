@@ -1,0 +1,179 @@
+@import "../fragments/base.css";
+@import "../fragments/header.css";
+@import "../fragments/error.css";
+@import "../fragments/footer.css";
+
+:root {
+    --filter-red: #3e0707;
+    --filter-green: #073e0c;
+    --filter-orange: #5d4b21;
+    --filter-out-light-color: #f1c8c861;
+    --filter-inside-light-color: #ffffff7d;
+    --default-black: black;
+}
+
+.main .content {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main .content .title {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--dark-black);
+    width: 80%;
+    padding: 8px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.main .content .title span {
+    font-size: 40px;
+    color: var(--white);
+}
+
+.main .game {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+    padding-top: 10px;
+    margin: 30px 0;
+    box-sizing: border-box;
+}
+
+.main .game .gameImagePreview {
+    display: flex;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.main .game .gameImagePreview img {
+    height: 300px;
+    width: 300px;
+}
+
+.main .game .search {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.main .game .search #selectSearchInput {
+    background-color: var(--dark-black);
+    width: 400px;
+    height: 60px;
+    font-size: 40px;
+    padding: 5px 10px;
+    border-color: var(--green);
+    border-radius: 5px;
+    border-style: solid;
+    color: var(--white);
+    box-sizing: border-box;
+}
+
+.main .game .search .searchContent {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    border-color: var(--green);
+    max-height: 270px;
+    overflow: auto;
+    width: 400px;
+    top: 60px;
+    z-index: 10;
+}
+
+.main .game .search .searchContent .searchItem {
+    display: none;
+    background-color: var(--blue);
+    padding: 5px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+    box-sizing: border-box;
+}
+
+.main .game .search .searchContent .searchItem:hover {
+    background-color: var(--light-blue);
+}
+
+.main .game .search .searchContent .searchItem span {
+    color: var(--white);
+    display: flex;
+    font-size: 40px;
+    padding: 2px;
+}
+
+.main .game .search .selectSearchButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    background-color: var(--green);
+    margin-left: 20px;
+    border-radius: 5px;
+    color: var(--dark-black);
+    transition: transform var(--delay-short-animation);
+}
+
+.main .game .search .selectSearchButton:hover {
+    transform: scale(1.1);
+}
+
+.main .game .success {
+    display: none;
+    background-color: var(--green);
+    border-radius: 10px;
+    margin-top: 20px;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.main .game .success .successContent {
+    color: var(--white);
+    font-size: 30px;
+}
+
+.main .game .success .successContent .successScore {
+    color: var(--orange);
+    font-size: 30px;
+}
+
+.main .game .answer {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dark-black);
+    padding: 8px;
+    border-radius: 10px;
+    justify-content: center;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+.main .game .answer .answerContent {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.main .game .answer .answerContent .answerItem {
+    display: flex;
+    border-radius: 10px;
+    background-color: var(--blue);
+    padding: 5px;
+    margin: 5px;
+}
+
+.main .game .answer .answerContent .answerItem .itemImage {
+    width: 100px;
+    height: 100px;
+}

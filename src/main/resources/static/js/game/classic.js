@@ -1,6 +1,4 @@
 const DEFAULT_RESSOURCE = "http://www.pingouinduturfu.fr/pokedle/";
-const FILTER_RESET = "----";
-const FILTER_NULL = "";
 
 function tryPokemon() {
     const pokemonToTry = $("#selectSearchInput").val();
@@ -8,7 +6,7 @@ function tryPokemon() {
         {pokemonName: pokemonToTry},
         function(data, status) {
             if(data.hasOwnProperty("error")) {
-                console.log("erreur: " + data["error"]);
+                $(".ul-main-error").append("<li><span>" + data["error"] + "</span></li>");
                 return
             }
             displayLineAnswer(data);
@@ -75,27 +73,6 @@ function getHTMLDifference(difference, className, value) {
     }
 }
 
-function filterFunction() {
-    let input, filter, contentDiv, buttonItems;
-    input = document.getElementById("selectSearchInput");
-
-    if(input.value === FILTER_NULL)
-        filter = FILTER_RESET;
-    else
-        filter = input.value.toUpperCase();
-
-    contentDiv = document.getElementById("classicGameSearchContent");
-    buttonItems = contentDiv.getElementsByTagName("button");
-
-    for (const item of buttonItems) {
-        const textValue = item.getElementsByTagName("span").item(0).textContent;
-        if(!textValue.toUpperCase().startsWith(filter) || textValue.toUpperCase() === filter)
-            item.style.display = "none";
-        else
-            item.style.display = "flex";
-    }
-}
-
 $.initialize(".itemName", function (e) {
     resize_to_fit($(this));
 });
@@ -117,7 +94,31 @@ function removeFromSelect(id) {
 
 function selectPokemon(select) {
     $("#selectSearchInput").val(select.name);
-    filterFunction();
+    filter("classicGameSearchContent");
+}
+
+function filter(selectId) {
+    const FILTER_RESET = "----";
+    const FILTER_NULL = "";
+
+    let input, filter, contentDiv, buttonItems;
+    input = $("#selectSearchInput");
+
+    if(input.val() === FILTER_NULL)
+        filter = FILTER_RESET;
+    else
+        filter = input.val().toUpperCase();
+
+    contentDiv = document.getElementById(selectId);
+    buttonItems = contentDiv.getElementsByTagName("button");
+
+    for (const item of buttonItems) {
+        const textValue = item.getElementsByTagName("span").item(0).textContent;
+        if(!textValue.toUpperCase().startsWith(filter) || textValue.toUpperCase() === filter)
+            item.style.display = "none";
+        else
+            item.style.display = "flex";
+    }
 }
 
 $(document).ready(() => {
@@ -125,7 +126,6 @@ $(document).ready(() => {
     $.post("/play/classic/previous",
         {},
         function(data, status) {
-            console.log(data);
             for (let i = 0; i < data.length; i++) {
                 displayLineAnswer(data[i]);
             }

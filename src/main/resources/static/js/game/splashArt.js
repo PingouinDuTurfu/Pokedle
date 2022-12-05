@@ -6,30 +6,34 @@ function tryPokemon() {
         {pokemonName: pokemonToTry},
         function(data, status) {
             if (data.hasOwnProperty("error")) {
-                console.log("erreur : " + data["error"]);
+                $("#ul-main-error").append("<li><span>" + data["error"] + "</span></li>");
                 return;
             }
-            console.log(data)
             displayLineAnswer(data);
             $("#selectSearchInput").val("");
             getSprite();
+            if(data["is_same"] === true) {
+                const score = 10;
+                $("#splash-art-image").css("filter", "drop-shadow(2px 4px 6px var(--default-black))");
+                $(".search").css("display", "none");
+                $(".success").css("display", "flex");
+                $(".success").append("<span class=\"successContent\">Félicitation vous avez fini avec un score de <span class=\"successScore\">" + score + "</span></span>");
+            }
         }
     );
 }
 
 function displayLineAnswer(data) {
     removeFromSelect(data["pokemon"]["id"]);
-    const answerTable = $("#classic-game-answer-content");
-    const prefix = "<ul class=\"answerLineContent\">";
-    const suffix = "</ul>";
+    const answerTable = $("#splash-game-answer-content");
+    const prefix = "<div class=\"answerItem\">";
+    const suffix = "</div>";
     const content = prefix +
-        getHTMLValue("IMAGE", data["pokemon"]["linkIcon"]) +
-        getHTMLValue("TEXT", data["pokemon"]["nameFr"]) +
+        "<img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + data["pokemon"]["linkIcon"] + "' alt=\"Pokemon icon\">" +
         suffix;
     answerTable.prepend(content);
     console.log("a")
 }
-
 
 function removeFromSelect(id) {
     const elem = $("#select_pokemon_" + id);
@@ -37,27 +41,15 @@ function removeFromSelect(id) {
         elem.remove();
 }
 
-function getHTMLValue(type, value1, value2) {
-    switch (type) {
-        case "IMAGE":
-            if (value2 != null)
-                return "<img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value1 + "'><img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value2 + "'>";
-            else
-                return "<img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value1 + "'>";
-        case "TEXT":
-            if(value2 != null)
-                return "<span class=\"itemValue\">" + value1 + "</span><span class=\"itemValue\">" + value2 + "</span>";
-            else
-                return "<span class=\"itemValue\">" + value1 + "</span>";
-        default:
-            return "<span class=\"itemValue\">" + value1 + "</span>";
-    }
+function selectPokemon(select) {
+    $("#selectSearchInput").val(select.name);
+    filter("splashGameSearchContent");
 }
 
-const FILTER_RESET = "----";
-const FILTER_NULL = "";
+function filter(selectId) {
+    const FILTER_RESET = "----";
+    const FILTER_NULL = "";
 
-function filterFunction() {
     let input, filter, contentDiv, buttonItems;
     input = $("#selectSearchInput");
 
@@ -66,7 +58,7 @@ function filterFunction() {
     else
         filter = input.val().toUpperCase();
 
-    contentDiv = document.getElementById("classicGameSearchContent");
+    contentDiv = document.getElementById(selectId);
     buttonItems = contentDiv.getElementsByTagName("button");
 
     for (const item of buttonItems) {
@@ -77,13 +69,6 @@ function filterFunction() {
             item.style.display = "flex";
     }
 }
-
-function selectPokemon(select) {
-    $("#selectSearchInput").val(select.name);
-    filterFunction();
-}
-
-
 
 function getSprite() {
     $.ajax({
@@ -102,7 +87,6 @@ $(document).ready(() => {
     $.post("/play/splash_art/previous",
         {},
         function(data, status) {
-            console.log(data);
             for (let i = 0; i < data.length; i++) {
                 displayLineAnswer(data[i]);
             }
