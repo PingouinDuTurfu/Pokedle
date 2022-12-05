@@ -51,6 +51,9 @@ public class Pokemon {
     private double weight;
 
     @Column
+    private long generation;
+
+    @Column
     private String linkIcon;
 
     @Column
@@ -91,6 +94,7 @@ public class Pokemon {
             jsonObject.put("linkIcon", getLinkIcon());
             jsonObject.put("linkSmallSprite", getLinkSmallSprite());
             jsonObject.put("linkBigSprite", getLinkBigSprite());
+            jsonObject.put("generation", getGeneration());
             } catch (Exception e) {
                 throw new RuntimeException(e);
         }
@@ -161,6 +165,11 @@ public class Pokemon {
 
         public Builder setColor(String color) {
             pokemon.setColor(color);
+            return this;
+        }
+
+        public Builder setGeneration(long generation) {
+            pokemon.setGeneration(generation);
             return this;
         }
 

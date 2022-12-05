@@ -70,7 +70,7 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
 
     @Override
     public void onApplicationEvent(final ContextRefreshedEvent event) {
-        //initData();
+//        initData();
     }
 
     private void initData() {
@@ -117,6 +117,7 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
                                         .setLinkSmallSprite(pokemonItem.getSpriteLQ())
                                         .setLinkIcon(pokemonItem.getIcon())
                                         .setColor(pokemonItem.getColor())
+                                        .setGeneration(pokemonItem.getGeneration())
                                         .setShape(pokemonShapeRepository.findFirstByName(pokemonItem.getShape()))
                                         .setType1(pokemonTypeRepository.findFirstByName(pokemonItem.getType1()))
                                         .setType2(pokemonTypeRepository.findFirstByName(pokemonItem.getType2()))

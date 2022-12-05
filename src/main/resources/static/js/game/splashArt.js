@@ -1,4 +1,4 @@
-const DEFAULT_RESSOURCE = "http://www.pingouinduturfu.fr/pokedle/";
+const DEFAULT_RESOURCE = "http://www.pingouinduturfu.fr/pokedle/";
 const FILTER_RESET = "----";
 const FILTER_NULL = "";
 
@@ -26,7 +26,7 @@ function displayLineAnswer(data) {
     const prefix = "<div class=\"answerItem\">";
     const suffix = "</div>";
     const content = prefix +
-        "<img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + data["pokemon"]["linkIcon"] + "' alt=\"Pokemon icon\">" +
+        "<img class=\"itemImage\" src='" + DEFAULT_RESOURCE + data["pokemon"]["linkIcon"] + "' alt=\"Pokemon icon\">" +
         suffix;
     answerTable.prepend(content);
 }
@@ -84,7 +84,6 @@ function getSprite() {
 }
 
 $(document).ready(() => {
-    // get all pokemon played
     $.post("/play/splash_art/previous",
         {},
         function(data, status) {
