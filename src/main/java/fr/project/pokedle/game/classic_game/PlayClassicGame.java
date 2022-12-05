@@ -68,8 +68,8 @@ public class PlayClassicGame {
             classicGamePlayer.setSuccess(true);
             classicGamePlayer.setSuccessDate(new Date());
             classicGamePlayer.setScore(scoreManager.computeScore(classicGamePlayer.getRounds().size()));
-
             classicGamePlayerRepository.save(classicGamePlayer);
+            jsonObject.put("score", classicGamePlayer.getScore());
         }
         return jsonObject;
     }
