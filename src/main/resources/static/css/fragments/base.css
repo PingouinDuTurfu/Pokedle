@@ -12,6 +12,12 @@
     --light-red: #FF2626;
     --pink: #8f5da3;
     --light-pink: #FFE6E6;
+    --filter-red: #3e0707;
+    --filter-green: #073e0c;
+    --filter-orange: #5d4b21;
+    --filter-out-light-color: #f1c8c861;
+    --filter-inside-light-color: #ffffff7d;
+    --default-black: black;
     --header-height: 80px;
     --delay-short-animation : 0.5s;
     --delay-medium-animation : 1s;

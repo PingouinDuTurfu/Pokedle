@@ -3,15 +3,6 @@
 @import "../fragments/error.css";
 @import "../fragments/footer.css";
 
-:root {
-    --filter-red: #3e0707;
-    --filter-green: #073e0c;
-    --filter-orange: #5d4b21;
-    --filter-out-light-color: #f1c8c861;
-    --filter-inside-light-color: #ffffff7d;
-    --default-black: black;
-}
-
 .main .content {
     margin-top: 20px;
     display: flex;

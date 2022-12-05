@@ -25,6 +25,12 @@ import java.util.List;
 
 @Component
 public class SplashArtGameManager {
+
+    private final double ZOOM_SPEED = 0.02;
+    private final double ZOOM_SIZE = 2;
+    private final double CENTER_MIN = 0.3;
+    private final double CENTER_MAX = 0.4;
+
     @Autowired
     private SplashArtGameRepository splashArtGameRepository;
     @Autowired
@@ -41,8 +47,8 @@ public class SplashArtGameManager {
         SplashArtGame splashArtGame = new SplashArtGame();
         splashArtGame.setPokemon(pokemon);
         splashArtGame.setDate(new Date());
-        splashArtGame.setCenter_x(0.3 + 0.4 * Math.random());
-        splashArtGame.setCenter_y(0.3 + 0.4 * Math.random());
+        splashArtGame.setCenter_x(CENTER_MIN + (CENTER_MAX - CENTER_MIN) * Math.random());
+        splashArtGame.setCenter_y(CENTER_MIN + (CENTER_MAX - CENTER_MIN) * Math.random());
         splashArtGameRepository.save(splashArtGame);
         return splashArtGame;
     }
@@ -135,13 +141,17 @@ public class SplashArtGameManager {
         int imageHeight = img.getHeight();
         int imageWidth = img.getWidth();
 
-        double size = 0.02 * (2 + numberRounds);
+        double size = ZOOM_SPEED * (ZOOM_SIZE + numberRounds);
+        double xMin = Math.max(0, splashArtGame.getCenter_x() - size);
+        double yMin = Math.max(0, splashArtGame.getCenter_y() - size);
+        double xMax = Math.min(1, splashArtGame.getCenter_x() + size);
+        double yMax = Math.min(1, splashArtGame.getCenter_y() + size);
 
         return img.getSubimage(
-                (int) (imageWidth * Math.max(0, splashArtGame.getCenter_x() - size)),
-                (int) (imageHeight * Math.max(0, splashArtGame.getCenter_y() - size)),
-                (int) (imageWidth * 2 * size),
-                (int) (imageHeight * 2 * size)
+                (int) (xMin * imageWidth),
+                (int) (yMin * imageHeight),
+                (int) ((xMax - xMin) * imageWidth),
+                (int) ((yMax - yMin) * imageHeight)
         );
     }
 }
