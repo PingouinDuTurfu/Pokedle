@@ -66,6 +66,7 @@ public class PlaySplashArtGame {
             splashArtGamePlayer.setSuccessDate(new Date());
             splashArtGamePlayer.setScore(scoreManager.computeScore(splashArtGamePlayer.getRounds().size()));
             splashArtGamePlayerRepository.save(splashArtGamePlayer);
+            jsonObject.put("score", splashArtGamePlayer.getScore());
         }
         return jsonObject;
     }
