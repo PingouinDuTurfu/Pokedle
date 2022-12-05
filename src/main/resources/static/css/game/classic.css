@@ -263,7 +263,8 @@
     color: var(--white);
 }
 
-.main .game .answer .answerContent .answerItem .upper, .main .game .answer .answerContent .answerItem .lower  {
+.main .game .answer .answerContent .answerItem .upper,
+.main .game .answer .answerContent .answerItem .lower  {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -284,10 +285,13 @@
     filter: invert(100%) brightness(200%);
 }
 
-.main .game .answer .answerContent .answerItem .upper .itemValue, .main .game .answer .answerContent .answerItem .lower .itemValue {
+.main .game .answer .answerContent .answerItem .upper .itemValue,
+.main .game .answer .answerContent .answerItem .lower .itemValue,
+.main .game .answer .answerContent .answerItem .itemGeneration .itemValue {
     color: var(--white);
     font-size: 25px;
 }
+
 .main .game .answer .answerContent .answerItem .itemTopLeft {
     position: relative;
     clip-path: polygon(100% 0, 0% 100%, 0 0);
@@ -300,7 +304,8 @@
     overflow: hidden;
 }
 
-.main .game .answer .answerContent .answerItem .itemTopLeft, .main .game .answer .answerContent .answerItem .itemBottomRight  {
+.main .game .answer .answerContent .answerItem .itemTopLeft,
+.main .game .answer .answerContent .answerItem .itemBottomRight  {
     position: absolute;
 }
 

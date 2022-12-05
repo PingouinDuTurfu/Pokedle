@@ -14,6 +14,7 @@ public class PokemonItem {
     private String shape;
     private String color;
     private String name_fr;
+    private long generation;
 
     public String getName_en() {
         return name_en;
@@ -109,5 +110,13 @@ public class PokemonItem {
 
     public void setName_fr(String name_fr) {
         this.name_fr = name_fr;
+    }
+
+    public long getGeneration() {
+        return generation;
+    }
+
+    public void setGeneration(long generation) {
+        this.generation = generation;
     }
 }

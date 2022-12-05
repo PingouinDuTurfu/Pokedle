@@ -14,7 +14,6 @@ public class ClassicGameTry {
 
     private final Map<String, Column> mapCompare;
 
-
     public ClassicGameTry(Pokemon pokemonToTry, Pokemon pokemonToFind) {
         this.mapCompare = new HashMap<>();
         this.same = (pokemonToTry.getId() == pokemonToFind.getId());
@@ -23,6 +22,7 @@ public class ClassicGameTry {
         this.mapCompare.put("color", compareColor(pokemonToTry, pokemonToFind));
         this.mapCompare.put("weight", compareWeight(pokemonToTry, pokemonToFind));
         this.mapCompare.put("height", compareHeight(pokemonToTry, pokemonToFind));
+        this.mapCompare.put("generation", compareGeneration(pokemonToTry, pokemonToFind));
     }
 
     public Column compareType(Pokemon pokemonToTry, Pokemon pokemonToFind) {
@@ -71,6 +71,12 @@ public class ClassicGameTry {
         if (pokemonToTry.getHeight() < pokemonToFind.getHeight())
             return Column.UPPER;
         return Column.VALID;
+    }
+
+    public Column compareGeneration(Pokemon pokemonToTry, Pokemon pokemonToFind) {
+        if(pokemonToTry.getGeneration() == pokemonToFind.getGeneration())
+            return Column.VALID;
+        return Column.INVALID;
     }
 
     public boolean isSame() {
