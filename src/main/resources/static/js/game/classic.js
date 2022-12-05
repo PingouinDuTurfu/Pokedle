@@ -1,4 +1,4 @@
-const DEFAULT_RESSOURCE = "http://***REMOVED***/pokedle/";
+const DEFAULT_RESOURCE = "http://***REMOVED***/pokedle/";
 const FILTER_RESET = "----";
 const FILTER_NULL = "";
 
@@ -31,7 +31,7 @@ function displayLineAnswer(data) {
         getHTMLDifference(data["difference"]["type"], "itemType", getHTMLValue("IMAGE", data["pokemon"]["type1"]["linkIcon"], data["pokemon"]["type2"] == null ? null : data["pokemon"]["type2"]["linkIcon"])) +
         getHTMLDifference(data["difference"]["height"], "itemHeight", getHTMLValue("TEXT", data["pokemon"]["height"])) +
         getHTMLDifference(data["difference"]["weight"], "itemWeight", getHTMLValue("TEXT", data["pokemon"]["weight"])) +
-        getHTMLDifference(null, "null", "0") +
+        getHTMLDifference(data["difference"]["generation"], "itemGeneration", getHTMLValue("TEXT", data["pokemon"]["generation"])) +
         suffix;
     answerTable.prepend(content);
 }
@@ -40,9 +40,9 @@ function getHTMLValue(type, value1, value2) {
     switch (type) {
         case "IMAGE":
             if (value2 != null)
-                return "<div class=\"itemTopLeft\"><img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value1 + "'></div><div class=\"itemBottomRight\"><img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value2 + "'></div>";
+                return "<div class=\"itemTopLeft\"><img class=\"itemImage\" src='" + DEFAULT_RESOURCE + value1 + "'></div><div class=\"itemBottomRight\"><img class=\"itemImage\" src='" + DEFAULT_RESOURCE + value2 + "'></div>";
             else
-                return "<img class=\"itemImage\" src='" + DEFAULT_RESSOURCE + value1 + "'>";
+                return "<img class=\"itemImage\" src='" + DEFAULT_RESOURCE + value1 + "'>";
         case "TEXT":
             if(value2 != null)
                 return "<span class=\"itemValue\">" + value1 + "</span><span class=\"itemValue\">" + value2 + "</span>";
@@ -131,12 +131,13 @@ function filter(selectId) {
 }
 
 $(document).ready(() => {
-    // get all pokemon played
     $.post("/play/classic/previous",
         {},
         function(data, status) {
-            for (let i = 0; i < data.length; i++) {
-                displayLineAnswer(data[i]);
+            for (const dataLine of data) {
+                displayLineAnswer(dataLine);
+                if(dataLine["is_same"] === true)
+                    successDisplay(dataLine["score"]);
             }
         }
     );
