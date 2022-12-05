@@ -104,7 +104,8 @@ public class ClassicGameManager {
                 jsonObject.put("is_same", classicGameTry.isSame());
                 jsonObject.put("pokemon", round.getPokemon().toJSON());
                 jsonObject.put("difference", classicGameTry.toJSON());
-
+                if (classicGameTry.isSame())
+                    jsonObject.put("score", round.getGamePlayer().getScore());
                 json.add(jsonObject);
             });
         }
