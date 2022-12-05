@@ -118,6 +118,8 @@ public class SplashArtGameManager {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("is_same", round.getPokemon().equals(pokemonToFind));
                 jsonObject.put("pokemon", round.getPokemon().toJSON());
+                if (round.getPokemon().equals(pokemonToFind))
+                    jsonObject.put("score", round.getGamePlayer().getScore());
                 json.add(jsonObject);
             });
         }
