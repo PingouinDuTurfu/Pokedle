@@ -5,7 +5,9 @@ import lombok.Setter;
 import org.json.simple.JSONObject;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 
 @Getter
@@ -64,6 +66,14 @@ public class Pokemon {
     public String getLinkBigSprite() {
         // !!!!
         return "http://***REMOVED***/pokedle/imagesHQ/" + linkBigSprite.split("imgagesHQ/")[1];
+    }
+
+    public Set<PokemonType> getTypes() {
+        Set<PokemonType> types = new HashSet<>();
+        types.add(type1);
+        if (type2 != null)
+            types.add(type2);
+        return types;
     }
 
     public JSONObject toJSON() {

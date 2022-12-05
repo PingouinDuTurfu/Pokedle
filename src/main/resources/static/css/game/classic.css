@@ -1,16 +1,7 @@
-@import "fragments/base.css";
-@import "fragments/header.css";
-@import "fragments/error.css";
-@import "fragments/footer.css";
-
-:root {
-    --filter-red: #3e0707;
-    --filter-green: #073e0c;
-    --filter-orange: #5d4b21;
-    --filter-out-light-color: #f1c8c861;
-    --filter-inside-light-color: #ffffff7d;
-    --default-black: black;
-}
+@import "../fragments/base.css";
+@import "../fragments/header.css";
+@import "../fragments/error.css";
+@import "../fragments/footer.css";
 
 .main .content {
     margin-top: 20px;
@@ -267,6 +258,11 @@
     height: 80px;
 }
 
+.main .game .answer .answerContent .answerItem .valid {
+    font-size: 30px;
+    color: var(--white);
+}
+
 .main .game .answer .answerContent .answerItem .upper, .main .game .answer .answerContent .answerItem .lower  {
     display: flex;
     flex-direction: column;
@@ -288,7 +284,7 @@
     filter: invert(100%) brightness(200%);
 }
 
-.main .game .answer .answerContent .answerItem .upper .itemValue,.main .game .answer .answerContent .answerItem .lower .itemValue {
+.main .game .answer .answerContent .answerItem .upper .itemValue, .main .game .answer .answerContent .answerItem .lower .itemValue {
     color: var(--white);
     font-size: 25px;
 }
