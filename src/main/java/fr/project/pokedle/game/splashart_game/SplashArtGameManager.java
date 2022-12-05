@@ -112,12 +112,14 @@ public class SplashArtGameManager {
         List<SplashArtRound> rounds = getPreviousRounds(user);
         JSONArray json = new JSONArray();
 
-        if (rounds.size() != 0) {
+        if (rounds != null && rounds.size() > 0) {
             Pokemon pokemonToFind = rounds.get(0).getGamePlayer().getGame().getPokemon();
             rounds.forEach(round -> {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("is_same", round.getPokemon().equals(pokemonToFind));
                 jsonObject.put("pokemon", round.getPokemon().toJSON());
+                if (round.getPokemon().equals(pokemonToFind))
+                    jsonObject.put("score", round.getGamePlayer().getScore());
                 json.add(jsonObject);
             });
         }

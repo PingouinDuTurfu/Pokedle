@@ -1,5 +1,7 @@
 package fr.project.pokedle.controller;
 
+import fr.project.pokedle.exception.ConfirmPasswordInvalidException;
+import fr.project.pokedle.exception.UserAlreadyExistException;
 import fr.project.pokedle.model.UserDetailsForm;
 import fr.project.pokedle.persistence.registration.User;
 import fr.project.pokedle.service.UserDetailsServiceImpl;
@@ -42,10 +44,14 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String registerUser(UserDetailsForm userDetailsForm, HttpServletResponse response) throws ServletException {
-        User user = userService.registerUser(userDetailsForm);
-        if (user == null)
+    public String registerUser(UserDetailsForm userDetailsForm) throws Exception {
+        try {
+            userService.registerUser(userDetailsForm);
+        } catch (ConfirmPasswordInvalidException e) {
             return "redirect:/register?errorNotMatchingPassword";
+        } catch (UserAlreadyExistException e) {
+            return "redirect:/register?errorUserAlreadyExist";
+        }
         return "redirect:/login?registration_complete";
     }
 }
