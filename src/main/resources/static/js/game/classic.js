@@ -1,4 +1,6 @@
 const DEFAULT_RESSOURCE = "http://***REMOVED***/pokedle/";
+const FILTER_RESET = "----";
+const FILTER_NULL = "";
 
 function tryPokemon() {
     const pokemonToTry = $("#selectSearchInput").val();
@@ -6,11 +8,13 @@ function tryPokemon() {
         {pokemonName: pokemonToTry},
         function(data, status) {
             if(data.hasOwnProperty("error")) {
-                $(".ul-main-error").append("<li><span>" + data["error"] + "</span></li>");
+                $(".ul-main-message").append("<li class=\"error\"><span>" + data["error"] + "</span></li>");
                 return
             }
             displayLineAnswer(data);
             $("#selectSearchInput").val(FILTER_NULL);
+            if(data["is_same"] === true)
+                successDisplay(data["score"]);
         });
 }
 
@@ -97,10 +101,15 @@ function selectPokemon(select) {
     filter("classicGameSearchContent");
 }
 
-function filter(selectId) {
-    const FILTER_RESET = "----";
-    const FILTER_NULL = "";
+function successDisplay(score) {
+    $("#splash-art-image").css("filter", "drop-shadow(2px 4px 6px var(--default-black))");
+    $(".search").css("display", "none");
+    $(".success")
+        .css("display", "flex")
+        .append("<span class=\"successContent\">Félicitation vous avez fini avec un score de <span class=\"successScore\">" + score + "</span></span>");
+}
 
+function filter(selectId) {
     let input, filter, contentDiv, buttonItems;
     input = $("#selectSearchInput");
 
