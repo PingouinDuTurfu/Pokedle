@@ -96,19 +96,18 @@ public class ClassicGameManager {
         List<ClassicRound> rounds = getPreviousRounds(user);
         JSONArray json = new JSONArray();
 
-        if (rounds.size() == 0)
-            return json;
+        if (rounds != null && rounds.size() > 0) {
+            Pokemon pokemonToFind = rounds.get(0).getGamePlayer().getGame().getPokemon();
+            rounds.forEach(round -> {
+                ClassicGameTry classicGameTry = new ClassicGameTry(round.getPokemon(), pokemonToFind);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("is_same", classicGameTry.isSame());
+                jsonObject.put("pokemon", round.getPokemon().toJSON());
+                jsonObject.put("difference", classicGameTry.toJSON());
 
-        Pokemon pokemonToFind = rounds.get(0).getGamePlayer().getGame().getPokemon();
-        rounds.forEach(round -> {
-            ClassicGameTry classicGameTry = new ClassicGameTry(round.getPokemon(), pokemonToFind);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("is_same", classicGameTry.isSame());
-            jsonObject.put("pokemon", round.getPokemon().toJSON());
-            jsonObject.put("difference", classicGameTry.toJSON());
-
-            json.add(jsonObject);
-        });
+                json.add(jsonObject);
+            });
+        }
         return json;
     }
 }
