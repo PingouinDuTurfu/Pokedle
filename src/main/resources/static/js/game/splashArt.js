@@ -6,12 +6,19 @@ function tryPokemon() {
         {pokemonName: pokemonToTry},
         function(data, status) {
             if (data.hasOwnProperty("error")) {
-                $(".ul-main-error").append("<li><span>" + data["error"] + "</span></li>");
+                $("#ul-main-error").append("<li><span>" + data["error"] + "</span></li>");
                 return;
             }
             displayLineAnswer(data);
             $("#selectSearchInput").val("");
             getSprite();
+            if(data["is_same"] === true) {
+                const score = 10;
+                $("#splash-art-image").css("filter", "drop-shadow(2px 4px 6px var(--default-black))");
+                $(".search").css("display", "none");
+                $(".success").css("display", "flex");
+                $(".success").append("<span class=\"successContent\">Félicitation vous avez fini avec un score de <span class=\"successScore\">" + score + "</span></span>");
+            }
         }
     );
 }
