@@ -58,6 +58,8 @@
     background-color: var(--light-blue);
     color: var(--white);
     border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .main .formRegister .formRegisterItems .formRegisterItem::placeholder {
@@ -65,13 +67,13 @@
 }
 
 .main .formRegister .formRegisterItems .formRegisterButton {
-    width: 370px;
     background-color: var(--green);
     padding: 10px;
-    box-sizing: border-box;
     border-radius: 10px;
     margin-top: 10px;
     font-size: 25px;
     text-align: center;
     color: var(--white);
+    width: 100%;
+    box-sizing: border-box;
 }

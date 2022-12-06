@@ -6,12 +6,9 @@ import org.json.simple.JSONObject;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
 
-@Getter
-@Setter
+@Getter @Setter
 @Entity(name = "Pokemons")
 public class Pokemon {
     @Id
