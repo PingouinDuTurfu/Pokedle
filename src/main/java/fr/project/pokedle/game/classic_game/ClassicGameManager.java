@@ -76,9 +76,9 @@ public class ClassicGameManager {
 
     public ClassicGamePlayer getClassicGamePlayer(User user, ClassicGame classicGame) {
         return classicGamePlayerRepository.findByUserAndGame(
-                user,
-                classicGame
-        ).orElseGet(() -> createClassicGamePlayer(user, classicGame));
+                        user,
+                        classicGame
+                ).orElseGet(() -> createClassicGamePlayer(user, classicGame));
     }
 
     public List<ClassicRound> getPreviousRounds(User user) {

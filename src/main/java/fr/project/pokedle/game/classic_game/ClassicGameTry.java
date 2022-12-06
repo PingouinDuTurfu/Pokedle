@@ -1,17 +1,13 @@
 package fr.project.pokedle.game.classic_game;
 
 import fr.project.pokedle.persistence.data.Pokemon;
-import fr.project.pokedle.persistence.data.PokemonType;
 import org.json.simple.JSONObject;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class ClassicGameTry {
-    private boolean same;
-
+    private final boolean same;
     private final Map<String, Column> mapCompare;
 
     public ClassicGameTry(Pokemon pokemonToTry, Pokemon pokemonToFind) {
@@ -26,21 +22,9 @@ public class ClassicGameTry {
     }
 
     public Column compareType(Pokemon pokemonToTry, Pokemon pokemonToFind) {
-        Set<PokemonType> typesToTry = new HashSet<>(Set.of(
-                pokemonToTry.getType1()
-        ));
-        if(pokemonToTry.getType2() != null)
-            typesToTry.add(pokemonToTry.getType2());
-
-        Set<PokemonType> typesToFind = new HashSet<>(Set.of(
-                pokemonToFind.getType1()
-        ));
-        if(pokemonToFind.getType2() != null)
-            typesToFind.add(pokemonToFind.getType2());
-
-        if (typesToFind.containsAll(typesToTry))
+        if (pokemonToFind.getTypes().equals(pokemonToTry.getTypes()))
             return Column.VALID;
-        if (typesToTry.stream().anyMatch(typesToFind::contains))
+        if (pokemonToTry.getTypes().stream().anyMatch(pokemonToFind.getTypes()::contains))
             return Column.PARTIAL;
         return Column.INVALID;
     }

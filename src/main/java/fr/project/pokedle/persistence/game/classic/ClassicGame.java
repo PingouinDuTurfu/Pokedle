@@ -11,8 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Setter
-@Getter
+@Setter @Getter
 @Entity(name = "ClassicGames")
 public class ClassicGame {
 
@@ -31,7 +30,6 @@ public class ClassicGame {
     @JoinColumn(nullable = false)
     private Pokemon pokemon;
 
-    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ClassicGamePlayer> gamePlayers;
 }

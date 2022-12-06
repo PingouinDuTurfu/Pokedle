@@ -11,8 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Setter
-@Getter
+@Setter @Getter
 @Entity(name = "SplashArtGamesPlayer")
 public class SplashArtGamePlayer {
 
