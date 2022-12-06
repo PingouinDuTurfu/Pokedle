@@ -14,12 +14,6 @@ import java.util.function.Function;
 @Setter
 @Entity(name = "Pokemons")
 public class Pokemon {
-
-    private static final Map<String, Function<Object, String>> functionMap = Map.of(
-            PokemonType.class.toString(), o -> ((PokemonType) o).getName(),
-            PokemonShape.class.toString(), o -> ((PokemonShape) o).getName()
-    );
-
     @Id
     long id;
 
@@ -30,15 +24,15 @@ public class Pokemon {
     private String nameEn;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "shape_id", nullable = false)
+    @JoinColumn(nullable = false)
     private PokemonShape shape;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "type_1_id", nullable = false)
+    @JoinColumn(nullable = false)
     private PokemonType type1;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "type_2_id")
+    @JoinColumn()
     private PokemonType type2;
 
     @Column
