@@ -4,11 +4,12 @@ const FILTER_NULL = "";
 
 function tryPokemon() {
     const pokemonToTry = $("#selectSearchInput").val();
+    $("#ul-main-message").empty();
     $.post("/play/classic/try",
         {pokemonName: pokemonToTry},
         function(data, status) {
             if(data.hasOwnProperty("error")) {
-                $(".ul-main-message").append("<li class=\"error\"><span>" + data["error"] + "</span></li>");
+                $("#ul-main-message").append("<li class=\"error\"><span>" + data["error"] + "</span></li>");
                 return
             }
             displayLineAnswer(data);
