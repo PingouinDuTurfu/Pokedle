@@ -42,6 +42,15 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
     private static final int SESSION_TIMEOUT = 10000;
     private static final int CHANNEL_TIMEOUT = 5000;
 
+    @Autowired
+    PokemonRepository pokemonRepository;
+
+    @Autowired
+    PokemonTypeRepository pokemonTypeRepository;
+
+    @Autowired
+    PokemonShapeRepository pokemonShapeRepository;
+
     static {
         try {
             POKEMON_FILE = getFile(LOCAL_DIRECTORY_NAME + POKEMON_FILE_NAME);
@@ -51,15 +60,6 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
             throw new RuntimeException(e);
         }
     }
-
-    @Autowired
-    PokemonRepository pokemonRepository;
-
-    @Autowired
-    PokemonTypeRepository pokemonTypeRepository;
-
-    @Autowired
-    PokemonShapeRepository pokemonShapeRepository;
 
     public static File getFile(String urlFileName) throws URISyntaxException, FileNotFoundException {
         URL url = Initialisation.class.getClassLoader().getResource(urlFileName);
