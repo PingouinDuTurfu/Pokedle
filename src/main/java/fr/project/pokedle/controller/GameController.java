@@ -61,7 +61,6 @@ public class GameController {
         return ResponseEntity.status(HttpStatus.OK).body(json);
     }
 
-
     @GetMapping("/play/splash_art")
     public String showSplashArtGame(Model model) {
         List<Pokemon> pokemonList = pokemonRepository.findAll().stream().sorted(Comparator.comparing(Pokemon::getNameFr)).toList();

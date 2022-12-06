@@ -17,6 +17,14 @@
 
 .header .name .content {
     padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    cursor: pointer;
+}
+
+.header .name .content span {
     font-size: 50px;
     color: var(--white);
 }
@@ -49,6 +57,7 @@
     font-size: 25px;
     color: var(--white);
     padding: 8px;
+    cursor: pointer;
 }
 
 .header .connect #ul-header-connect li:hover {
@@ -72,13 +81,19 @@
     display: flex;
     background-color: var(--black);
     border-radius: 5px 5px 0 0;
-    transition: background-color var(--delay-short-animation), padding-bottom var(--delay-medium-animation);
-    -webkit-transition: background-color var(--delay-short-animation), padding-bottom var(--delay-medium-animation);
+    transition: background-color var(--delay-short-animation);
+    -webkit-transition: background-color var(--delay-short-animation);
     margin: 0 5px;
     width: max-content;
 }
 
 .header .menu #ul-header-menu li a {
+    cursor: pointer;
+    transition: padding-bottom var(--delay-medium-animation);
+    -webkit-transition: padding-bottom var(--delay-medium-animation);
+}
+
+.header .menu #ul-header-menu li a span {
     font-size: 40px;
     color: var(--white);
     padding: 0 10px;
@@ -86,5 +101,8 @@
 
 .header .menu #ul-header-menu li:hover {
     background-color: var(--green);
+}
+
+.header .menu #ul-header-menu li:hover a {
     padding-bottom: 15px;
 }

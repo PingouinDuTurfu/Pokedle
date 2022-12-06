@@ -19,7 +19,7 @@ public class ClassicGame {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "classic_game_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
+    @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
     private UUID id;
 
@@ -28,7 +28,7 @@ public class ClassicGame {
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "pokemon", nullable = false)
+    @JoinColumn(nullable = false)
     private Pokemon pokemon;
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY,

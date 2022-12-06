@@ -31,20 +31,17 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors()
-                .and()
-                .csrf()
-                .disable()
+                .cors().and()
+                .csrf().disable()
                 .authorizeHttpRequests()
-                    .antMatchers(EVERYONE_LIST_URLS).permitAll()
+                    .antMatchers(EVERYONE_LIST_URLS)
+                .permitAll()
                     .antMatchers(USER_LIST_URLS)
                         .hasAuthority("USER")
                         .anyRequest()
-                        .permitAll()
-                .and()
-                .formLogin().loginPage("/login").permitAll()
-                .and().requestCache().requestCache(new CookieRequestCache())
-                .and()
+                .permitAll().and()
+                .formLogin().loginPage("/login").permitAll().and()
+                .requestCache().requestCache(new CookieRequestCache()).and()
                 .logout().permitAll();
         return http.build();
     }

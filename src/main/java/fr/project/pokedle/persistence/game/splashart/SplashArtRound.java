@@ -17,7 +17,7 @@ public class SplashArtRound {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "splash_art_round_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
+    @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
     private UUID id;
 
@@ -25,11 +25,11 @@ public class SplashArtRound {
     private long round;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "classic_official", nullable = false)
+    @JoinColumn(nullable = false)
     private SplashArtGamePlayer gamePlayer;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "pokemon", nullable = false)
+    @JoinColumn(nullable = false)
     private Pokemon pokemon;
 
 }
