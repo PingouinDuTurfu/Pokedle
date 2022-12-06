@@ -9,8 +9,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Setter
-@Getter
+@Setter @Getter
 @Entity(name = "SplashArtRound")
 public class SplashArtRound {
 
