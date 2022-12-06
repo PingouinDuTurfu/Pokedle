@@ -19,7 +19,7 @@ public class SplashArtGame {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "splash_art_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
+    @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
     private UUID id;
 
@@ -28,7 +28,7 @@ public class SplashArtGame {
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "pokemon", nullable = false)
+    @JoinColumn(nullable = false)
     private Pokemon pokemon;
 
     @Column

@@ -13,21 +13,38 @@
 
         <div class="content">
             <div class="title">
-                <span>Bonjour Michel ravi de vous revoir !</span>
+                <span sec:authorize="isAuthenticated()">Bonjour <span class="username" sec:authentication="name"></span> ravi de vous revoir !</span>
+                <span sec:authorize="isAnonymous()">Bienvenue !</span>
                 <img th:src="@{/img/gif/canarticho_1.gif}"/>
             </div>
             <div class="items">
                 <ul id="ul-main-item">
-                    <li class="connect-item">
-                        <a href="/login">Login</a>
-                        <img th:src="@{/img/gif/rondoudou_1.gif}"/>
+                    <li class="connect-item" sec:authorize="isAnonymous()">
+                        <a th:href="@{/login}">
+                            <span>Login</span>
+                            <img th:src="@{/img/gif/rondoudou_1.gif}"/>
+                        </a>
                     </li>
-                    <li class="connect-item">
-                        <a href="/register">Register</a>
-                        <img th:src="@{/img/gif/salameche_1.gif}"/>
+                    <li class="connect-item" sec:authorize="isAnonymous()">
+                        <a th:href="@{/register}">
+                            <span>Register</span>
+                            <img th:src="@{/img/gif/salameche_1.gif}"/>
+                        </a>
                     </li>
-                    <li class="game-item"><a href="/play/classic">Classic</a></li>
-                    <li class="game-item"><a href="/play/splash_art">Splash Art</a></li>
+                    <li class="game-item">
+                        <a href="/play/classic">
+                            <span>
+                                Classic
+                            </span>
+                        </a>
+                    </li>
+                    <li class="game-item">
+                        <a href="/play/splash_art">
+                            <span>
+                                Splash Art
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
