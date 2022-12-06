@@ -17,7 +17,7 @@ public class ClassicRound {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "classic_round_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
+    @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
     private UUID id;
 
@@ -25,11 +25,11 @@ public class ClassicRound {
     private long round;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "classic_official", nullable = false)
+    @JoinColumn(nullable = false)
     private ClassicGamePlayer gamePlayer;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "pokemon", nullable = false)
+    @JoinColumn(nullable = false)
     private Pokemon pokemon;
 
 }
