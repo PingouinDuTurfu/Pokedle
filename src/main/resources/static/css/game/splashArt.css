@@ -150,7 +150,7 @@
 }
 
 .main .game .answer {
-    display: none;
+    display: flex;
     flex-direction: column;
     background-color: var(--dark-black);
     padding: 8px;
@@ -158,10 +158,6 @@
     justify-content: center;
     box-sizing: border-box;
     margin-top: 20px;
-}
-
-.main .game .answer:has(.answerItem) {
-    display: flex;
 }
 
 .main .game .answer .answerContent {
