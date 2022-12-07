@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class RegistrationController {
     @Autowired
@@ -27,14 +29,15 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String registerUser(UserDetailsForm userDetailsForm) throws Exception {
+    public String registerUser(UserDetailsForm userDetailsForm, HttpServletRequest request) throws Exception {
         try {
             userService.registerUser(userDetailsForm);
+            request.login(userDetailsForm.getUsername(), userDetailsForm.getPassword());
         } catch (ConfirmPasswordInvalidException e) {
             return "redirect:/register?errorNotMatchingPassword";
         } catch (UserAlreadyExistException e) {
             return "redirect:/register?errorUserAlreadyExist";
         }
-        return "redirect:/login?registration_complete";
+        return "redirect:/home?registration_complete";
     }
 }
