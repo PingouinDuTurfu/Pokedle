@@ -103,7 +103,6 @@ function selectPokemon(select) {
 }
 
 function successDisplay(score) {
-    $("#splash-art-image").css("filter", "drop-shadow(2px 4px 6px var(--default-black))");
     $(".search").css("display", "none");
     $(".success")
         .css("display", "flex")
