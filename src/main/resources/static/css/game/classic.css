@@ -113,6 +113,25 @@
     transform: scale(1.1);
 }
 
+.main .game .success {
+    display: none;
+    background-color: var(--green);
+    border-radius: 10px;
+    margin-top: 20px;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.main .game .success .successContent {
+    color: var(--white);
+    font-size: 30px;
+}
+
+.main .game .success .successContent .successScore {
+    color: var(--orange);
+    font-size: 30px;
+}
+
 .main .game .answer {
     display: flex;
     flex-direction: column;
