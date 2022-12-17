@@ -1,7 +1,6 @@
 package fr.project.pokedle.game.classic_game;
 
 import fr.project.pokedle.game.GameManager;
-import fr.project.pokedle.game.ScoreManager;
 import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.persistence.game.classic.ClassicGame;
 import fr.project.pokedle.persistence.game.classic.ClassicGamePlayer;
@@ -22,8 +21,7 @@ public class PlayClassicGame {
     private ClassicGameManager classicGameManager;
     @Autowired
     private GameManager gameManager;
-    @Autowired
-    private ScoreManager scoreManager;
+
 
     public JSONObject play(User user, String pokemonNameToTry) {
         JSONObject jsonObject = new JSONObject();
@@ -64,13 +62,8 @@ public class PlayClassicGame {
         jsonObject.put("pokemon", pokemonToTry.toJSON());
         jsonObject.put("difference", classicGameTry.toJSON());
 
-        if (classicGameTry.isSame()) {
-            classicGamePlayer.setSuccess(true);
-            classicGamePlayer.setSuccessDate(new Date());
-            classicGamePlayer.setScore(scoreManager.computeScore(classicGamePlayer.getRounds().size()));
-            classicGamePlayerRepository.save(classicGamePlayer);
-            jsonObject.put("score", classicGamePlayer.getScore());
-        }
+        if (classicGameTry.isSame())
+            jsonObject.put("score", classicGameManager.saveGamePlayerOnCompletion(classicGamePlayer));
         return jsonObject;
     }
 }

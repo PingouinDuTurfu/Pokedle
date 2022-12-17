@@ -1,6 +1,7 @@
 package fr.project.pokedle.game.classic_game;
 
 import fr.project.pokedle.game.GameManager;
+import fr.project.pokedle.game.ScoreManager;
 import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.persistence.game.classic.ClassicGame;
 import fr.project.pokedle.persistence.game.classic.ClassicGamePlayer;
@@ -29,6 +30,8 @@ public class ClassicGameManager {
     private ClassicRoundRepository classicRoundRepository;
     @Autowired
     private GameManager gameManager;
+    @Autowired
+    private ScoreManager scoreManager;
 
     public ClassicGame createClassicGame() {
         Pokemon pokemon = gameManager.getRandomPokemon();
@@ -110,5 +113,13 @@ public class ClassicGameManager {
             });
         }
         return json;
+    }
+
+    public double saveGamePlayerOnCompletion(ClassicGamePlayer classicGamePlayer) {
+        classicGamePlayer.setSuccess(true);
+        classicGamePlayer.setSuccessDate(new Date());
+        classicGamePlayer.setScore(scoreManager.computeScore(classicGamePlayer.getRounds().size()));
+        classicGamePlayerRepository.save(classicGamePlayer);
+        return classicGamePlayer.getScore();
     }
 }
