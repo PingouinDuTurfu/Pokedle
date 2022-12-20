@@ -20,17 +20,17 @@ public class LeaderBoardController {
     @Autowired
     private GameManager gameManager;
 
-    @GetMapping("/leaderBoard/classic_game")
+    @GetMapping("/leaderboard/classic_game")
     public String showLeaderBoard() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDateTime now = LocalDateTime.now();
-        return "redirect:/leaderBoard/classic_game/" + dtf.format(now);
+        return "redirect:/leaderboard/classic_game/" + dtf.format(now);
     }
 
-    @GetMapping("/leaderBoard/classic_game/{date}")
+    @GetMapping("/leaderboard/classic_game/{date}")
     public String showLeaderBoard(@DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("date") Date date, Model model) {
         model.addAttribute("date", date);
         model.addAttribute("listPlayer", leaderBoard.getClassicMapScoreOfDay(date));
-        return "leaderBoard";
+        return "leaderboard";
     }
 }
