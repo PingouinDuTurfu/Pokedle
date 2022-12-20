@@ -4,6 +4,7 @@ import fr.project.pokedle.exception.ConfirmPasswordInvalidException;
 import fr.project.pokedle.exception.UserAlreadyExistException;
 import fr.project.pokedle.model.UserDetailsForm;
 import fr.project.pokedle.persistence.registration.User;
+import fr.project.pokedle.repository.PokemonRepository;
 import fr.project.pokedle.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +17,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private PokemonRepository pokemonRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -32,9 +34,9 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(userDetailsForm.getPassword()));
         user.setCreationDate(new Date());
         user.setRole("USER");
-
+        System.out.println(userDetailsForm.getAvatar());
+        user.setAvatar(pokemonRepository.findByNameFr(userDetailsForm.getAvatar()).orElseThrow());
         userRepository.save(user);
-
         return user;
     }
 }

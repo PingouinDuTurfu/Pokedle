@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class GameManager {
@@ -22,6 +24,10 @@ public class GameManager {
 
         /* verfify if the pokemon is correct */
         return pokemonRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
+    public List<Pokemon> getPokemonList() {
+        return pokemonRepository.findAll().stream().sorted(Comparator.comparing(Pokemon::getNameFr)).toList();
     }
 
     public Pokemon getPokemonByName(String pokemonName) {

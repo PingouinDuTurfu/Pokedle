@@ -6,7 +6,6 @@ import fr.project.pokedle.persistence.game.classic.ClassicGame;
 import fr.project.pokedle.persistence.game.classic.ClassicGamePlayer;
 import fr.project.pokedle.persistence.game.classic.ClassicRound;
 import fr.project.pokedle.persistence.registration.User;
-import fr.project.pokedle.repository.ClassicGamePlayerRepository;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,12 +15,9 @@ import java.util.Date;
 @Component
 public class PlayClassicGame {
    @Autowired
-    private ClassicGamePlayerRepository classicGamePlayerRepository;
-    @Autowired
     private ClassicGameManager classicGameManager;
     @Autowired
     private GameManager gameManager;
-
 
     public JSONObject play(User user, String pokemonNameToTry) {
         JSONObject jsonObject = new JSONObject();

@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -32,4 +33,10 @@ public class ClassicGame extends Game {
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ClassicGamePlayer> gamePlayers;
+
+    public List<ClassicGamePlayer> getGamePlayers() {
+        if (gamePlayers != null)
+            return gamePlayers;
+        return new ArrayList<>();
+    }
 }

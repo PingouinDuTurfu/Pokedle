@@ -1,5 +1,6 @@
 package fr.project.pokedle.persistence.registration;
 
+import fr.project.pokedle.persistence.data.Pokemon;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -25,6 +26,10 @@ public class User {
 
     @Column
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(nullable = false)
+    private Pokemon avatar;
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
