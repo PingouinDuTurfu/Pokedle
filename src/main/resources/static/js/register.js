@@ -1,4 +1,3 @@
-const DEFAULT_RESOURCE = "http://www.pingouinduturfu.fr/pokedle/";
 const FILTER_RESET = "----";
 const FILTER_NULL = "";
 

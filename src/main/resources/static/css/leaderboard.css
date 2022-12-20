@@ -27,7 +27,7 @@
     width: 20%;
     height: 100%;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     box-sizing: border-box;
     min-width: 250px;
 }
@@ -46,24 +46,47 @@
     border: var(--orange) solid 4px;
 }
 
-.leaderboardFirst .leaderboardTitle span {
+.leaderboardFirst .leaderboardTitle {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.leaderboardFirst .leaderboardTitle .dateDay {
     font-size: 40px;
-    color: var(--white)
+    color: var(--orange);
+    padding-bottom: 10px;
+}
+
+.leaderboardFirst .leaderboardTitle .date {
+    font-size: 30px;
+    color: var(--white);
+    padding: 0 10px;
 }
 
 .leaderboardFirst .leaderboardName span {
-    font-size: 30px;
-    color: var(--white)
+    font-size: 40px;
+    color: var(--light-blue);
 }
 
 .leaderboardFirst .leaderboardScore span {
     font-size: 30px;
-    color: var(--white)
+    color: var(--white);
 }
 
 .leaderboardFirst .leaderboardImage img {
     width: 150px;
     height: 150px;
+}
+
+.leaderboardFirst .leaderboardText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.leaderboardFirst .leaderboardText span {
+    font-size: 30px;
 }
 
 .leaderboardContainer  {
@@ -126,6 +149,8 @@
     align-items: center;
     width: 100%;
     position: relative;
+    padding: 8px;
+    box-sizing: border-box;
 }
 
 .leaderboardContainerList .leaderboardItem .leaderboardImage {
@@ -138,6 +163,10 @@
 .leaderboardContainerList .leaderboardItem .leaderboardImage img {
     width: 80px;
     height: 80px;
+}
+
+.leaderboardContainerList .leaderboardItem .leaderboardImage .imageShadow {
+    filter: drop-shadow(2px 4px 6px var(--default-black));
 }
 
 .leaderboardContainerList .leaderboardItem .leaderboardName {

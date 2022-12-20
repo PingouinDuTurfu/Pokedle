@@ -1,5 +1,6 @@
 package fr.project.pokedle.controller;
 
+import fr.project.pokedle.exception.AvatarInvalidException;
 import fr.project.pokedle.exception.ConfirmPasswordInvalidException;
 import fr.project.pokedle.exception.UserAlreadyExistException;
 import fr.project.pokedle.game.GameManager;
@@ -45,6 +46,8 @@ public class RegistrationController {
             return "redirect:/register?errorNotMatchingPassword";
         } catch (UserAlreadyExistException e) {
             return "redirect:/register?errorUserAlreadyExist";
+        } catch (AvatarInvalidException e) {
+            return "redirect:/register?errorAvatarInvalid";
         }
         return "redirect:/home?registration_complete";
     }
