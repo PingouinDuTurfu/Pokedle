@@ -1,0 +1,238 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/game/leaderboard.css}">
+</head>
+<body>
+<div th:replace="/fragments/header::header"></div>
+
+<div class="main">
+    <div th:replace="/fragments/message::message"></div>
+
+    <div class="content">
+        <div class="leaderboard">
+            <div class="leaderboardFirst">
+                <div class="leaderboardTitle">
+                    <span>Date</span>
+                </div>
+                <div class="leaderboardRank">
+                    <span>1</span>
+                </div>
+                <div class="leaderboardImage">
+                    <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/001.png'}" alt="leaderboardImage">
+                </div>
+                <div class="leaderboardName">
+                    <span>Username</span>
+                </div>
+                <div class="leaderboardScore">
+                    <span>Score</span>
+                </div>
+            </div>
+            <div class="leaderboardContainer">
+                <ul class="leaderboardContainerList">
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span>2</span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/002.png'}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span>Username2</span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span>Score2</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span>3</span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/003.png'}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span>Username3</span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span>Score3</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span>4</span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/004.png'}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span>Username4</span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span>Score4</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span>5</span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/005.png'}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span>Username5</span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span>Score5</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span>6</span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/006.png'}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span>Username6</span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span>Score6</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span>7</span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/007.png'}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span>Username7</span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span>Score7</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span>8</span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/008.png'}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span>Username8</span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span>Score8</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span>9</span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/009.png'}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span>Username9</span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span>Score9</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span>10</span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/010.png'}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span>Username10</span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span>Score10</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span>11</span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/011.png'}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span>Username11</span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span>Score11</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span>12</span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/012.png'}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span>Username12</span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span>Score12</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span>13</span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img th:src="${'http://www.pingouinduturfu.fr/pokedle/images/013.png'}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span>Username13</span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span>Score13</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="/fragments/footer::footer"></div>
+
+</body>
+<script type="text/javascript" th:src="@{/js/lib/jquery.initialize.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/game/classic.js}"></script>
+</html>
