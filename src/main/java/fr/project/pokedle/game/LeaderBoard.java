@@ -47,13 +47,14 @@ public class LeaderBoard {
         return jsonScores;
     }
 
-    public Map<User, Double> getClassicMapScoreOfDay(Date date) {
+    public List<ClassicGamePlayer> getClassicMapScoreOfDay(Date date) {
         return classicGameManager
                 .getClassicGameOfDay(date)
                 .getGamePlayers()
                 .stream()
-                .filter(ClassicGamePlayer::isSuccess)
-                .collect(Collectors.toMap(ClassicGamePlayer::getUser, ClassicGamePlayer::getScore));
+                    .filter(ClassicGamePlayer::isSuccess)
+                    .sorted((o1, o2) -> (int) (o2.getScore() - o1.getScore()))
+                    .collect(Collectors.toList());
     }
 /*
     public Map<User, Double> getMapgeneral(Date date) {

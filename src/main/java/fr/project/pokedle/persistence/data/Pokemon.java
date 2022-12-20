@@ -53,15 +53,6 @@ public class Pokemon {
     @Column
     private String linkBigSprite;
 
-    public String getLinkIcon() {
-        return linkIcon.split("assets/")[1];
-    }
-
-    public String getLinkBigSprite() {
-        // !!!!
-        return "http://***REMOVED***/pokedle/imagesHQ/" + linkBigSprite.split("imgagesHQ/")[1];
-    }
-
     public Set<PokemonType> getTypes() {
         Set<PokemonType> types = new HashSet<>();
         types.add(type1);

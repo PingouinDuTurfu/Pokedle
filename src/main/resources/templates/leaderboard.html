@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/leaderboard.css}">
+</head>
+<body>
+<div th:replace="/fragments/header::header"></div>
+
+<div class="main">
+    <div th:replace="/fragments/message::message"></div>
+
+    <div class="content">
+        <div class="leaderboard">
+            <div th:if="${listPlayer.size() == 0}" class="leaderboardFirst">
+                <div class="leaderboardTitle">
+                    <span class="dateDay" th:text="${dateDay}"></span>
+                    <span class="date" th:text="${date}"></span>
+                </div>
+                <div class="leaderboardImage">
+                    <img th:src="@{/img/gif/salameche_1.gif}" alt="leaderboardImage">
+                </div>
+                <div class="leaderboardText">
+                    <span>Sois le premier</span>
+                    <span>à terminer le jeu</span>
+                    <span>aujourd'hui !</span>
+                </div>
+            </div>
+            <div th:each="player,iStat:${listPlayer}" th:if="${iStat.first}" class="leaderboardFirst">
+                <div class="leaderboardTitle">
+                    <span class="dateDay" th:text="${dateDay}"></span>
+                    <span class="date" th:text="${date}"></span>
+                </div>
+                <div class="leaderboardRank">
+                    <span th:text="${iStat.index + 1}"></span>
+                </div>
+                <div class="leaderboardImage">
+                    <img class="imageShadow" th:src="${player.getUser().getAvatar().getLinkSmallSprite()}" alt="leaderboardImage">
+                </div>
+                <div class="leaderboardName">
+                    <span th:text="${player.getUser().getUsername()}"></span>
+                </div>
+                <div class="leaderboardScore">
+                    <span th:text="${#numbers.formatDecimal(player.getScore(), 1, 'DEFAULT', 0, 'DEFAULT')}"></span>
+                </div>
+            </div>
+            <div th:each="player,iStat:${listPlayer}" th:unless="${iStat.first}" class="leaderboardContainer">
+                <ul class="leaderboardContainerList">
+                    <li class="leaderboardItem">
+                        <div class="leaderboardRank">
+                            <span th:text="${iStat.index + 1}"></span>
+                        </div>
+                        <div class="leaderboardItemContent">
+                            <div class="leaderboardImage">
+                                <img class="imageShadow" th:src="${player.getUser().getAvatar().getLinkSmallSprite()}" alt="leaderboardImage">
+                            </div>
+                            <div class="leaderboardName">
+                                <span th:text="${player.getUser().getUsername()}"></span>
+                            </div>
+                            <div class="leaderboardScore">
+                                <span th:text="${#numbers.formatDecimal(player.getScore(), 1, 'DEFAULT', 0, 'DEFAULT')}"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="/fragments/footer::footer"></div>
+
+</body>
+<script type="text/javascript" th:src="@{/js/lib/jquery.initialize.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/game/classic.js}"></script>
+</html>
