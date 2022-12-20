@@ -1,4 +1,3 @@
-const DEFAULT_RESOURCE = "http://www.pingouinduturfu.fr/pokedle/";
 const FILTER_RESET = "----";
 const FILTER_NULL = "";
 
@@ -27,7 +26,7 @@ function displayLineAnswer(data) {
     const prefix = "<div class=\"answerItem\">";
     const suffix = "</div>";
     const content = prefix +
-        "<img class=\"itemImage\" src='" + DEFAULT_RESOURCE + data["pokemon"]["linkIcon"] + "' alt=\"Pokemon icon\">" +
+        "<img class=\"itemImage\" src='" + data["pokemon"]["linkIcon"] + "' alt=\"Pokemon icon\">" +
         suffix;
     answerTable.prepend(content);
 }

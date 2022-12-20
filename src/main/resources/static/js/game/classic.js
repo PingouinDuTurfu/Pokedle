@@ -1,4 +1,3 @@
-const DEFAULT_RESOURCE = "http://www.pingouinduturfu.fr/pokedle/";
 const FILTER_RESET = "----";
 const FILTER_NULL = "";
 
@@ -41,9 +40,9 @@ function getHTMLValue(type, value1, value2) {
     switch (type) {
         case "IMAGE":
             if (value2 != null)
-                return "<div class=\"itemTopLeft\"><img class=\"itemImage\" src='" + DEFAULT_RESOURCE + value1 + "'></div><div class=\"itemBottomRight\"><img class=\"itemImage\" src='" + DEFAULT_RESOURCE + value2 + "'></div>";
+                return "<div class=\"itemTopLeft\"><img class=\"itemImage\" src='" + value1 + "'></div><div class=\"itemBottomRight\"><img class=\"itemImage\" src='" + value2 + "'></div>";
             else
-                return "<img class=\"itemImage\" src='" + DEFAULT_RESOURCE + value1 + "'>";
+                return "<img class=\"itemImage\" src='" + value1 + "'>";
         case "TEXT":
             if(value2 != null)
                 return "<span class=\"itemValue\">" + value1 + "</span><span class=\"itemValue\">" + value2 + "</span>";
@@ -103,7 +102,6 @@ function selectPokemon(select) {
 }
 
 function successDisplay(score) {
-    $("#splash-art-image").css("filter", "drop-shadow(2px 4px 6px var(--default-black))");
     $(".search").css("display", "none");
     $(".success")
         .css("display", "flex")

@@ -1,5 +1,6 @@
 package fr.project.pokedle.service;
 
+import fr.project.pokedle.exception.AvatarInvalidException;
 import fr.project.pokedle.exception.ConfirmPasswordInvalidException;
 import fr.project.pokedle.exception.UserAlreadyExistException;
 import fr.project.pokedle.model.UserDetailsForm;
@@ -29,13 +30,15 @@ public class UserService {
         if (userRepository.findFirstByUsername(userDetailsForm.getUsername()).isPresent())
             throw new UserAlreadyExistException();
 
+        if(pokemonRepository.findByNameFr(userDetailsForm.getAvatar()).isEmpty())
+            throw new AvatarInvalidException();
+
         User user = new User();
         user.setUsername(userDetailsForm.getUsername());
         user.setPassword(passwordEncoder.encode(userDetailsForm.getPassword()));
         user.setCreationDate(new Date());
         user.setRole("USER");
-        System.out.println(userDetailsForm.getAvatar());
-        user.setAvatar(pokemonRepository.findByNameFr(userDetailsForm.getAvatar()).orElseThrow());
+        user.setAvatar(pokemonRepository.findByNameFr(userDetailsForm.getAvatar()).get());
         userRepository.save(user);
         return user;
     }

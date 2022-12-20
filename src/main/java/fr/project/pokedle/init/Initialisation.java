@@ -88,7 +88,7 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
                                         .build()
                         ).toList()
         );
-
+        System.out.println("Types loaded");
         sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + SHAPE_FILE_NAME, SHAPE_FILE.getAbsolutePath());
         pokemonShapeRepository.saveAll(
                 SFTPFileTransfer
@@ -101,7 +101,7 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
                                         .build()
                         ).toList()
         );
-
+        System.out.println("Shapes loaded");
         sftp.getRemoteFile(REMOTE_DIRECTORY_NAME + POKEMON_FILE_NAME, POKEMON_FILE.getAbsolutePath());;
         pokemonRepository.saveAll(
                 SFTPFileTransfer
@@ -124,5 +124,6 @@ public class Initialisation implements ApplicationListener<ContextRefreshedEvent
                                         .build()
                         ).toList()
         );
+        System.out.println("Pokemons loaded");
     }
 }

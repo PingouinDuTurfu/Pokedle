@@ -25,10 +25,6 @@ public class PokemonShape {
             cascade = CascadeType.ALL)
     private List<Pokemon> pokemons;
 
-    public String getLinkIcon() {
-        return linkIcon.split("asset")[1].substring(2);
-    }
-
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("id", getId());
