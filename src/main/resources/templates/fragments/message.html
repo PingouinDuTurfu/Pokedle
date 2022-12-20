@@ -12,6 +12,9 @@
             <li class="error" th:if="${(param.errorUserAlreadyExist != null)}">
                 <span>Error: user already exist</span>
             </li>
+            <li class="error" th:if="${(param.errorAvatarInvalid != null)}">
+                <span>Error: avatar invalid</span>
+            </li>
             <li class="error" th:if="${(param.error != null)}">
                 <span>Error: user does not exist or password does not match</span>
             </li>

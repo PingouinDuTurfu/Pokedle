@@ -1,4 +1,3 @@
-const DEFAULT_RESOURCE = "http://***REMOVED***/pokedle/";
 const FILTER_RESET = "----";
 const FILTER_NULL = "";
 

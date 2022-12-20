@@ -49,7 +49,7 @@ public class SFTPFileTransfer {
             if (jschSession != null)
                 jschSession.disconnect();
         }
-        System.out.println("get " + remoteFile + "success. Saved to " + localFile +".");
+        System.out.println("get " + remoteFile + " success. Saved to " + localFile +".");
     }
 
     public static <T> List<T> mapFromJSON(File localFile, Class<T> clazz) {

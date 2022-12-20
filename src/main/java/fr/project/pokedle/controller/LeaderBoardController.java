@@ -9,9 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 @Controller
 public class LeaderBoardController {
@@ -29,7 +30,9 @@ public class LeaderBoardController {
 
     @GetMapping("/leaderboard/classic_game/{date}")
     public String showLeaderBoard(@DateTimeFormat(pattern = "dd-MM-yyyy") @PathVariable("date") Date date, Model model) {
-        model.addAttribute("date", date);
+        ZonedDateTime zonedDateTime = date.toInstant().atZone(ZoneId.systemDefault());
+        model.addAttribute("dateDay", zonedDateTime.format(DateTimeFormatter.ofPattern("EEEE", Locale.FRANCE)));
+        model.addAttribute("date", zonedDateTime.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH)));
         model.addAttribute("listPlayer", leaderBoard.getClassicMapScoreOfDay(date));
         return "leaderboard";
     }

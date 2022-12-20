@@ -13,214 +13,53 @@
 
     <div class="content">
         <div class="leaderboard">
-            <div class="leaderboardFirst">
+            <div th:if="${listPlayer.size() == 0}" class="leaderboardFirst">
                 <div class="leaderboardTitle">
-                    <span>Date</span>
-                </div>
-                <div class="leaderboardRank">
-                    <span>1</span>
+                    <span class="dateDay" th:text="${dateDay}"></span>
+                    <span class="date" th:text="${date}"></span>
                 </div>
                 <div class="leaderboardImage">
-                    <img th:src="${'http://***REMOVED***/pokedle/images/001.png'}" alt="leaderboardImage">
+                    <img th:src="@{/img/gif/salameche_1.gif}" alt="leaderboardImage">
                 </div>
-                <div class="leaderboardName">
-                    <span>Username</span>
-                </div>
-                <div class="leaderboardScore">
-                    <span>Score</span>
+                <div class="leaderboardText">
+                    <span>Sois le premier</span>
+                    <span>à terminer le jeu</span>
+                    <span>aujourd'hui !</span>
                 </div>
             </div>
-            <div class="leaderboardContainer">
+            <div th:each="player,iStat:${listPlayer}" th:if="${iStat.first}" class="leaderboardFirst">
+                <div class="leaderboardTitle">
+                    <span class="dateDay" th:text="${dateDay}"></span>
+                    <span class="date" th:text="${date}"></span>
+                </div>
+                <div class="leaderboardRank">
+                    <span th:text="${iStat.index + 1}"></span>
+                </div>
+                <div class="leaderboardImage">
+                    <img class="imageShadow" th:src="${player.getUser().getAvatar().getLinkSmallSprite()}" alt="leaderboardImage">
+                </div>
+                <div class="leaderboardName">
+                    <span th:text="${player.getUser().getUsername()}"></span>
+                </div>
+                <div class="leaderboardScore">
+                    <span th:text="${#numbers.formatDecimal(player.getScore(), 1, 'DEFAULT', 0, 'DEFAULT')}"></span>
+                </div>
+            </div>
+            <div th:each="player,iStat:${listPlayer}" th:unless="${iStat.first}" class="leaderboardContainer">
                 <ul class="leaderboardContainerList">
                     <li class="leaderboardItem">
                         <div class="leaderboardRank">
-                            <span>2</span>
+                            <span th:text="${iStat.index + 1}"></span>
                         </div>
                         <div class="leaderboardItemContent">
                             <div class="leaderboardImage">
-                                <img th:src="${'http://***REMOVED***/pokedle/images/002.png'}" alt="leaderboardImage">
+                                <img class="imageShadow" th:src="${player.getUser().getAvatar().getLinkSmallSprite()}" alt="leaderboardImage">
                             </div>
                             <div class="leaderboardName">
-                                <span>Username2</span>
+                                <span th:text="${player.getUser().getUsername()}"></span>
                             </div>
                             <div class="leaderboardScore">
-                                <span>Score2</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="leaderboardItem">
-                        <div class="leaderboardRank">
-                            <span>3</span>
-                        </div>
-                        <div class="leaderboardItemContent">
-                            <div class="leaderboardImage">
-                                <img th:src="${'http://***REMOVED***/pokedle/images/003.png'}" alt="leaderboardImage">
-                            </div>
-                            <div class="leaderboardName">
-                                <span>Username3</span>
-                            </div>
-                            <div class="leaderboardScore">
-                                <span>Score3</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="leaderboardItem">
-                        <div class="leaderboardRank">
-                            <span>4</span>
-                        </div>
-                        <div class="leaderboardItemContent">
-                            <div class="leaderboardImage">
-                                <img th:src="${'http://***REMOVED***/pokedle/images/004.png'}" alt="leaderboardImage">
-                            </div>
-                            <div class="leaderboardName">
-                                <span>Username4</span>
-                            </div>
-                            <div class="leaderboardScore">
-                                <span>Score4</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="leaderboardItem">
-                        <div class="leaderboardRank">
-                            <span>5</span>
-                        </div>
-                        <div class="leaderboardItemContent">
-                            <div class="leaderboardImage">
-                                <img th:src="${'http://***REMOVED***/pokedle/images/005.png'}" alt="leaderboardImage">
-                            </div>
-                            <div class="leaderboardName">
-                                <span>Username5</span>
-                            </div>
-                            <div class="leaderboardScore">
-                                <span>Score5</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="leaderboardItem">
-                        <div class="leaderboardRank">
-                            <span>6</span>
-                        </div>
-                        <div class="leaderboardItemContent">
-                            <div class="leaderboardImage">
-                                <img th:src="${'http://***REMOVED***/pokedle/images/006.png'}" alt="leaderboardImage">
-                            </div>
-                            <div class="leaderboardName">
-                                <span>Username6</span>
-                            </div>
-                            <div class="leaderboardScore">
-                                <span>Score6</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="leaderboardItem">
-                        <div class="leaderboardRank">
-                            <span>7</span>
-                        </div>
-                        <div class="leaderboardItemContent">
-                            <div class="leaderboardImage">
-                                <img th:src="${'http://***REMOVED***/pokedle/images/007.png'}" alt="leaderboardImage">
-                            </div>
-                            <div class="leaderboardName">
-                                <span>Username7</span>
-                            </div>
-                            <div class="leaderboardScore">
-                                <span>Score7</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="leaderboardItem">
-                        <div class="leaderboardRank">
-                            <span>8</span>
-                        </div>
-                        <div class="leaderboardItemContent">
-                            <div class="leaderboardImage">
-                                <img th:src="${'http://***REMOVED***/pokedle/images/008.png'}" alt="leaderboardImage">
-                            </div>
-                            <div class="leaderboardName">
-                                <span>Username8</span>
-                            </div>
-                            <div class="leaderboardScore">
-                                <span>Score8</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="leaderboardItem">
-                        <div class="leaderboardRank">
-                            <span>9</span>
-                        </div>
-                        <div class="leaderboardItemContent">
-                            <div class="leaderboardImage">
-                                <img th:src="${'http://***REMOVED***/pokedle/images/009.png'}" alt="leaderboardImage">
-                            </div>
-                            <div class="leaderboardName">
-                                <span>Username9</span>
-                            </div>
-                            <div class="leaderboardScore">
-                                <span>Score9</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="leaderboardItem">
-                        <div class="leaderboardRank">
-                            <span>10</span>
-                        </div>
-                        <div class="leaderboardItemContent">
-                            <div class="leaderboardImage">
-                                <img th:src="${'http://***REMOVED***/pokedle/images/010.png'}" alt="leaderboardImage">
-                            </div>
-                            <div class="leaderboardName">
-                                <span>Username10</span>
-                            </div>
-                            <div class="leaderboardScore">
-                                <span>Score10</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="leaderboardItem">
-                        <div class="leaderboardRank">
-                            <span>11</span>
-                        </div>
-                        <div class="leaderboardItemContent">
-                            <div class="leaderboardImage">
-                                <img th:src="${'http://***REMOVED***/pokedle/images/011.png'}" alt="leaderboardImage">
-                            </div>
-                            <div class="leaderboardName">
-                                <span>Username11</span>
-                            </div>
-                            <div class="leaderboardScore">
-                                <span>Score11</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="leaderboardItem">
-                        <div class="leaderboardRank">
-                            <span>12</span>
-                        </div>
-                        <div class="leaderboardItemContent">
-                            <div class="leaderboardImage">
-                                <img th:src="${'http://***REMOVED***/pokedle/images/012.png'}" alt="leaderboardImage">
-                            </div>
-                            <div class="leaderboardName">
-                                <span>Username12</span>
-                            </div>
-                            <div class="leaderboardScore">
-                                <span>Score12</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="leaderboardItem">
-                        <div class="leaderboardRank">
-                            <span>13</span>
-                        </div>
-                        <div class="leaderboardItemContent">
-                            <div class="leaderboardImage">
-                                <img th:src="${'http://***REMOVED***/pokedle/images/013.png'}" alt="leaderboardImage">
-                            </div>
-                            <div class="leaderboardName">
-                                <span>Username13</span>
-                            </div>
-                            <div class="leaderboardScore">
-                                <span>Score13</span>
+                                <span th:text="${#numbers.formatDecimal(player.getScore(), 1, 'DEFAULT', 0, 'DEFAULT')}"></span>
                             </div>
                         </div>
                     </li>
