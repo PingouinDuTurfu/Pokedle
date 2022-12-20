@@ -10,7 +10,7 @@ function tryPokemon() {
         function(data, status) {
             if(data.hasOwnProperty("error")) {
                 $("#ul-main-message").append("<li class=\"error\"><span>" + data["error"] + "</span></li>");
-                return
+                return;
             }
             displayLineAnswer(data);
             $("#selectSearchInput").val(FILTER_NULL);

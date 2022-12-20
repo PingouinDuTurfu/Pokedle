@@ -4,7 +4,6 @@ import fr.project.pokedle.game.classic_game.ClassicGameManager;
 import fr.project.pokedle.persistence.game.classic.ClassicGame;
 import fr.project.pokedle.persistence.game.classic.ClassicGamePlayer;
 import fr.project.pokedle.persistence.registration.User;
-import fr.project.pokedle.repository.ClassicGameRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +18,8 @@ import java.util.stream.Collectors;
 public class LeaderBoard {
     @Autowired
     private ClassicGameManager classicGameManager;
-
     @Autowired
-    private ClassicGameRepository classicGameRepository;
+    private GameManager gameManager;
 
     public JSONObject getJSONScoreOnePlayer(ClassicGamePlayer classicGamePlayer) {
         return getJSONScoreOnePlayer(classicGamePlayer.getUser(), classicGamePlayer.getScore());
@@ -30,6 +28,7 @@ public class LeaderBoard {
     public JSONObject getJSONScoreOnePlayer(User user, Double score) {
         JSONObject json = new JSONObject();
         json.put("username", user.getUsername());
+
         json.put("score", score);
         return json;
     }
@@ -48,7 +47,16 @@ public class LeaderBoard {
         return jsonScores;
     }
 
-    public Map<User, Double> getMapScore() {
+    public Map<User, Double> getClassicMapScoreOfDay(Date date) {
+        return classicGameManager
+                .getClassicGameOfDay(date)
+                .getGamePlayers()
+                .stream()
+                .filter(ClassicGamePlayer::isSuccess)
+                .collect(Collectors.toMap(ClassicGamePlayer::getUser, ClassicGamePlayer::getScore));
+    }
+/*
+    public Map<User, Double> getMapgeneral(Date date) {
         return classicGameRepository
                 .findAll()
                 .stream()
@@ -65,7 +73,8 @@ public class LeaderBoard {
                                         .reduce(0.0, (sum, classicGamePlayer) -> sum + classicGamePlayer.getScore(), Double::sum)
                         )
                 );
-    }
+    }*/
+    /*
 
     public JSONArray getLeaderBoardClassicGame(Date date) {
         JSONArray jsonScores = new JSONArray();
@@ -76,4 +85,5 @@ public class LeaderBoard {
                 .map(userDoubleEntry -> jsonScores.add(getJSONScoreOnePlayer(userDoubleEntry.getKey(), userDoubleEntry.getValue())));
         return jsonScores;
     }
+    */
 }

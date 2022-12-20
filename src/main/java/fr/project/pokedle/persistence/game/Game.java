@@ -1,6 +1,7 @@
-package fr.project.pokedle.persistence.registration;
+package fr.project.pokedle.persistence.game;
 
 import fr.project.pokedle.persistence.data.Pokemon;
+import fr.project.pokedle.persistence.game.classic.ClassicGamePlayer;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -8,33 +9,26 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
-@Entity(name = "Users")
-public class User {
+@Setter @Getter
+public abstract class Game {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
-    private UUID id;
+    protected UUID id;
 
     @Column
-    private String username;
-
-    @Column
-    private String password;
+    @Temporal(TemporalType.DATE)
+    protected Date date;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(nullable = false)
-    private Pokemon avatar;
+    protected Pokemon pokemon;
 
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
-
-    @Column
-    private String role;
+    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    protected List<ClassicGamePlayer> gamePlayers;
 }
