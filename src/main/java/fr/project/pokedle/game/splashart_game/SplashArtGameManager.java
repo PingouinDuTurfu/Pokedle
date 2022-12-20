@@ -1,6 +1,7 @@
 package fr.project.pokedle.game.splashart_game;
 
 import fr.project.pokedle.game.GameManager;
+import fr.project.pokedle.game.ScoreManager;
 import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGame;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGamePlayer;
@@ -39,6 +40,8 @@ public class SplashArtGameManager {
     private SplashArtRoundRepository splashArtRoundRepository;
     @Autowired
     private GameManager gameManager;
+    @Autowired
+    private ScoreManager scoreManager;
 
     public SplashArtGame createSplashArtGame() {
         Pokemon pokemon = gameManager.getRandomPokemon();
@@ -155,5 +158,13 @@ public class SplashArtGameManager {
                 (int) ((xMax - xMin) * imageWidth),
                 (int) ((yMax - yMin) * imageHeight)
         );
+    }
+
+    public double saveGamePlayerOnCompletion(SplashArtGamePlayer splashArtGamePlayer) {
+        splashArtGamePlayer.setSuccess(true);
+        splashArtGamePlayer.setSuccessDate(new Date());
+        splashArtGamePlayer.setScore(scoreManager.computeScore(splashArtGamePlayer.getRounds().size()));
+        splashArtGamePlayerRepository.save(splashArtGamePlayer);
+        return splashArtGamePlayer.getScore();
     }
 }

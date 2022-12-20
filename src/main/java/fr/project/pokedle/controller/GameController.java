@@ -1,10 +1,10 @@
 package fr.project.pokedle.controller;
 
+import fr.project.pokedle.game.GameManager;
 import fr.project.pokedle.game.classic_game.ClassicGameManager;
 import fr.project.pokedle.game.classic_game.PlayClassicGame;
 import fr.project.pokedle.game.splashart_game.PlaySplashArtGame;
 import fr.project.pokedle.game.splashart_game.SplashArtGameManager;
-import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.repository.PokemonRepository;
 import fr.project.pokedle.service.UserDetailsImpl;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.List;
 
 @Controller("/play")
 public class GameController {
@@ -39,11 +37,12 @@ public class GameController {
     private ClassicGameManager classicGameManager;
     @Autowired
     private SplashArtGameManager splashArtGameManager;
+    @Autowired
+    private GameManager gameManager;
 
     @GetMapping("/play/classic")
     public String showOfficialGame(Model model) {
-        List<Pokemon> pokemonList = pokemonRepository.findAll().stream().sorted(Comparator.comparing(Pokemon::getNameFr)).toList();
-        model.addAttribute("pokemonList", pokemonList);
+        model.addAttribute("pokemonList", gameManager.getPokemonList());
         return "game/classic";
     }
 
@@ -63,8 +62,7 @@ public class GameController {
 
     @GetMapping("/play/splash_art")
     public String showSplashArtGame(Model model) {
-        List<Pokemon> pokemonList = pokemonRepository.findAll().stream().sorted(Comparator.comparing(Pokemon::getNameFr)).toList();
-        model.addAttribute("pokemonList", pokemonList);
+        model.addAttribute("pokemonList", gameManager.getPokemonList());
         return "game/splashArt";
     }
 

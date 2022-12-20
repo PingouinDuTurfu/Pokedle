@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ><span th:text="${date}"></span></div>
+<div>
+    <div th:each="player_entry : ${listPlayer}">
+        <span th:text="${player_entry.key.username}"></span>
+        <span th:text="${player_entry.value}"></span>
+    </div>
+</div>
+
+</body>
+</html>
