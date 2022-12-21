@@ -45,9 +45,9 @@
                     <span th:text="${#numbers.formatDecimal(player.getScore(), 1, 'DEFAULT', 0, 'DEFAULT')}"></span>
                 </div>
             </div>
-            <div th:each="player,iStat:${listPlayer}" th:unless="${iStat.first}" class="leaderboardContainer">
+            <div class="leaderboardContainer">
                 <ul class="leaderboardContainerList">
-                    <li class="leaderboardItem">
+                    <li th:each="player,iStat:${listPlayer}" th:unless="${iStat.first}" class="leaderboardItem">
                         <div class="leaderboardRank">
                             <span th:text="${iStat.index + 1}"></span>
                         </div>
