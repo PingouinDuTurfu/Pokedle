@@ -13,12 +13,13 @@ import org.springframework.security.web.savedrequest.CookieRequestCache;
 @Configuration
 public class WebSecurityConfig {
     private static final String[] EVERYONE_LIST_URLS = {
-            "/", "/home", "/register", "/login", "/leaderboard/classic_game", "/leaderboard/splash_art"
+            "/", "/home", "/register", "/login"
     };
 
     private static final String[] USER_LIST_URLS = {
             "/play/classic", "/play/classic/try", "/play/classic/previous",
-            "/play/splash_art", "/play/splash_art/try", "/play/splash_art/previous", "play/splash_art/partial_splash_art"
+            "/play/splash_art", "/play/splash_art/try", "/play/splash_art/previous", "play/splash_art/partial_splash_art",
+            "/leaderboard/classic_game", "/leaderboard/splash_art"
     };
 
     @Bean
@@ -38,7 +39,9 @@ public class WebSecurityConfig {
                         .hasAuthority("USER")
                         .anyRequest()
                 .permitAll().and()
-                .formLogin().loginPage("/login").permitAll().and()
+                .formLogin()
+                    .loginPage("/login")
+                    .permitAll().and()
                 .requestCache().requestCache(new CookieRequestCache()).and()
                 .logout().permitAll();
         return http.build();
