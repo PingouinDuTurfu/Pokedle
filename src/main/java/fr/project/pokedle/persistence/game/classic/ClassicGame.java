@@ -1,7 +1,6 @@
 package fr.project.pokedle.persistence.game.classic;
 
 import fr.project.pokedle.persistence.data.Pokemon;
-import fr.project.pokedle.persistence.game.Game;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -15,7 +14,7 @@ import java.util.UUID;
 
 @Setter @Getter
 @Entity(name = "ClassicGames")
-public class ClassicGame extends Game {
+public class ClassicGame {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")

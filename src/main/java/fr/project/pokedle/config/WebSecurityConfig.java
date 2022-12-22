@@ -13,7 +13,7 @@ import org.springframework.security.web.savedrequest.CookieRequestCache;
 @Configuration
 public class WebSecurityConfig {
     private static final String[] EVERYONE_LIST_URLS = {
-            "/", "/home", "/register", "/login"
+            "/", "/home", "/register", "/login", "/leaderboard/classic_game", "/leaderboard/splash_art"
     };
 
     private static final String[] USER_LIST_URLS = {

@@ -36,10 +36,6 @@ public class RegistrationController {
     @PostMapping("/register")
     public String registerUser(UserDetailsForm userDetailsForm, HttpServletRequest request) throws Exception {
         try {
-            System.out.println(userDetailsForm.getUsername());
-            System.out.println(userDetailsForm.getPassword());
-            System.out.println(userDetailsForm.getAvatar());
-
             userService.registerUser(userDetailsForm);
             request.login(userDetailsForm.getUsername(), userDetailsForm.getPassword());
         } catch (ConfirmPasswordInvalidException e) {

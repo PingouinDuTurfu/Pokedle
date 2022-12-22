@@ -67,10 +67,6 @@ public class ClassicGameTry {
         return same;
     }
 
-    public Map<String, Column> getMapCompare() {
-        return mapCompare;
-    }
-
     public JSONObject toJSON() {
         return new JSONObject(mapCompare);
     }

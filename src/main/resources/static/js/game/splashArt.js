@@ -87,7 +87,6 @@ $(document).ready(() => {
     $.post("/play/splash_art/previous",
         {},
         function(data, status) {
-            console.log(data);
             for (const dataLine of data) {
                 displayLineAnswer(dataLine);
                 if(dataLine["is_same"] === true)

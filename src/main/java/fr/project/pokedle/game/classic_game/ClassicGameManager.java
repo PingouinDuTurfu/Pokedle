@@ -36,7 +36,6 @@ public class ClassicGameManager {
     public ClassicGame createClassicGame() {
         Pokemon pokemon = gameManager.getRandomPokemon();
 
-        // create game for the day
         ClassicGame classicGame = new ClassicGame();
         classicGame.setPokemon(pokemon);
         classicGame.setDate(new Date());
@@ -70,7 +69,6 @@ public class ClassicGameManager {
     }
 
     public ClassicGame getClassicGameOfDayOrCreate(Date date) {
-        /* verfify if there is a pokemon to find */
         return classicGameRepository.findByDateBetween(
                 gameManager.startOfDay(date),
                 gameManager.endOfDay(date)

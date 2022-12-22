@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PokemonTypeRepository extends JpaRepository<PokemonType, Long> {
-
     PokemonType findFirstByName(String name);
 }

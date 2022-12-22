@@ -29,13 +29,11 @@ public class PlayClassicGame {
 
         ClassicGame classicGame = classicGameManager.getClassicGameOfDayOrCreate(new Date());
         ClassicGamePlayer classicGamePlayer = classicGameManager.getClassicGamePlayer(user, classicGame);
-        // if game is already finished => exit
         if (classicGamePlayer.isSuccess()) {
             jsonObject.put("error", "alredy_completed");
             return jsonObject;
         }
 
-        /* verfify if the pokemon enter is correct */
         Pokemon pokemonToTry = gameManager.getPokemonByName(pokemonNameToTry);
         if ((pokemonToTry == null)) {
             jsonObject.put("error", "pokemon_unknown");
@@ -48,10 +46,7 @@ public class PlayClassicGame {
         }
 
         Pokemon pokemonToFind = classicGame.getPokemon();
-
-        // compare pokemons
         ClassicGameTry classicGameTry = new ClassicGameTry(pokemonToTry, pokemonToFind);
-
         classicGameManager.createClassicRound(classicGamePlayer, pokemonToTry);
 
         jsonObject.put("is_same", classicGameTry.isSame());

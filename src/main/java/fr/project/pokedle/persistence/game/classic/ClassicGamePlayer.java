@@ -44,7 +44,6 @@ public class ClassicGamePlayer {
     @JoinColumn(nullable = false)
     private ClassicGame game;
 
-    @OneToMany(mappedBy = "gamePlayer", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "gamePlayer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ClassicRound> rounds;
 }

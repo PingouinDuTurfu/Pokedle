@@ -29,13 +29,11 @@ public class PlaySplashArtGame {
 
         SplashArtGame splashArtGame = splashArtGameManager.getSplashArtGameOfDayOrCreate(new Date());
         SplashArtGamePlayer splashArtGamePlayer = splashArtGameManager.getSplashArtGamePlayer(user, splashArtGame);
-        // if game is already finished => exit
         if (splashArtGamePlayer.isSuccess()) {
             jsonObject.put("error", "alredy_completed");
             return jsonObject;
         }
 
-        /* verfify if the pokemon enter is correct */
         Pokemon pokemonToTry = gameManager.getPokemonByName(pokemonNameToTry);
         if ((pokemonToTry == null)) {
             jsonObject.put("error", "pokemon_unknown");
@@ -51,12 +49,12 @@ public class PlaySplashArtGame {
 
         splashArtGameManager.createSplashArtRound(splashArtGamePlayer, pokemonToTry);
 
-        // compare pokemons
         jsonObject.put("is_same", pokemonToTry.equals(pokemonToFind));
         jsonObject.put("pokemon", pokemonToTry.toJSON());
 
         if (pokemonToTry.equals(pokemonToFind))
             jsonObject.put("score", splashArtGameManager.saveGamePlayerOnCompletion(splashArtGamePlayer));
+
         return jsonObject;
     }
 }
