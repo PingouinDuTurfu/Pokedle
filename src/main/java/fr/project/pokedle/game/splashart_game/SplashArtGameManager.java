@@ -2,7 +2,6 @@ package fr.project.pokedle.game.splashart_game;
 
 import fr.project.pokedle.game.GameManager;
 import fr.project.pokedle.game.ScoreManager;
-import fr.project.pokedle.init.Initialisation;
 import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGame;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGamePlayer;
@@ -186,7 +185,7 @@ public class SplashArtGameManager {
     }
 
     private File getFile(String urlFileName) throws URISyntaxException, FileNotFoundException {
-        URL url = Initialisation.class.getClassLoader().getResource(urlFileName);
+        URL url = SplashArtGameManager.class.getClassLoader().getResource(urlFileName);
         if(url == null)
             throw new FileNotFoundException("File " + urlFileName + " not found");
         return Paths.get(url.toURI()).toFile();
