@@ -2,6 +2,7 @@ package fr.project.pokedle.game.splashart_game;
 
 import fr.project.pokedle.game.GameManager;
 import fr.project.pokedle.game.ScoreManager;
+import fr.project.pokedle.init.Initialisation;
 import fr.project.pokedle.persistence.data.Pokemon;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGame;
 import fr.project.pokedle.persistence.game.splashart.SplashArtGamePlayer;
@@ -17,8 +18,12 @@ import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -31,6 +36,8 @@ public class SplashArtGameManager {
     private final double ZOOM_SIZE = 2;
     private final double CENTER_MIN = 0.3;
     private final double CENTER_MAX = 0.4;
+
+    private final String LOCAL_DIRECTORY_NAME = "static/";
 
     @Autowired
     private SplashArtGameRepository splashArtGameRepository;
@@ -142,7 +149,12 @@ public class SplashArtGameManager {
         );
 
         String pathImg = getSplashArtGameOfDayOrCreate(new Date()).getPokemon().getLinkBigSprite();
-        BufferedImage img = ImageIO.read(new URL(pathImg));
+        BufferedImage img;
+        try {
+            img = ImageIO.read(getFile(LOCAL_DIRECTORY_NAME + pathImg));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
 
         if (splashArtGamePlayer.isSuccess())
             return img;
@@ -171,5 +183,12 @@ public class SplashArtGameManager {
         splashArtGamePlayer.setScore(scoreManager.computeScore(splashArtGamePlayer.getRounds().size()));
         splashArtGamePlayerRepository.save(splashArtGamePlayer);
         return splashArtGamePlayer.getScore();
+    }
+
+    private File getFile(String urlFileName) throws URISyntaxException, FileNotFoundException {
+        URL url = Initialisation.class.getClassLoader().getResource(urlFileName);
+        if(url == null)
+            throw new FileNotFoundException("File " + urlFileName + " not found");
+        return Paths.get(url.toURI()).toFile();
     }
 }
