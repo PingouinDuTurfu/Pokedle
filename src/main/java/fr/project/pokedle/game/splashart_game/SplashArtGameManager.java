@@ -56,12 +56,19 @@ public class SplashArtGameManager {
         return splashArtGame;
     }
 
-    public SplashArtGame getSplashArtGameOfDay(Date date) {
+    public SplashArtGame getSplashArtGameOfDayOrCreate(Date date) {
         /* verfify if there is a pokemon to find */
         return splashArtGameRepository.findByDateBetween(
                 gameManager.startOfDay(date),
                 gameManager.endOfDay(date)
         ).orElseGet(this::createSplashArtGame);
+    }
+
+    public SplashArtGame getSplashArtGameOfDay(Date date) {
+        return splashArtGameRepository.findByDateBetween(
+                gameManager.startOfDay(date),
+                gameManager.endOfDay(date)
+        ).orElse(null);
     }
 
     public SplashArtGamePlayer createSplashArtGamePlayer(User user, SplashArtGame splashArtGame) {
@@ -99,7 +106,7 @@ public class SplashArtGameManager {
     public List<SplashArtRound> getPreviousRounds(User user) {
         SplashArtGamePlayer splashArtGamePlayer = getSplashArtGamePlayer(
                 user,
-                getSplashArtGameOfDay(new Date())
+                getSplashArtGameOfDayOrCreate(new Date())
         );
         List<SplashArtRound> rounds = splashArtGamePlayer.getRounds();
         if (rounds != null && rounds.size() > 0) {
@@ -130,13 +137,13 @@ public class SplashArtGameManager {
     }
 
     public BufferedImage getImage(User user) throws IOException {
-        SplashArtGame splashArtGame = getSplashArtGameOfDay(new Date());
+        SplashArtGame splashArtGame = getSplashArtGameOfDayOrCreate(new Date());
         SplashArtGamePlayer splashArtGamePlayer = getSplashArtGamePlayer(
                 user,
                 splashArtGame
         );
 
-        String pathImg = getSplashArtGameOfDay(new Date()).getPokemon().getLinkBigSprite();
+        String pathImg = getSplashArtGameOfDayOrCreate(new Date()).getPokemon().getLinkBigSprite();
         BufferedImage img = ImageIO.read(new URL(pathImg));
 
         if (splashArtGamePlayer.isSuccess())

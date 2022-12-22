@@ -76,4 +76,10 @@
     color: var(--white);
     width: 100%;
     box-sizing: border-box;
+    cursor: pointer;
+    transition: transform var(--delay-short-animation);
+}
+
+.main .formRegister .formRegisterItems .formRegisterButton:hover {
+    transform: scale(1.1);
 }
