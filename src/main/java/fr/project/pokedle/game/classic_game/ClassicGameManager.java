@@ -69,12 +69,19 @@ public class ClassicGameManager {
         return classicRound;
     }
 
-    public ClassicGame getClassicGameOfDay(Date date) {
+    public ClassicGame getClassicGameOfDayOrCreate(Date date) {
         /* verfify if there is a pokemon to find */
         return classicGameRepository.findByDateBetween(
                 gameManager.startOfDay(date),
                 gameManager.endOfDay(date)
         ).orElseGet(this::createClassicGame);
+    }
+
+    public ClassicGame getClassicGameOfDay(Date date) {
+        return classicGameRepository.findByDateBetween(
+                gameManager.startOfDay(date),
+                gameManager.endOfDay(date)
+        ).orElse(null);
     }
 
     public ClassicGamePlayer getClassicGamePlayer(User user, ClassicGame classicGame) {
@@ -87,7 +94,7 @@ public class ClassicGameManager {
     public List<ClassicRound> getPreviousRounds(User user) {
         ClassicGamePlayer classicGamePlayer = getClassicGamePlayer(
                 user,
-                getClassicGameOfDay(new Date())
+                getClassicGameOfDayOrCreate(new Date())
         );
         List<ClassicRound> rounds = classicGamePlayer.getRounds();
         if (rounds != null && rounds.size() > 0)

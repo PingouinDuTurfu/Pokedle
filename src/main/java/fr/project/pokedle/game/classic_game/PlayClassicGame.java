@@ -27,7 +27,7 @@ public class PlayClassicGame {
             return jsonObject;
         }
 
-        ClassicGame classicGame = classicGameManager.getClassicGameOfDay(new Date());
+        ClassicGame classicGame = classicGameManager.getClassicGameOfDayOrCreate(new Date());
         ClassicGamePlayer classicGamePlayer = classicGameManager.getClassicGamePlayer(user, classicGame);
         // if game is already finished => exit
         if (classicGamePlayer.isSuccess()) {

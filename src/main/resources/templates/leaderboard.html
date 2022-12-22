@@ -23,8 +23,7 @@
                 </div>
                 <div class="leaderboardText">
                     <span>Sois le premier</span>
-                    <span>à terminer le jeu</span>
-                    <span>aujourd'hui !</span>
+                    <span>à terminer le jeu !</span>
                 </div>
             </div>
             <div th:each="player,iStat:${listPlayer}" th:if="${iStat.first}" class="leaderboardFirst">
@@ -45,9 +44,9 @@
                     <span th:text="${#numbers.formatDecimal(player.getScore(), 1, 'DEFAULT', 0, 'DEFAULT')}"></span>
                 </div>
             </div>
-            <div th:each="player,iStat:${listPlayer}" th:unless="${iStat.first}" class="leaderboardContainer">
+            <div class="leaderboardContainer">
                 <ul class="leaderboardContainerList">
-                    <li class="leaderboardItem">
+                    <li th:each="player,iStat:${listPlayer}" th:unless="${iStat.first}" class="leaderboardItem">
                         <div class="leaderboardRank">
                             <span th:text="${iStat.index + 1}"></span>
                         </div>
@@ -65,6 +64,18 @@
                     </li>
                 </ul>
             </div>
+        </div>
+
+        <div class="leaderboardButton">
+            <a th:if="${dateMax} == ${dateNotFormatted}" class="buttonItem invalid">
+                <span>Suivant</span>
+            </a>
+            <a th:unless="${dateMax} == ${dateNotFormatted}" th:href="${dateNext}" class="buttonItem">
+                <span>Suivant</span>
+            </a>
+            <a class="buttonItem" th:href="${datePrevious}">
+                <span>Précédent</span>
+            </a>
         </div>
     </div>
 </div>

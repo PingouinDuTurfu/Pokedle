@@ -27,7 +27,7 @@ public class PlaySplashArtGame {
             return jsonObject;
         }
 
-        SplashArtGame splashArtGame = splashArtGameManager.getSplashArtGameOfDay(new Date());
+        SplashArtGame splashArtGame = splashArtGameManager.getSplashArtGameOfDayOrCreate(new Date());
         SplashArtGamePlayer splashArtGamePlayer = splashArtGameManager.getSplashArtGamePlayer(user, splashArtGame);
         // if game is already finished => exit
         if (splashArtGamePlayer.isSuccess()) {

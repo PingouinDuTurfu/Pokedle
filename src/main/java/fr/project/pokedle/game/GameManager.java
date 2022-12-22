@@ -47,7 +47,7 @@ public class GameManager {
     public Date endOfDay(Date date) {
         return Date.from(
                 LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
-                        .toLocalDate().atStartOfDay().plusDays(1)
+                        .toLocalDate().atStartOfDay().plusDays(1).minusSeconds(1)
                         .atZone(ZoneId.systemDefault()).toInstant()
         );
     }
