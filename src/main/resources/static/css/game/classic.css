@@ -12,19 +12,55 @@
 
 .main .content .title {
     display: flex;
-    flex-direction: row;
-    background-color: var(--dark-black);
-    width: 80%;
-    padding: 8px;
-    border-radius: 10px;
     align-items: center;
+    flex-direction: row;
+    width: 80%;
+    justify-content: end;
+    background-color: var(--dark-black);
+    border-radius: 10px;
+}
+
+.main .content .title .titleText {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     box-sizing: border-box;
+    padding: 8px;
+    width: 70%;
 }
 
 .main .content .title span {
     font-size: 40px;
     color: var(--white);
+}
+
+.main .content .title .leaderboard {
+    display: flex;
+    flex-direction: row;
+    width: 15%;
+    box-sizing: border-box;
+    padding-right: 12px;
+    justify-content: end;
+    min-width: fit-content;
+}
+
+.main .content .title .leaderboardButton {
+    display: flex;
+    background-color: var(--orange);
+    border-radius: 3px;
+    transition: transform var(--delay-short-animation);
+    width: fit-content;
+}
+
+.main .content .title .leaderboard a {
+    font-size: 30px;
+    color: var(--white);
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.main .content .title .leaderboardButton:hover {
+    transform: scale(1.1);
 }
 
 .main .game {
@@ -81,6 +117,7 @@
 
 .main .game .search .searchContent .searchItem:hover {
     background-color: var(--light-blue);
+    cursor: pointer;
 }
 
 .main .game .search .searchContent .searchItem span {
@@ -107,6 +144,7 @@
     border-radius: 5px;
     color: var(--dark-black);
     transition: transform var(--delay-short-animation);
+    cursor: pointer;
 }
 
 .main .game .search .selectSearchButton:hover {
