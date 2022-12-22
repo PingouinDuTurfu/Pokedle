@@ -1,0 +1,41 @@
+.message {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.message #ul-main-message {
+    display: flex;
+    flex-direction: column;
+    padding: 3px 5px;
+    width: 80%;
+    max-width: 600px;
+    align-items: center;
+}
+
+.message #ul-main-message:empty {
+    display: none;
+}
+
+.message #ul-main-message li {
+    display: flex;
+    margin: 2px 0;
+    border-radius: 5px;
+    width: 100%;
+    background-color: var(--light-green);
+}
+
+.message #ul-main-message li span {
+    color: var(--green) ;
+    font-size: 20px;
+    padding: 3px;
+}
+
+.message #ul-main-message .error {
+    background-color: var(--light-pink);
+}
+
+.message #ul-main-message .error span {
+    color: var(--red) ;
+}

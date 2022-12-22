@@ -1,0 +1,372 @@
+@import "../fragments/base.css";
+@import "../fragments/header.css";
+@import "../fragments/message.css";
+@import "../fragments/footer.css";
+
+.main .content {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main .content .title {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 80%;
+    justify-content: end;
+    background-color: var(--dark-black);
+    border-radius: 10px;
+}
+
+.main .content .title .titleText {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 8px;
+    width: 70%;
+}
+
+.main .content .title span {
+    font-size: 40px;
+    color: var(--white);
+}
+
+.main .content .title .leaderboard {
+    display: flex;
+    flex-direction: row;
+    width: 15%;
+    box-sizing: border-box;
+    padding-right: 12px;
+    justify-content: end;
+    min-width: fit-content;
+}
+
+.main .content .title .leaderboardButton {
+    display: flex;
+    background-color: var(--orange);
+    border-radius: 3px;
+    transition: transform var(--delay-short-animation);
+    width: fit-content;
+}
+
+.main .content .title .leaderboard a {
+    font-size: 30px;
+    color: var(--white);
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.main .content .title .leaderboardButton:hover {
+    transform: scale(1.1);
+}
+
+.main .game {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+    padding-top: 10px;
+    margin: 30px 0;
+    box-sizing: border-box;
+}
+
+.main .game .search {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+}
+
+.main .game .search #selectSearchInput {
+    background-color: var(--dark-black);
+    width: 400px;
+    height: 60px;
+    font-size: 40px;
+    padding: 5px 10px;
+    border-color: var(--green);
+    border-radius: 5px;
+    border-style: solid;
+    color: var(--white);
+    box-sizing: border-box;
+}
+
+.main .game .search .searchContent {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    border-color: var(--green);
+    max-height: 270px;
+    overflow: auto;
+    width: 400px;
+    top: 60px;
+    z-index: 10;
+}
+
+.main .game .search .searchContent .searchItem {
+    display: none;
+    background-color: var(--blue);
+    padding: 5px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+    box-sizing: border-box;
+}
+
+.main .game .search .searchContent .searchItem:hover {
+    background-color: var(--light-blue);
+    cursor: pointer;
+}
+
+.main .game .search .searchContent .searchItem span {
+    color: var(--white);
+    display: flex;
+    font-size: 40px;
+    padding: 2px;
+}
+
+.main .game .search .searchContent .searchItem img {
+    height: 80px;
+}
+
+.main .game .search .selectSearchButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    background-color: var(--green);
+    margin-left: 20px;
+    border-radius: 5px;
+    color: var(--dark-black);
+    transition: transform var(--delay-short-animation);
+    cursor: pointer;
+}
+
+.main .game .search .selectSearchButton:hover {
+    transform: scale(1.1);
+}
+
+.main .game .success {
+    display: none;
+    background-color: var(--green);
+    border-radius: 10px;
+    margin-top: 20px;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.main .game .success .successContent {
+    color: var(--white);
+    font-size: 30px;
+}
+
+.main .game .success .successContent .successScore {
+    color: var(--orange);
+    font-size: 30px;
+}
+
+.main .game .answer {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dark-black);
+    padding: 8px;
+    border-radius: 10px;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.main .game .answer .answerLineContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main .game .answer .answerContent .answerLineContent {
+    height: 120px;
+}
+
+.main .game .answer .answerColumContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.main .game .answer .answerHeader .answerItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main .game .answer .answerHeader .answerItem {
+    width: 130px;
+}
+
+.main .game .answer .answerHeader .answerItem span {
+    font-size: 30px;
+    color: var(--white);
+}
+
+.main .game .answer .answerContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    border-top: 1px solid var(--grey);
+}
+
+.main .game .answer .answerContent .answerItem {
+    display: flex;
+    width: 130px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main .game .answer .answerContent .answerItem div {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.main .game .answer .answerContent .answerItem .itemImage {
+    height: 80px;
+}
+
+.main .game .answer .answerContent .answerItem .itemIcon .itemImage {
+    height: 110px;
+    width: 110px;
+    filter: drop-shadow(2px 4px 6px var(--default-black));
+}
+
+.main .game .answer .answerContent .answerItem .itemColor .itemValue {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: relative;
+    filter: drop-shadow(2px 4px 6px var(--filter-red));
+}
+
+.main .game .answer .answerContent .answerItem .itemColor .itemValue::after {
+    position: absolute;
+    content: "";
+    box-shadow: 0px 0px 15px 10px var(--filter-out-light-color);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+.main .game .answer .answerContent .answerItem .itemColor .itemValue::before {
+    position: absolute;
+    content: "";
+    box-shadow: 0px 0px 10px 5px inset var(--filter-out-light-color);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+.main .game .answer .answerContent .answerItem .invalid .itemImage {
+    filter: drop-shadow(2px 4px 6px var(--filter-red))
+}
+
+.main .game .answer .answerContent .answerItem .valid .itemImage {
+    filter: drop-shadow(2px 4px 6px var(--filter-green))
+}
+
+.main .game .answer .answerContent .answerItem .partial .itemImage {
+    filter: drop-shadow(2px 4px 6px var(--filter-orange))
+}
+
+.main .game .answer .answerContent .answerItem .invalid {
+    background-color: var(--red);
+    position: relative;
+}
+
+.main .game .answer .answerContent .answerItem .valid {
+    background-color: var(--green);
+}
+
+.main .game .answer .answerContent .answerItem .partial {
+    background-color: var(--orange);
+}
+
+.main .game .answer .answerLineContent .answerItem .itemName {
+    border-color: var(--pink);
+    border-style: dashed;
+    box-sizing: border-box;
+    color: var(--white);
+    /* Will be reducing to container width in JS */
+    font-size: 40px;
+}
+
+.main .game .answer .answerContent .answerItem .pokemonImage {
+    height: 80px;
+}
+
+.main .game .answer .answerContent .answerItem .valid {
+    font-size: 30px;
+    color: var(--white);
+}
+
+.main .game .answer .answerContent .answerItem .upper,
+.main .game .answer .answerContent .answerItem .lower  {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-color: var(--pink);
+    border-style: dashed;
+    box-sizing: border-box;
+}
+
+.main .game .answer .answerContent .answerItem .upper .arrowUpper {
+    height: 40px;
+    transform: rotate(270deg);
+    filter: invert(100%) brightness(200%);
+}
+
+.main .game .answer .answerContent .answerItem .lower .arrowLower {
+    height: 40px;
+    transform: rotate(90deg);
+    filter: invert(100%) brightness(200%);
+}
+
+.main .game .answer .answerContent .answerItem .upper .itemValue,
+.main .game .answer .answerContent .answerItem .lower .itemValue,
+.main .game .answer .answerContent .answerItem .itemGeneration .itemValue {
+    color: var(--white);
+    font-size: 25px;
+}
+
+.main .game .answer .answerContent .answerItem .itemTopLeft {
+    position: relative;
+    clip-path: polygon(100% 0, 0% 100%, 0 0);
+    overflow: hidden;
+}
+
+.main .game .answer .answerContent .answerItem .itemBottomRight {
+    position: relative;
+    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+    overflow: hidden;
+}
+
+.main .game .answer .answerContent .answerItem .itemTopLeft,
+.main .game .answer .answerContent .answerItem .itemBottomRight  {
+    position: absolute;
+}
+
+/*
+rems2rems
+ */
+

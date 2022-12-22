@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
+</head>
+<body>
+    <div th:fragment="header" class="header">
+        <div class="name">
+            <a class="content" href="/home">
+                <span>
+                    Pokedle
+                </span>
+            </a>
+        </div>
+        <div class="menu">
+            <ul id="ul-header-menu">
+                <li><a href="/play/classic">
+                    <span>
+                        Classic
+                    </span>
+                </a></li>
+                <li><a href="/play/splash_art">
+                    <span>
+                        Splash Art
+                    </span>
+                </a></li>
+            </ul>
+        </div>
+        <div class="connect">
+            <ul id="ul-header-connect">
+                <li sec:authorize="isAnonymous()">
+                    <a th:href="@{/login}">Login</a>
+                </li>
+                <li sec:authorize="isAnonymous()">
+                    <a th:href="@{/register}">Register</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

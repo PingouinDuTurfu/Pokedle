@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script type="text/javascript" th:src="@{/js/lib/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/registration/register.css}">
+    <link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
+</head>
+<body>
+    <div th:replace="/fragments/header::header"></div>
+
+    <div class="main">
+        <div th:replace="/fragments/message::message"></div>
+
+        <div class="content">
+            <div class="title">
+                <span>Register</span>
+            </div>
+            <div class="formRegister">
+                <img th:src="@{/img/gif/carapuce_1.gif}"/>
+                <form th:action="@{/register}" method="post" th:object="${user}">
+                    <div class="formRegisterItems">
+                        <div class="search">
+                            <input type="text" id="avatar" name="avatar" placeholder="Sélectionne ton avatar" onclick="display()" onkeyup="filter('classicGameSearchContent')">
+                            <div class="searchContent" id="classicGameSearchContent">
+                                <button type="button" class="searchItem" onclick="selectPokemon(this)" th:each="pokemon : ${pokemonList}" th:href="${'#' + pokemon.nameFr}" th:name="${pokemon.nameFr}" th:id="${'select_pokemon_' + pokemon.id}">
+                                    <span  th:text="${pokemon.nameFr}"></span>
+                                    <img th:src="${pokemon.linkIcon}" loading="lazy" alt="pokemon">
+                                </button>
+                            </div>
+                        </div>
+                        <input class="formRegisterItem" type="text" id="username" name="username" placeholder="Username" required="" autofocus="">
+                        <input class="formRegisterItem" type="password" id="password" name="password" placeholder="Password" required="" autofocus="">
+                        <input class="formRegisterItem" type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required="" autofocus="">
+                        <button class="formRegisterButton" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="/fragments/footer::footer"></div>
+</body>
+<script type="text/javascript" th:src="@{/js/register.js}"></script>
+</html>
+

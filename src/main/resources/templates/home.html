@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Page d'accueil</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
+</head>
+<body>
+    <div th:replace="/fragments/header::header"></div>
+
+    <div class="main">
+
+        <div th:replace="/fragments/message::message"></div>
+
+        <div class="content">
+            <div class="title">
+                <span sec:authorize="isAuthenticated()">Bonjour <span class="username" sec:authentication="name"></span> ravi de vous revoir !</span>
+                <span sec:authorize="isAnonymous()">Bienvenue !</span>
+                <img th:src="@{/img/gif/canarticho_1.gif}"/>
+            </div>
+            <div class="items">
+                <ul id="ul-main-item">
+                    <li class="connect-item" sec:authorize="isAnonymous()">
+                        <a th:href="@{/login}">
+                            <span>Login</span>
+                            <img th:src="@{/img/gif/rondoudou_1.gif}"/>
+                        </a>
+                    </li>
+                    <li class="connect-item" sec:authorize="isAnonymous()">
+                        <a th:href="@{/register}">
+                            <span>Register</span>
+                            <img th:src="@{/img/gif/salameche_1.gif}"/>
+                        </a>
+                    </li>
+                    <li class="game-item">
+                        <a href="/play/classic">
+                            <span>Classic</span>
+                            <img th:src="@{/img/gif/pikachu_1.gif}"/>
+                        </a>
+                    </li>
+                    <li class="game-item">
+                        <a href="/play/splash_art">
+                            <span>Splash Art</span>
+                            <img th:src="@{/img/gif/kaiminus_1.gif}"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="/fragments/footer::footer"></div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+@import "../fragments/base.css";
+@import "../fragments/header.css";
+@import "../fragments/message.css";
+@import "../fragments/footer.css";
+
+.main .content {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main .content .title {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--dark-black);
+    width: 80%;
+    padding: 8px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.main .content .title span {
+    font-size: 40px;
+    color: var(--white);
+}
+
+.main .formRegister img {
+    width: 200px;
+}
+
+.main .formRegister {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+    padding-top: 10px;
+    margin: 30px 0;
+    box-sizing: border-box;
+    background-color: var(--dark-black);
+    border-radius: 10px;
+}
+
+.main .formRegister .formRegisterItems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+.main .formRegister .formRegisterItems .formRegisterItem {
+    font-size: 25px;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: var(--light-blue);
+    color: var(--white);
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.main .formRegister .formRegisterItems .formRegisterItem::placeholder {
+    color: var(--white);
+}
+
+.main .formRegister .search {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+}
+
+.main .formRegister .search #avatar {
+    background-color: var(--dark-black);
+    width: 400px;
+    height: 60px;
+    font-size: 40px;
+    padding: 5px 10px;
+    border-color: var(--green);
+    border-radius: 5px;
+    border-style: solid;
+    color: var(--white);
+    box-sizing: border-box;
+}
+
+.main .formRegister .search .searchContent {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    border-color: var(--green);
+    max-height: 270px;
+    overflow: auto;
+    width: 400px;
+    top: 60px;
+    z-index: 10;
+}
+
+.main .formRegister .search .searchContent .searchItem {
+    display: none;
+    background-color: var(--blue);
+    padding: 5px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+    box-sizing: border-box;
+}
+
+.main .formRegister .search .searchContent .searchItem:hover {
+    background-color: var(--light-blue);
+}
+
+.main .formRegister .search .searchContent .searchItem span {
+    color: var(--white);
+    display: flex;
+    font-size: 40px;
+    padding: 2px;
+}
+
+.main .formRegister .search .searchContent .searchItem img {
+    height: 80px;
+    width: auto;
+}
+
+.main .formRegister .formRegisterItems .formRegisterButton {
+    background-color: var(--green);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 25px;
+    text-align: center;
+    color: var(--white);
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: transform var(--delay-short-animation);
+}
+
+.main .formRegister .formRegisterItems .formRegisterButton:hover {
+    transform: scale(1.1);
+}

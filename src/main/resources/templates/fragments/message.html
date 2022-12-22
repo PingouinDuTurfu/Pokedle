@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/error.css}">
+    <link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
+</head>
+<body>
+    <div th:fragment="message" class="message">
+        <ul id="ul-main-message">
+            <li class="error" th:if="${(param.errorNotMatchingPassword != null)}">
+                <span>Error: passwords do not match</span>
+            </li>
+            <li class="error" th:if="${(param.errorUserAlreadyExist != null)}">
+                <span>Error: user already exist</span>
+            </li>
+            <li class="error" th:if="${(param.errorAvatarInvalid != null)}">
+                <span>Error: avatar invalid</span>
+            </li>
+            <li class="error" th:if="${(param.error != null)}">
+                <span>Error: user does not exist or password does not match</span>
+            </li>
+            <li th:if="${(param.logout!= null)}">
+                <span>Logout successfully !</span>
+            </li>
+            <li th:if="${(param.registration_complete!= null)}">
+                <span>Registration successfully !</span>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

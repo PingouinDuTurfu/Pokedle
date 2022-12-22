@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Classic</title>
+    <script type="text/javascript" th:src="@{/js/lib/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/game/classic.css}">
+    <link rel="icon" type="image/png" th:href="@{/img/favicon.png}" />
+</head>
+<body>
+    <div th:replace="/fragments/header::header"></div>
+
+    <div class="main">
+        <div th:replace="/fragments/message::message"></div>
+
+        <div class="content">
+            <div class="title">
+                <div class="titleText">
+                    <span>Trouver le pokemon du jour !</span>
+                </div>
+                <div class="leaderboard">
+                    <div class="leaderboardButton">
+                        <a th:href="@{/leaderboard/classic_game}">Leaderboard</a>
+                    </div>
+                </div>
+            </div>
+            <div class="game">
+                <div class="search">
+                    <input id="selectSearchInput" type="text" placeholder="Search.." onkeyup="filter('classicGameSearchContent')">
+                    <div class="searchContent" id="classicGameSearchContent">
+                        <button class="searchItem" onclick="selectPokemon(this)" th:each="pokemon:${pokemonList}" th:href="${'#' + pokemon.getNameFr()}" th:name="${pokemon.getNameFr()}" th:id="${'select_pokemon_' + pokemon.getId()}">
+                            <span  th:text="${pokemon.getNameFr()}"></span>
+                            <img th:src="${pokemon.getLinkIcon()}" loading="lazy" alt="pokemon">
+                        </button>
+                    </div>
+                    <button class="selectSearchButton" type="button" onclick="tryPokemon()">Essayer</button>
+                </div>
+                <div class="success">
+                </div>
+                <div class="answer">
+                    <div class="answerHeader">
+                        <ul class="answerLineContent" id="classic-game-answer-header">
+                            <li class="answerItem">
+                                <span>Image</span>
+                            </li>
+                            <li class="answerItem">
+                                <span>Nom</span>
+                            </li>
+                            <li class="answerItem">
+                                <span>Couleur</span>
+                            </li>
+                            <li class="answerItem">
+                                <span>Forme</span>
+                            </li>
+                            <li class="answerItem">
+                                <span>Type</span>
+                            </li>
+                            <li class="answerItem">
+                                <span>Taille</span>
+                            </li>
+                            <li class="answerItem">
+                                <span>Poids</span>
+                            </li>
+                            <li class="answerItem">
+                                <span>Génération</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="answerContent">
+                        <ul class="answerColumContent" id="classic-game-answer-content">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="/fragments/footer::footer"></div>
+
+</body>
+<script type="text/javascript" th:src="@{/js/lib/jquery.initialize.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/game/classic.js}"></script>
+</html>

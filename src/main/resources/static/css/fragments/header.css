@@ -1,0 +1,113 @@
+.header {
+    background: var(--light-blue);
+    height: var(--header-height);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.header .name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: left;
+}
+
+.header .name .content {
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    cursor: pointer;
+    transition: background-color var(--delay-short-animation);
+    -webkit-transition: background-color var(--delay-short-animation);
+}
+
+.header .name .content:hover {
+    background-color: var(--blue);
+}
+
+.header .name .content span {
+    font-size: 50px;
+    color: var(--white);
+    padding-right: 10px;
+}
+
+.header .connect {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    justify-content: right;
+}
+
+.header .connect #ul-header-connect {
+    padding: 5px 5px 0 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header .connect #ul-header-connect li {
+    display: flex;
+    background-color: var(--blue);
+    margin: 5px;
+    border-radius: 3px;
+    transition: background-color var(--delay-short-animation);
+    -webkit-transition: background-color var(--delay-short-animation);
+}
+
+.header .connect #ul-header-connect li a {
+    font-size: 25px;
+    color: var(--white);
+    padding: 8px;
+    cursor: pointer;
+}
+
+.header .connect #ul-header-connect li:hover {
+    background-color: var(--green);
+}
+
+.header .menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.header .menu #ul-header-menu {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 10px 0 10px;
+    align-items: flex-end;
+}
+
+.header .menu #ul-header-menu li {
+    display: flex;
+    background-color: var(--black);
+    border-radius: 5px 5px 0 0;
+    transition: background-color var(--delay-short-animation);
+    -webkit-transition: background-color var(--delay-short-animation);
+    margin: 0 5px;
+    width: max-content;
+}
+
+.header .menu #ul-header-menu li a {
+    cursor: pointer;
+    transition: padding-bottom var(--delay-medium-animation);
+    -webkit-transition: padding-bottom var(--delay-medium-animation);
+}
+
+.header .menu #ul-header-menu li a span {
+    font-size: 40px;
+    color: var(--white);
+    padding: 0 10px;
+}
+
+.header .menu #ul-header-menu li:hover {
+    background-color: var(--green);
+}
+
+.header .menu #ul-header-menu li:hover a {
+    padding-bottom: 15px;
+}

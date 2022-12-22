@@ -1,0 +1,239 @@
+@import "./fragments/base.css";
+@import "./fragments/header.css";
+@import "./fragments/message.css";
+@import "./fragments/footer.css";
+
+.main .content {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.leaderboard {
+    display: flex;
+    flex-direction: row;
+    height: 70vh;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.leaderboardFirst {
+    background-color: var(--green);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+    box-sizing: border-box;
+    min-width: 250px;
+}
+
+.leaderboardFirst .leaderboardRank span {
+    font-size: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--black);
+    color: var(--white);
+    width: 100px;
+    height: 100px;
+    border-radius: 30%;
+    border: var(--orange) solid 4px;
+}
+
+.leaderboardFirst .leaderboardTitle {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.leaderboardFirst .leaderboardTitle .dateDay {
+    font-size: 40px;
+    color: var(--orange);
+    padding-bottom: 10px;
+}
+
+.leaderboardFirst .leaderboardTitle .date {
+    font-size: 30px;
+    color: var(--white);
+    padding: 0 10px;
+}
+
+.leaderboardFirst .leaderboardName span {
+    font-size: 40px;
+    color: var(--light-blue);
+}
+
+.leaderboardFirst .leaderboardScore span {
+    font-size: 30px;
+    color: var(--white);
+}
+
+.leaderboardFirst .leaderboardImage img {
+    width: 150px;
+    height: 150px;
+    filter: drop-shadow(2px 4px 6px var(--default-black));
+}
+
+.leaderboardFirst .leaderboardText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.leaderboardFirst .leaderboardText span {
+    font-size: 30px;
+}
+
+.leaderboardContainer  {
+    background-color: var(--dark-black);
+    height: 90%;
+    width: 40%;
+    box-sizing: border-box;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 15px 5px;
+    min-width: 450px;
+}
+
+.leaderboardContainerList {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+}
+
+.leaderboardContainerList .leaderboardItem {
+    background-color: var(--black);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px 15px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.leaderboardContainerList .leaderboardItem .leaderboardRank {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    background-color: var(--orange);
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    min-width: 50px;
+}
+
+.leaderboardContainerList .leaderboardItem .leaderboardRank span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--black);
+    font-size: 30px;
+    color: var(--white);
+    width: 40px;
+    height: 40px;
+    border-radius: 30%;
+}
+
+.leaderboardContainerList .leaderboardItemContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.leaderboardContainerList .leaderboardItem .leaderboardImage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 5%;
+}
+
+.leaderboardContainerList .leaderboardItem .leaderboardImage img {
+    width: 80px;
+    height: 80px;
+}
+
+.leaderboardContainerList .leaderboardItem .leaderboardImage .imageShadow {
+    filter: drop-shadow(2px 4px 6px var(--default-black));
+}
+
+.leaderboardContainerList .leaderboardItem .leaderboardName {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 10px;
+}
+
+.leaderboardContainerList .leaderboardItem .leaderboardName span {
+    font-size: 30px;
+    color: var(--white);
+}
+
+.leaderboardContainerList .leaderboardScore {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 10%;
+    right: 20px;
+    position: absolute;
+}
+
+.leaderboardContainerList .leaderboardScore span {
+    font-size: 30px;
+    color: var(--white);
+}
+
+.leaderboardButton {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background: var(--dark-black);
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.leaderboardButton .buttonItem {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--blue);
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 10px;
+    align-items: center;
+    transition: background-color var(--delay-short-animation);
+    -webkit-transition: background-color var(--delay-short-animation);
+    cursor: pointer;
+}
+
+.leaderboardButton .buttonItem:not(.invalid):hover {
+    background-color: var(--green);
+}
+
+.leaderboardButton .buttonItem span {
+    font-size: 30px;
+    color: var(--white);
+}
+
+.leaderboardButton .buttonItem:not(:first-child) {
+    margin-left: 250px;
+}
+
+.leaderboardButton .invalid {
+    background-color: var(--grey);
+    cursor: not-allowed;
+}
