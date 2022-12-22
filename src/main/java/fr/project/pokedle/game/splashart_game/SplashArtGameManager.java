@@ -46,7 +46,6 @@ public class SplashArtGameManager {
     public SplashArtGame createSplashArtGame() {
         Pokemon pokemon = gameManager.getRandomPokemon();
 
-        // create game for the day
         SplashArtGame splashArtGame = new SplashArtGame();
         splashArtGame.setPokemon(pokemon);
         splashArtGame.setDate(new Date());
@@ -57,7 +56,6 @@ public class SplashArtGameManager {
     }
 
     public SplashArtGame getSplashArtGameOfDayOrCreate(Date date) {
-        /* verfify if there is a pokemon to find */
         return splashArtGameRepository.findByDateBetween(
                 gameManager.startOfDay(date),
                 gameManager.endOfDay(date)

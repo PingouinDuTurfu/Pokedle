@@ -18,11 +18,7 @@ public class GameManager {
 
     public Pokemon getRandomPokemon() {
         long numberPokemon = pokemonRepository.count();
-
-        // generate random number for id
         long id = (long) Math.floor(1 + numberPokemon * Math.random());
-
-        /* verfify if the pokemon is correct */
         return pokemonRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 

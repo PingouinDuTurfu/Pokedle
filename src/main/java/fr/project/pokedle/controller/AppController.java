@@ -14,5 +14,4 @@ public class AppController {
     public String showHome2() {
         return "home";
     }
-
 }

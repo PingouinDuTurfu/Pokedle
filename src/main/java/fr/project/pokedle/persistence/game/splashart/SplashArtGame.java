@@ -37,7 +37,6 @@ public class SplashArtGame {
     @Column
     private double center_y;
 
-    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<SplashArtGamePlayer> gamePlayers;
 }

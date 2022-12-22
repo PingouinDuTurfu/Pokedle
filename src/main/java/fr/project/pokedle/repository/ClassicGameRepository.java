@@ -8,7 +8,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ClassicGameRepository extends JpaRepository<ClassicGame, UUID> {
-
     Optional<ClassicGame> findByDateBetween(Date dateStart, Date dateEnd);
-
 }

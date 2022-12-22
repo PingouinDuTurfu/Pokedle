@@ -44,7 +44,6 @@ public class SplashArtGamePlayer {
     @JoinColumn(nullable = false)
     private SplashArtGame game;
 
-    @OneToMany(mappedBy = "gamePlayer", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "gamePlayer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<SplashArtRound> rounds;
 }
