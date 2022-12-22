@@ -7,6 +7,7 @@ import fr.project.pokedle.game.GameManager;
 import fr.project.pokedle.model.UserDetailsForm;
 import fr.project.pokedle.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,12 +23,16 @@ public class RegistrationController {
     private GameManager gameManager;
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Authentication authentication) {
+        if(authentication != null)
+            return "redirect:/home";
         return "registration/login";
     }
 
     @GetMapping("/register")
-    public String registerPage(Model model) {
+    public String registerPage(Model model, Authentication authentication) {
+        if(authentication != null)
+            return "redirect:/home";
         model.addAttribute("pokemonList", gameManager.getPokemonList());
         model.addAttribute("user", new UserDetailsForm());
         return "registration/register";
