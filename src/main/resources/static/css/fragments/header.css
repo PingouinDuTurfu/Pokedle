@@ -21,11 +21,18 @@
     justify-content: center;
     height: 100%;
     cursor: pointer;
+    transition: background-color var(--delay-short-animation);
+    -webkit-transition: background-color var(--delay-short-animation);
+}
+
+.header .name .content:hover {
+    background-color: var(--blue);
 }
 
 .header .name .content span {
     font-size: 50px;
     color: var(--white);
+    padding-right: 10px;
 }
 
 .header .connect {

@@ -20,7 +20,7 @@
                 <form th:action="@{/register}" method="post" th:object="${user}">
                     <div class="formRegisterItems">
                         <div class="search">
-                            <input type="text" id="avatar" name="avatar" placeholder="Pick a pokemon" onkeyup="filter('classicGameSearchContent')">
+                            <input type="text" id="avatar" name="avatar" placeholder="Sélectionne ton avatar" onkeyup="filter('classicGameSearchContent')">
                             <div class="searchContent" id="classicGameSearchContent">
                                 <button type="button" class="searchItem" onclick="selectPokemon(this)" th:each="pokemon : ${pokemonList}" th:href="${'#' + pokemon.nameFr}" th:name="${pokemon.nameFr}" th:id="${'select_pokemon_' + pokemon.id}">
                                     <span  th:text="${pokemon.nameFr}"></span>
