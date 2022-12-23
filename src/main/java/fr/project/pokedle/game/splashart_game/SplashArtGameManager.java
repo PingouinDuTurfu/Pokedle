@@ -10,6 +10,7 @@ import fr.project.pokedle.persistence.registration.User;
 import fr.project.pokedle.repository.SplashArtGamePlayerRepository;
 import fr.project.pokedle.repository.SplashArtGameRepository;
 import fr.project.pokedle.repository.SplashArtRoundRepository;
+import fr.project.pokedle.service.ImageReaderService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,7 @@ import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -36,7 +32,7 @@ public class SplashArtGameManager {
     private final double CENTER_MIN = 0.3;
     private final double CENTER_MAX = 0.4;
 
-    private final String LOCAL_DIRECTORY_NAME = "static/";
+    private final String LOCAL_DIRECTORY_NAME = "static";
 
     @Autowired
     private SplashArtGameRepository splashArtGameRepository;
@@ -48,6 +44,8 @@ public class SplashArtGameManager {
     private GameManager gameManager;
     @Autowired
     private ScoreManager scoreManager;
+    @Autowired
+    private ImageReaderService imageReaderService;
 
     public SplashArtGame createSplashArtGame() {
         Pokemon pokemon = gameManager.getRandomPokemon();
@@ -148,12 +146,7 @@ public class SplashArtGameManager {
         );
 
         String pathImg = getSplashArtGameOfDayOrCreate(new Date()).getPokemon().getLinkBigSprite();
-        BufferedImage img;
-        try {
-            img = ImageIO.read(getFile(LOCAL_DIRECTORY_NAME + pathImg));
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        BufferedImage img = ImageIO.read(imageReaderService.getFileFromResource(LOCAL_DIRECTORY_NAME + pathImg));
 
         if (splashArtGamePlayer.isSuccess())
             return img;
@@ -182,12 +175,5 @@ public class SplashArtGameManager {
         splashArtGamePlayer.setScore(scoreManager.computeScore(splashArtGamePlayer.getRounds().size()));
         splashArtGamePlayerRepository.save(splashArtGamePlayer);
         return splashArtGamePlayer.getScore();
-    }
-
-    private File getFile(String urlFileName) throws URISyntaxException, FileNotFoundException {
-        URL url = SplashArtGameManager.class.getClassLoader().getResource(urlFileName);
-        if(url == null)
-            throw new FileNotFoundException("File " + urlFileName + " not found");
-        return Paths.get(url.toURI()).toFile();
     }
 }
