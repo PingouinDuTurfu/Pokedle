@@ -23,13 +23,6 @@ Pour initialiser le projet, il faut effectuer les étapes suivantes :
 - Modifier le fichier `application.properties` avec les informations de votre base de données
 - Lancez la classe `PokedleApplication`
 
-# Ajout depuis l'oral
-
-- Leaderboard journalier
-- Correction de bugs mineurs
-- Uniformisation du code
-- Ajout des assets en local
-
 # Version
 
 - Java 17 ou supérieur
