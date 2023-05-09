@@ -29,5 +29,5 @@ Pour initialiser le projet, il faut effectuer les étapes suivantes :
 
 # Authors
 
-Célio Bueri @Yufu0 (buericelio@cy-tech.fr)
+Célio Bueri @Yufu0 (buericelio@cy-tech.fr) <br />
 Rémy Ollivier @PingouinDuTurfu (ollivierre@cy-tech.fr)
