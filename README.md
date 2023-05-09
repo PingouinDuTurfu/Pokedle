@@ -26,3 +26,8 @@ Pour initialiser le projet, il faut effectuer les étapes suivantes :
 # Version
 
 - Java 17 ou supérieur
+
+# Authors
+
+Célio Bueri @Yufu0 (buericelio@cy-tech.fr)
+Rémy Ollivier @PingouinDuTurfu (ollivierre@cy-tech.fr)
